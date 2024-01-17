@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:petcarepal/screens/splash/splash.dart';
+import 'package:petcarepal/screens/home/home.dart';
 
 void main() {
   runApp(const MyApp());
@@ -13,15 +15,12 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Flutter Demo',
       theme: ThemeData(
-        
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
+        colorScheme: ColorScheme.fromSeed(
+            seedColor: const Color.fromARGB(255, 245, 244, 247)),
         useMaterial3: true,
       ),
       debugShowCheckedModeBanner: false,
-      home: const Text('11111'),
+      home: HomeScreen(),
     );
   }
 }
-
-
-
