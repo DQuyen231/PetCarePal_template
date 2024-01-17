@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:petcarepal/booking_type/booking_type.dart';
+import 'package:petcarepal/personal_pet/my_pet.dart';
+
 
 void main() {
   runApp(const MyApp());
@@ -12,13 +15,13 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Flutter Demo',
-      theme: ThemeData(
+      // theme: ThemeData(
         
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
-        useMaterial3: true,
-      ),
+      //   colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
+      //   useMaterial3: true,
+      // ),
       debugShowCheckedModeBanner: false,
-      home: const Text('11111'),
+      home: BookingType(),
     );
   }
 }
