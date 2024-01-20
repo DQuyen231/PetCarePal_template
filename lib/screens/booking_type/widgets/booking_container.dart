@@ -5,12 +5,12 @@ import 'package:flutter/material.dart';
 class BookingContainer extends StatelessWidget {
   const BookingContainer({super.key, required this.title, required this.description});
 
-  final title;
-  final description;
+  final String title;
+  final String description;
 
   @override
   Widget build(BuildContext context) {
-    double containerWidth = MediaQuery.of(context).size.width * 0.9;
+    double containerWidth = MediaQuery.of(context).size.width * 0.8;
     double containerHeight = MediaQuery.of(context).size.width * 0.3;
     return Container(
       width: containerWidth,
@@ -28,13 +28,13 @@ class BookingContainer extends StatelessWidget {
         )
       ),
       child: Container(
-        margin: EdgeInsets.only(left: 15),
+        margin: EdgeInsets.only(left: 10),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text('Tiêm chủng', style: TextStyle(color: Colors.white, fontSize: 30, fontWeight: FontWeight.bold),),
-            Text('Quản lí thời gian,\nloại vaccin cho thú cưng',style: TextStyle(color:   Colors.white, fontSize: 20),),
+            Text(title, style: TextStyle(color: Colors.white, fontSize: 30, fontWeight: FontWeight.bold),),
+            Text(description,style: TextStyle(color:   Colors.white, fontSize: 20),),
           ],
         ),
       ),

@@ -1,8 +1,8 @@
 
 import 'package:flutter/material.dart';
-import 'package:petcarepal/booking_type/components/booking_container.dart';
-import 'package:petcarepal/booking_type/components/booking_header.dart';
-import 'package:petcarepal/booking_type/models/content.model.dart';
+import 'package:petcarepal/screens/booking_type/widgets/booking_container.dart';
+import 'package:petcarepal/screens/booking_type/widgets/booking_header.dart';
+import 'package:petcarepal/screens/booking_type/models/content.model.dart';
 
 
 class BookingType extends StatelessWidget {

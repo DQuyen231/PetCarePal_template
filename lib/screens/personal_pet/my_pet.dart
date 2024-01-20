@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:petcarepal/personal_pet/components/add_pet.dart';
-import 'package:petcarepal/personal_pet/components/header.dart';
-import 'package:petcarepal/personal_pet/components/pet_container.dart';
+import 'package:petcarepal/screens/personal_pet/components/add_pet.dart';
+import 'package:petcarepal/screens/personal_pet/components/header.dart';
+import 'package:petcarepal/screens/personal_pet/components/pet_container.dart';
 
 
 
