@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:petcarepal/screens/splash/splash.dart';
 import 'package:petcarepal/screens/home/home.dart';
+import 'package:petcarepal/screens/successpay/successpay.dart';
+import 'package:petcarepal/screens/payment/payment.dart';
 
 void main() {
   runApp(const MyApp());
@@ -20,7 +22,7 @@ class MyApp extends StatelessWidget {
         useMaterial3: true,
       ),
       debugShowCheckedModeBanner: false,
-      home: HomeScreen(),
+      home: PaymentSuccessPage(),
     );
   }
 }
