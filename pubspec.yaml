@@ -71,6 +71,11 @@ flutter:
     - assets/icons/momo.png
     - assets/icons/vnpay.png
     - assets/icons/zalopay.png
+    - assets/icons/clock.png
+    - assets/icons/map_pin.png
+    - assets/icons/wallet.png
+    - assets/icons/border_clock.png
+    - assets/images/avatar.png
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware
