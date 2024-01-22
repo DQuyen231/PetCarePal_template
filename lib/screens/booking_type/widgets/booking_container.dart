@@ -3,8 +3,10 @@
 import 'package:flutter/material.dart';
 
 class BookingContainer extends StatelessWidget {
-  const BookingContainer({super.key, required this.title, required this.description});
 
+  const BookingContainer({super.key, required this.title, required this.description, this.onClick});
+
+  final Function()? onClick;
   final String title;
   final String description;
 

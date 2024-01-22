@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:petcarepal/config/app_routes.dart';
 
 class Header extends StatelessWidget {
   const Header({super.key});
@@ -6,14 +7,14 @@ class Header extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return AppBar(
-      backgroundColor: Color.fromARGB(248,247,251,255),
-      title: const Text('Thú cưng của tôi', style: TextStyle(fontWeight: FontWeight.bold)),
+      backgroundColor: Color.fromARGB(248, 247, 251, 255),
+      title: const Text('Thú cưng của tôi',
+          style: TextStyle(fontWeight: FontWeight.bold)),
       centerTitle: true,
       leading: IconButton(
         icon: Icon(Icons.arrow_back),
         onPressed: () {
-          // Handle back button press
-          Navigator.of(context).pop();
+          Navigator.pushNamed(context, AppRoutes.home);
         },
       ),
       elevation: 0, // Set elevation to 0 to remove the bottom line

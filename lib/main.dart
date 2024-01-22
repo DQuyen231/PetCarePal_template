@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:petcarepal/config/app_routes.dart';
+import 'package:petcarepal/config/bottom_navigation.dart';
 import 'package:petcarepal/screens/booking_type/booking_type.dart';
 import 'package:petcarepal/screens/home/home.dart';
 import 'package:petcarepal/screens/successpay/successpay.dart';
@@ -22,7 +24,9 @@ class MyApp extends StatelessWidget {
         useMaterial3: true,
       ),
       debugShowCheckedModeBanner: false,
-      home: PaymentSuccessPage(),
+      // initialRoute: AppRoutes.home,
+      routes: AppRoutes.getRoutes(),
+      home: HomeView(),
     );
   }
 }

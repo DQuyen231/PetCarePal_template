@@ -2,12 +2,12 @@
 
 import 'package:flutter/material.dart';
 
-class LoadingScreen extends StatefulWidget {
+class SplashScreen extends StatefulWidget {
   @override
-  _LoadingScreenState createState() => _LoadingScreenState();
+  SplashScreenState createState() => SplashScreenState();
 }
 
-class _LoadingScreenState extends State<LoadingScreen> {
+class SplashScreenState extends State<SplashScreen> {
   bool isLoading = true;
 
   // Hàm giả lập việc tải dữ liệu

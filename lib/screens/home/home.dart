@@ -1,6 +1,7 @@
 // home_screen.dart
 
 import 'package:flutter/material.dart';
+import 'package:petcarepal/config/app_routes.dart';
 import 'package:petcarepal/screens/home/components/welcome.dart';
 import 'package:petcarepal/screens/home/components/button.dart';
 
@@ -11,7 +12,7 @@ class HomeScreen extends StatelessWidget {
       width: 375,
       height: 812,
       clipBehavior: Clip.antiAlias,
-      decoration: BoxDecoration(color: Color(0xFF4552CB)),
+      decoration: const BoxDecoration(color: Color(0xFF4552CB)),
       child: Stack(
         children: [
           HeaderWidget(),
@@ -20,7 +21,10 @@ class HomeScreen extends StatelessWidget {
             top: 310,
             child: ActionButtonWidget(
               label: 'Đặt lịch',
-              iconAssetPath: AssetImage('assets/icons/booking.png'),
+              iconAssetPath: const AssetImage('assets/icons/booking.png'),
+              onClick: () {
+                Navigator.pushNamed(context, AppRoutes.booking);
+              },
             ),
           ),
           Positioned(
@@ -28,7 +32,10 @@ class HomeScreen extends StatelessWidget {
             top: 482.98,
             child: ActionButtonWidget(
               label: 'Trợ giúp',
-              iconAssetPath: AssetImage('assets/icons/help.png'),
+              iconAssetPath: const AssetImage('assets/icons/help.png'),
+              onClick: () {
+                print('Nothing here yet');
+              },
             ),
           ),
           Positioned(
@@ -36,7 +43,10 @@ class HomeScreen extends StatelessWidget {
             top: 310,
             child: ActionButtonWidget(
               label: 'Thú cưng của bạn',
-              iconAssetPath: AssetImage('assets/icons/yourpet.png'),
+              iconAssetPath: const AssetImage('assets/icons/yourpet.png'),
+              onClick: () {
+                Navigator.pushNamed(context, AppRoutes.pet);
+              },
             ),
           ),
           Positioned(
@@ -44,7 +54,10 @@ class HomeScreen extends StatelessWidget {
             top: 482.98,
             child: ActionButtonWidget(
               label: 'Thêm thú cưng',
-              iconAssetPath: AssetImage('assets/icons/add.png'),
+              iconAssetPath: const AssetImage('assets/icons/add.png'),
+              onClick: () {
+                Navigator.pushNamed(context, AppRoutes.addpet);
+              },
             ),
           ),
         ],
