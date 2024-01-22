@@ -8,6 +8,8 @@ import 'package:petcarepal/screens/splash/splash.dart';
 import 'package:petcarepal/screens/successpay/successpay.dart';
 import 'package:petcarepal/screens/payment/payment.dart';
 import 'package:petcarepal/screens/appointments/appointments.dart';
+import 'package:petcarepal/screens/user_profile/components/profile_option.dart';
+import 'package:petcarepal/screens/user_profile/profile.dart';
 
 void main() {
   runApp(const MyApp());
@@ -27,9 +29,7 @@ class MyApp extends StatelessWidget {
         useMaterial3: true,
       ),
       debugShowCheckedModeBanner: false,
-      // initialRoute: AppRoutes.splash,
-      routes: AppRoutes.getRoutes(),
-      home: HomeScreen(),
+      home: ProfilePage(),
     );
   }
 }

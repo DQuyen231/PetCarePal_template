@@ -1,5 +1,3 @@
-// home_screen.dart
-
 import 'package:flutter/material.dart';
 import 'package:petcarepal/config/app_routes.dart';
 import 'package:petcarepal/screens/home/components/welcome.dart';
