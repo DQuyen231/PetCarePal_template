@@ -67,16 +67,22 @@ flutter:
     - assets/icons/add.png
     - assets/icons/booking.png
     - assets/icons/help.png
-<<<<<<< HEAD
+
     - assets/images/default_image.jpg
-=======
+
     - assets/icons/check.png
     - assets/icons/money.png
     - assets/icons/mastercard.png
     - assets/icons/momo.png
     - assets/icons/vnpay.png
     - assets/icons/zalopay.png
->>>>>>> d419d8f7e0e84b4269b9d3b6bc8accac66601cd2
+
+    - assets/icons/clock.png
+    - assets/icons/map_pin.png
+    - assets/icons/wallet.png
+    - assets/icons/border_clock.png
+    - assets/images/avatar.png
+
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware

@@ -3,6 +3,7 @@ import 'package:petcarepal/screens/booking_type/booking_type.dart';
 import 'package:petcarepal/screens/home/home.dart';
 import 'package:petcarepal/screens/successpay/successpay.dart';
 import 'package:petcarepal/screens/payment/payment.dart';
+import 'package:petcarepal/screens/appointments/appointments.dart';
 
 void main() {
   runApp(const MyApp());
@@ -22,7 +23,7 @@ class MyApp extends StatelessWidget {
         useMaterial3: true,
       ),
       debugShowCheckedModeBanner: false,
-      home: PaymentSuccessPage(),
+      home: UpcomingAppointmentsPage(),
     );
   }
 }
