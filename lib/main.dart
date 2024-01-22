@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:petcarepal/screens/splash/splash.dart';
+import 'package:petcarepal/config/app_routes.dart';
+import 'package:petcarepal/config/bottom_navigation.dart';
+import 'package:petcarepal/screens/booking_type/booking_type.dart';
 import 'package:petcarepal/screens/home/home.dart';
+import 'package:petcarepal/screens/signin/signin.dart';
 import 'package:petcarepal/screens/successpay/successpay.dart';
 import 'package:petcarepal/screens/payment/payment.dart';
 import 'package:petcarepal/screens/appointments/appointments.dart';

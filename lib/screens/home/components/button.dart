@@ -3,8 +3,12 @@ import 'package:flutter/material.dart';
 class ActionButtonWidget extends StatelessWidget {
   final String label;
   final AssetImage iconAssetPath;
+  final Function? onClick;
 
-  ActionButtonWidget({required this.label, required this.iconAssetPath});
+  ActionButtonWidget(
+      {required this.label,
+      required this.iconAssetPath,
+      required this.onClick});
 
   @override
   Widget build(BuildContext context) {
