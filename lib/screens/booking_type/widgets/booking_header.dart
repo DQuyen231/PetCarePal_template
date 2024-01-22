@@ -1,5 +1,5 @@
-
 import 'package:flutter/material.dart';
+import 'package:petcarepal/config/app_routes.dart';
 
 class BookingHeader extends StatelessWidget {
   const BookingHeader({super.key});
@@ -7,14 +7,15 @@ class BookingHeader extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return AppBar(
-      backgroundColor: Color.fromARGB(248,247,251,255),
-      title: const Text('Chọn loại lịch', style: TextStyle(fontWeight: FontWeight.bold)),
+      backgroundColor: Colors.white,
+      title: const Text('Chọn loại lịch',
+          style: TextStyle(fontWeight: FontWeight.bold)),
       centerTitle: true,
       leading: IconButton(
         icon: Icon(Icons.arrow_back),
         onPressed: () {
           // Handle back button press
-          Navigator.of(context).pop();
+          Navigator.pushNamed(context, AppRoutes.home);
         },
       ),
       elevation: 0, // Set elevation to 0 to remove the bottom line

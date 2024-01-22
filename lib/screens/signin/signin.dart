@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:icons_plus/icons_plus.dart';
+import 'package:petcarepal/config/app_routes.dart';
 
 import 'package:petcarepal/constants/custom_scaffold.dart';
 import 'package:petcarepal/screens/signup/signup.dart';
@@ -177,11 +178,12 @@ class _SignInScreenState extends State<SignInScreen> {
                           onPressed: () {
                             if (_formSignInKey.currentState!.validate() &&
                                 rememberPassword) {
-                              ScaffoldMessenger.of(context).showSnackBar(
-                                const SnackBar(
-                                  content: Text('Processing Data'),
-                                ),
-                              );
+                              Navigator.pushNamed(context, AppRoutes.home);
+                              // ScaffoldMessenger.of(context).showSnackBar(
+                              //   const SnackBar(
+                              //     content: Text('Processing Data'),
+                              //   ),
+                              // );
                             } else if (!rememberPassword) {
                               ScaffoldMessenger.of(context).showSnackBar(
                                 const SnackBar(

@@ -1,6 +1,7 @@
 // loading_screen.dart
 
 import 'package:flutter/material.dart';
+import 'package:petcarepal/config/app_routes.dart';
 
 class SplashScreen extends StatefulWidget {
   @override
@@ -19,6 +20,10 @@ class SplashScreenState extends State<SplashScreen> {
     setState(() {
       isLoading = false;
     });
+
+    await Future.delayed(Duration(seconds: 2));
+
+    Navigator.pushNamed(context, AppRoutes.login);
   }
 
   @override
