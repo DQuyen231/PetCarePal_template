@@ -18,11 +18,12 @@ class BookingContainer extends StatelessWidget {
     double containerWidth = MediaQuery.of(context).size.width * 0.5;
     double containerHeight = MediaQuery.of(context).size.width * 0.40;
     return Container(
+      // margin: EdgeInsets.only(top: 0),
       width: containerWidth,
       height: containerHeight,
-      margin: EdgeInsets.only(top: 5),
+      // margin: EdgeInsets.only(top: 5),
       decoration: BoxDecoration(
-          border: Border.all(color: Colors.white, width: 2),
+          border: Border.all(color: Colors.white, width: 1),
           borderRadius: BorderRadius.circular(10),
           image: DecorationImage(image: AssetImage(image), fit: BoxFit.cover)),
       child: Container(

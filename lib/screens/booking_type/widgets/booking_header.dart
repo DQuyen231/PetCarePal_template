@@ -11,13 +11,14 @@ class BookingHeader extends StatelessWidget {
       title: const Text('Chọn loại lịch',
           style: TextStyle(fontWeight: FontWeight.bold)),
       centerTitle: true,
-      leading: IconButton(
-        icon: Icon(Icons.arrow_back),
-        onPressed: () {
-          // Handle back button press
-          Navigator.pushNamed(context, AppRoutes.home);
-        },
-      ),
+      // toolbarHeight: 40,
+      // leading: IconButton(
+      //   icon: Icon(Icons.arrow_back),
+      //   onPressed: () {
+      //     // Handle back button press
+      //     Navigator.pushNamed(context, AppRoutes.home);
+      //   },
+      // ),
       elevation: 0, // Set elevation to 0 to remove the bottom line
     );
   }

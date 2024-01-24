@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:petcarepal/config/app_routes.dart';
+import 'package:petcarepal/config/bottom_navigation.dart';
 import 'package:petcarepal/screens/home/components/welcome.dart';
 import 'package:petcarepal/screens/home/components/button.dart';
 
@@ -51,10 +52,10 @@ class HomeScreen extends StatelessWidget {
             left: 50.88,
             top: 482.98,
             child: ActionButtonWidget(
-              label: 'Thêm thú cưng',
+              label: 'Tài khoản',
               iconAssetPath: const AssetImage('assets/icons/add.png'),
               onClick: () {
-                Navigator.pushNamed(context, AppRoutes.addpet);
+                Navigator.pushNamed(context, AppRoutes.account);
               },
             ),
           ),

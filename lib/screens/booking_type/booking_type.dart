@@ -1,11 +1,17 @@
 import 'package:flutter/material.dart';
+import 'package:petcarepal/config/bottom_navigation.dart';
 import 'package:petcarepal/screens/booking_type/widgets/booking_container.dart';
 import 'package:petcarepal/screens/booking_type/widgets/booking_header.dart';
 import 'package:petcarepal/screens/booking_type/models/content.model.dart';
 
-class BookingType extends StatelessWidget {
+class BookingType extends StatefulWidget {
   BookingType({super.key});
 
+  @override
+  State<BookingType> createState() => _BookingTypeState();
+}
+
+class _BookingTypeState extends State<BookingType> {
   final content = ['Tiêm chủng', 'Dinh dưỡng', 'Thuốc', 'Da liễu'];
 
   Content getContent(value) {
@@ -37,6 +43,8 @@ class BookingType extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    int currentIndex = 1;
+
     return Scaffold(
       // backgroundColor: Color.fromARGB(248, 247, 251, 255),
       backgroundColor: Colors.white,
@@ -57,6 +65,33 @@ class BookingType extends StatelessWidget {
               },
             ),
           ),
+        ],
+      ),
+      bottomNavigationBar: CustomBottomNavigation(
+        currentIndex: currentIndex,
+        onTabSelected: (index) {
+          setState(() {
+            currentIndex = index;
+          });
+        },
+        items: [
+          BottomNavigationItem(
+            icon: Icon(Icons.pets),
+            label: 'Thú cưng',
+          ),
+          BottomNavigationItem(
+            icon: Icon(Icons.calendar_today),
+            label: 'Đặt lịch',
+          ),
+          BottomNavigationItem(
+            icon: Icon(Icons.shopping_cart),
+            label: 'Mua sắm',
+          ),
+          BottomNavigationItem(
+            icon: Icon(Icons.account_box),
+            label: 'Hồ sơ',
+          ),
+          // Add more items as needed
         ],
       ),
     );

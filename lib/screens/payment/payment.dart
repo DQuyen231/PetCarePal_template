@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:petcarepal/config/app_routes.dart';
 import 'package:petcarepal/screens/payment/components/paymentmethod.dart';
 
 class SelectPaymentPage extends StatefulWidget {
@@ -86,7 +87,9 @@ class _SelectPaymentPageState extends State<SelectPaymentPage> {
               ),
               SizedBox(height: 80),
               OutlinedButton(
-                onPressed: () {},
+                onPressed: () {
+                  Navigator.pushNamed(context, AppRoutes.payment_success);
+                },
                 style: OutlinedButton.styleFrom(
                   side: BorderSide(color: Colors.white),
                   padding: EdgeInsets.symmetric(horizontal: 85, vertical: 15),

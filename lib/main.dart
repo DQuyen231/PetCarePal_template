@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:petcarepal/config/app_routes.dart';
 import 'package:petcarepal/config/bottom_navigation.dart';
+import 'package:petcarepal/screens/booking_form/booking_form.dart';
 import 'package:petcarepal/screens/booking_type/booking_type.dart';
 import 'package:petcarepal/screens/home/home.dart';
+import 'package:petcarepal/screens/personal_pet/my_pet.dart';
+import 'package:petcarepal/screens/premium/premium.dart';
 import 'package:petcarepal/screens/signin/signin.dart';
 import 'package:petcarepal/screens/splash/splash.dart';
 import 'package:petcarepal/screens/successpay/successpay.dart';
@@ -18,7 +21,6 @@ void main() {
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -29,7 +31,9 @@ class MyApp extends StatelessWidget {
         useMaterial3: true,
       ),
       debugShowCheckedModeBanner: false,
-      home: ProfilePage(),
+      // initialRoute: AppRoutes.splash,
+      routes: AppRoutes.getRoutes(),
+      home: SplashScreen(),
     );
   }
 }

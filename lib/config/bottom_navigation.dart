@@ -1,49 +1,87 @@
 import 'package:flutter/material.dart';
 import 'package:petcarepal/config/app_routes.dart';
-import 'package:petcarepal/screens/booking_type/booking_type.dart';
-import 'package:petcarepal/screens/personal_pet/my_pet.dart';
-import 'package:petcarepal/screens/pet_profile/pet_profile.dart';
 
-class HomeView extends StatefulWidget {
-  const HomeView({super.key});
+class CustomBottomNavigation extends StatefulWidget {
+  final List<BottomNavigationItem> items;
+  final Function(int) onTabSelected;
+  final int currentIndex;
+
+  CustomBottomNavigation({
+    required this.items,
+    required this.onTabSelected,
+    required this.currentIndex,
+  });
 
   @override
-  State<HomeView> createState() => _HomeViewState();
+  _CustomBottomNavigationState createState() => _CustomBottomNavigationState();
 }
 
-class _HomeViewState extends State<HomeView> {
-  int currentIndex = 0;
-
-  List<Widget> pages = [MyPet(), BookingType(), Placeholder(), Placeholder()];
-
+class _CustomBottomNavigationState extends State<CustomBottomNavigation> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: IndexedStack(index: currentIndex, children: pages),
-      bottomNavigationBar: NavigationBar(
-        selectedIndex: currentIndex,
-        destinations: const <NavigationDestination>[
-          NavigationDestination(
-            icon: Icon(Icons.pets),
-            label: 'Thú cưng',
-          ),
-          NavigationDestination(
-              icon: Icon(Icons.calendar_today), label: 'Đặt lịch'),
-          NavigationDestination(
-              icon: Icon(Icons.shopping_cart), label: 'Mua sắm'),
-          NavigationDestination(icon: Icon(Icons.account_box), label: 'Hồ sơ'),
-        ],
-        onDestinationSelected: (value) {
-          setState(() {
-            currentIndex = value;
-          });
-          if (value == 2) {
-            Navigator.pushNamed(context, AppRoutes.pet);
-          } else if (value == 3) {
-            Navigator.pushNamed(context, AppRoutes.booking);
-          }
-        },
+    return BottomAppBar(
+      child: Row(
+        children: widget.items
+            .asMap()
+            .map((index, item) => MapEntry(
+                  index,
+                  Expanded(
+                    child: _buildIconButton(item, index),
+                  ),
+                ))
+            .values
+            .toList(),
       ),
     );
   }
+
+  Widget _buildIconButton(BottomNavigationItem item, int index) {
+    return IconButton(
+      onPressed: () {
+        widget.onTabSelected(index);
+
+        // Handle navigation to named routes here
+        switch (index) {
+          case 0:
+            Navigator.pushNamed(context, AppRoutes.pet);
+            break;
+          case 1:
+            Navigator.pushNamed(context, AppRoutes.booking);
+            break;
+          case 2:
+            Navigator.pushNamed(context, AppRoutes.home);
+            break;
+          case 3:
+            Navigator.pushNamed(context, AppRoutes.account);
+            break;
+          // Add more cases as needed
+        }
+      },
+      color:
+          index == widget.currentIndex ? Theme.of(context).primaryColor : null,
+      icon: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          item.icon,
+          Text(
+            item.label,
+            style: TextStyle(
+              fontSize: 11,
+              fontWeight: FontWeight.bold,
+            ), // Adjust the font size as needed
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class BottomNavigationItem {
+  final Icon icon;
+  final String label;
+
+  BottomNavigationItem({
+    required this.icon,
+    required this.label,
+  });
 }

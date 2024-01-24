@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:petcarepal/config/app_routes.dart';
 import 'package:petcarepal/screens/user_profile/components/profile_header.dart';
 import 'package:petcarepal/screens/user_profile/components/profile_option.dart';
 
@@ -11,7 +12,7 @@ class ProfilePage extends StatelessWidget {
           'Hồ sơ',
           style: TextStyle(
             color: Color(0xFF070821),
-            fontSize: 18,
+            fontSize: 25,
             fontFamily: 'Encode Sans',
             fontWeight: FontWeight.w700,
             height: 0,
@@ -37,18 +38,22 @@ class ProfilePage extends StatelessWidget {
                     ProfileOption(
                       iconPath: 'assets/icons/expand.png',
                       text: 'Gói Premium',
+                      routeName: AppRoutes.premium,
                     ),
                     ProfileOption(
                       iconPath: 'assets/icons/user_add.png',
                       text: 'Mời bạn bè',
+                      routeName: '',
                     ),
                     ProfileOption(
                       iconPath: 'assets/icons/circle_help.png',
                       text: 'Trợ giúp',
+                      routeName: '',
                     ),
                     ProfileOption(
                       iconPath: 'assets/icons/setting.png',
                       text: 'Cài đặt',
+                      routeName: '',
                     ),
                     Padding(
                       padding: EdgeInsets.only(left: 20, right: 20),

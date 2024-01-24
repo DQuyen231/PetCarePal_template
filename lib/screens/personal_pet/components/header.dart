@@ -7,7 +7,7 @@ class Header extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return AppBar(
-      backgroundColor: Color.fromARGB(248, 247, 251, 255),
+      backgroundColor: Color.fromRGBO(240, 243, 248, 1.0),
       title: const Text('Thú cưng của tôi',
           style: TextStyle(fontWeight: FontWeight.bold)),
       centerTitle: true,
