@@ -1,13 +1,22 @@
 import 'package:flutter/material.dart';
 import 'package:petcarepal/config/app_routes.dart';
+import 'package:petcarepal/config/bottom_navigation.dart';
 import 'package:petcarepal/screens/user_profile/components/profile_header.dart';
 import 'package:petcarepal/screens/user_profile/components/profile_option.dart';
 
-class ProfilePage extends StatelessWidget {
+class ProfilePage extends StatefulWidget {
+  @override
+  State<ProfilePage> createState() => _ProfilePageState();
+}
+
+class _ProfilePageState extends State<ProfilePage> {
+  int currentIndex = 3;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        automaticallyImplyLeading: false,
         title: Text(
           'Hồ sơ',
           style: TextStyle(
@@ -93,6 +102,33 @@ class ProfilePage extends StatelessWidget {
             ),
           ],
         ),
+      ),
+      bottomNavigationBar: CustomBottomNavigation(
+        currentIndex: currentIndex,
+        onTabSelected: (index) {
+          setState(() {
+            currentIndex = index;
+          });
+        },
+        items: [
+          BottomNavigationItem(
+            icon: Icon(Icons.pets),
+            label: 'Thú cưng',
+          ),
+          BottomNavigationItem(
+            icon: Icon(Icons.calendar_today),
+            label: 'Đặt lịch',
+          ),
+          BottomNavigationItem(
+            icon: Icon(Icons.shopping_cart),
+            label: 'Mua sắm',
+          ),
+          BottomNavigationItem(
+            icon: Icon(Icons.account_box),
+            label: 'Hồ sơ',
+          ),
+          // Add more items as needed
+        ],
       ), // Thêm các Container khác nếu cần
     );
   }

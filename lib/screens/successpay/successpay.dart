@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:petcarepal/config/app_routes.dart';
 
 class PaymentSuccessPage extends StatelessWidget {
   @override
@@ -31,7 +32,9 @@ class PaymentSuccessPage extends StatelessWidget {
               ),
               SizedBox(height: 70),
               OutlinedButton(
-                onPressed: () {},
+                onPressed: () {
+                  Navigator.pushNamed(context, AppRoutes.account);
+                },
                 style: OutlinedButton.styleFrom(
                   side: BorderSide(color: Colors.white),
                   padding: EdgeInsets.symmetric(horizontal: 85, vertical: 15),
