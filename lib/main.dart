@@ -14,6 +14,7 @@ import 'package:petcarepal/screens/payment/payment.dart';
 import 'package:petcarepal/screens/appointments/appointments.dart';
 import 'package:petcarepal/screens/user_profile/profile.dart';
 import 'package:petcarepal/screens/edit_user_profile/edit_user_profile.dart';
+import 'package:petcarepal/screens/pet_shop/pet_shop.dart';
 
 void main() {
   runApp(const MyApp());
@@ -34,7 +35,7 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       // initialRoute: AppRoutes.splash,
       routes: AppRoutes.getRoutes(),
-      home: SignUpScreen(),
+      home: PetShop(),
     );
   }
 }
