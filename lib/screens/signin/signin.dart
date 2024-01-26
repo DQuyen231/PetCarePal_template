@@ -3,6 +3,7 @@ import 'package:icons_plus/icons_plus.dart';
 import 'package:petcarepal/config/app_routes.dart';
 
 import 'package:petcarepal/constants/custom_scaffold.dart';
+import 'package:petcarepal/screens/signin/service/auth_api.dart';
 import 'package:petcarepal/screens/signup/signup.dart';
 
 import '../../constants//theme.dart';
@@ -17,6 +18,9 @@ class SignInScreen extends StatefulWidget {
 class _SignInScreenState extends State<SignInScreen> {
   final _formSignInKey = GlobalKey<FormState>();
   bool rememberPassword = true;
+
+  TextEditingController _usernameController = TextEditingController();
+  TextEditingController _passwordController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -69,6 +73,7 @@ class _SignInScreenState extends State<SignInScreen> {
                         height: 25.0,
                       ),
                       TextFormField(
+                        controller: _usernameController,
                         validator: (value) {
                           if (value == null || value.isEmpty) {
                             return 'Nhập Tài Khoản';
@@ -103,6 +108,7 @@ class _SignInScreenState extends State<SignInScreen> {
                         height: 20.0,
                       ),
                       TextFormField(
+                        controller: _passwordController,
                         validator: (value) {
                           if (value == null || value.isEmpty) {
                             return 'Nhập Tài Khoản';
@@ -178,12 +184,18 @@ class _SignInScreenState extends State<SignInScreen> {
                           onPressed: () {
                             if (_formSignInKey.currentState!.validate() &&
                                 rememberPassword) {
-                              Navigator.pushNamed(context, AppRoutes.home);
-                              // ScaffoldMessenger.of(context).showSnackBar(
-                              //   const SnackBar(
-                              //     content: Text('Processing Data'),
-                              //   ),
-                              // );
+                              Object user = {
+                                'username': _usernameController.text,
+                                'password': _passwordController.text,
+                              };
+
+                              AuthService().signIn(user);
+
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                const SnackBar(
+                                  content: Text('Processing Data'),
+                                ),
+                              );
                             } else if (!rememberPassword) {
                               ScaffoldMessenger.of(context).showSnackBar(
                                 const SnackBar(

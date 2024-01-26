@@ -12,7 +12,7 @@ class HeaderWidget extends StatelessWidget {
             TextSpan(
               text: 'Quản lý thú cưng\ncủa bạn, ',
               style: TextStyle(
-                color: Color(0xFFFFFFFF),
+                color: Color(0xFF4552CB),
                 fontSize: 34,
                 fontFamily: 'Encode Sans',
                 fontWeight: FontWeight.w700,

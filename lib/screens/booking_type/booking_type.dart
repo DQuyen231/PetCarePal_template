@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:petcarepal/config/app_routes.dart';
 import 'package:petcarepal/config/bottom_navigation.dart';
 import 'package:petcarepal/screens/booking_type/widgets/booking_container.dart';
 import 'package:petcarepal/screens/booking_type/widgets/booking_header.dart';
@@ -57,10 +58,15 @@ class _BookingTypeState extends State<BookingType> {
               itemBuilder: (context, index) {
                 String item = content[index];
                 Content itemContent = getContent(item);
-                return BookingContainer(
-                  title: itemContent.title,
-                  description: itemContent.description,
-                  image: itemContent.image,
+                return InkWell(
+                  onTap: () {
+                    Navigator.pushNamed(context, AppRoutes.booking_date);
+                  },
+                  child: BookingContainer(
+                    title: itemContent.title,
+                    description: itemContent.description,
+                    image: itemContent.image,
+                  ),
                 );
               },
             ),
