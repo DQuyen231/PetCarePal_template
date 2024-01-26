@@ -1,23 +1,23 @@
 import 'package:flutter/material.dart';
 
-class UserInput extends StatefulWidget {
+class CustomTextField extends StatefulWidget {
   final ValueChanged<String> onChanged;
   final String label;
+  final TextEditingController controller;
 
-  const UserInput({
+  const CustomTextField({
     Key? key,
     required this.onChanged,
     required this.label,
-    required TextEditingController controller,
+    required this.controller,
   }) : super(key: key);
 
   @override
-  _UserInputState createState() => _UserInputState();
+  _CustomTextFieldState createState() => _CustomTextFieldState();
 }
 
-class _UserInputState extends State<UserInput> {
+class _CustomTextFieldState extends State<CustomTextField> {
   TextEditingController _controller = TextEditingController();
-  bool _isValid = false;
 
   @override
   Widget build(BuildContext context) {
@@ -25,7 +25,6 @@ class _UserInputState extends State<UserInput> {
       controller: _controller,
       onChanged: (value) {
         setState(() {
-          _isValid = value.isNotEmpty;
           widget.onChanged(value);
         });
       },
@@ -36,8 +35,6 @@ class _UserInputState extends State<UserInput> {
           color: Color(0xFFBBC3CE),
           fontSize: 13,
           fontWeight: FontWeight.w600,
-          height: 0,
-          letterSpacing: 0.13,
         ),
         focusedBorder: UnderlineInputBorder(
           borderSide: BorderSide(color: Color(0xFF070821)),
@@ -45,15 +42,6 @@ class _UserInputState extends State<UserInput> {
         enabledBorder: UnderlineInputBorder(
           borderSide: BorderSide(color: Color.fromRGBO(240, 240, 248, 1)),
         ),
-        suffixIcon: _isValid
-            ? Icon(
-                Icons.check,
-                color: Colors.green,
-              )
-            : Icon(
-                Icons.error,
-                color: Colors.red,
-              ),
       ),
     );
   }
