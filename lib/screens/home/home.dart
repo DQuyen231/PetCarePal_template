@@ -11,7 +11,9 @@ class HomeScreen extends StatelessWidget {
       width: 375,
       height: 812,
       clipBehavior: Clip.antiAlias,
-      decoration: const BoxDecoration(color: Color(0xFF4552CB)),
+      decoration: const BoxDecoration(
+        color: Color.fromARGB(248, 247, 251, 255),
+      ),
       child: Stack(
         children: [
           HeaderWidget(),

@@ -4,6 +4,7 @@ import 'package:petcarepal/screens/home/home.dart';
 import 'package:petcarepal/screens/payment/payment.dart';
 import 'package:petcarepal/screens/personal_pet/my_pet.dart';
 import 'package:petcarepal/screens/pet_profile/pet_profile.dart';
+import 'package:petcarepal/screens/pet_shop/pet_shop.dart';
 import 'package:petcarepal/screens/premium/premium.dart';
 import 'package:petcarepal/screens/signin/signin.dart';
 import 'package:petcarepal/screens/splash/splash.dart';
@@ -22,6 +23,7 @@ class AppRoutes {
   static const String premium = '/premium';
   static const String payment = '/payment';
   static const String payment_success = '/payment_success';
+  static const String shop = '/shop';
 
   static Map<String, WidgetBuilder> getRoutes() {
     return {
@@ -36,6 +38,7 @@ class AppRoutes {
       premium: (context) => PremiumPage(),
       payment: (context) => SelectPaymentPage(),
       payment_success: (context) => PaymentSuccessPage(),
+      shop: (context) => PetShop(),
     };
   }
 }

@@ -1,15 +1,24 @@
 import 'package:flutter/material.dart';
+import 'package:petcarepal/config/bottom_navigation.dart';
 import 'package:petcarepal/screens/pet_shop/components/custom_tab_bar.dart';
 import 'package:petcarepal/screens/pet_shop/components/search_bar.dart';
 import 'package:petcarepal/screens/pet_shop/components/tab_content.dart';
 
-class PetShop extends StatelessWidget {
+class PetShop extends StatefulWidget {
+  @override
+  State<PetShop> createState() => _PetShopState();
+}
+
+class _PetShopState extends State<PetShop> {
   @override
   Widget build(BuildContext context) {
+    int currentIndex = 2;
+
     return DefaultTabController(
       length: 4, // Số lượng tab
       child: Scaffold(
         appBar: AppBar(
+          automaticallyImplyLeading: false,
           title: Text(
             'Cửa hàng thú cưng',
             style: TextStyle(
@@ -48,6 +57,33 @@ class PetShop extends StatelessWidget {
                 ],
               ),
             ),
+          ],
+        ),
+        bottomNavigationBar: CustomBottomNavigation(
+          currentIndex: currentIndex,
+          onTabSelected: (index) {
+            setState(() {
+              currentIndex = index;
+            });
+          },
+          items: [
+            BottomNavigationItem(
+              icon: Icon(Icons.pets),
+              label: 'Thú cưng',
+            ),
+            BottomNavigationItem(
+              icon: Icon(Icons.calendar_today),
+              label: 'Đặt lịch',
+            ),
+            BottomNavigationItem(
+              icon: Icon(Icons.shopping_cart),
+              label: 'Mua sắm',
+            ),
+            BottomNavigationItem(
+              icon: Icon(Icons.account_box),
+              label: 'Hồ sơ',
+            ),
+            // Add more items as needed
           ],
         ),
       ),

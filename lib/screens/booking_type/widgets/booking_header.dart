@@ -7,6 +7,7 @@ class BookingHeader extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return AppBar(
+      automaticallyImplyLeading: false,
       backgroundColor: Colors.white,
       title: const Text('Chọn loại lịch',
           style: TextStyle(fontWeight: FontWeight.bold)),
