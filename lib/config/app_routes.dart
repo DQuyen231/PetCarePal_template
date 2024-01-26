@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:petcarepal/screens/booking_type/booking_type.dart';
+import 'package:petcarepal/screens/calendar/calendar.dart';
 import 'package:petcarepal/screens/home/home.dart';
 import 'package:petcarepal/screens/payment/payment.dart';
 import 'package:petcarepal/screens/personal_pet/my_pet.dart';
@@ -24,6 +25,7 @@ class AppRoutes {
   static const String payment = '/payment';
   static const String payment_success = '/payment_success';
   static const String shop = '/shop';
+  static const String booking_date = '/date';
 
   static Map<String, WidgetBuilder> getRoutes() {
     return {
@@ -39,6 +41,7 @@ class AppRoutes {
       payment: (context) => SelectPaymentPage(),
       payment_success: (context) => PaymentSuccessPage(),
       shop: (context) => PetShop(),
+      booking_date: (context) => Calendar(),
     };
   }
 }
