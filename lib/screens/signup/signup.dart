@@ -3,6 +3,7 @@ import 'package:icons_plus/icons_plus.dart';
 
 import 'package:petcarepal/constants/custom_scaffold.dart';
 import 'package:petcarepal/screens/signin/signin.dart';
+import 'package:petcarepal/screens/signup/service/signup_api.dart';
 
 import '../../constants//theme.dart';
 
@@ -17,6 +18,12 @@ class _SignUpScreenState extends State<SignUpScreen> {
   final _formSignupKey = GlobalKey<FormState>();
   bool agreePersonalData = true;
   bool additionalCheckboxValue = false;
+
+  TextEditingController fullNameController = TextEditingController();
+  TextEditingController nameController = TextEditingController();
+  TextEditingController passwordController = TextEditingController();
+
+  SignUpService auth = SignUpService();
 
   @override
   Widget build(BuildContext context) {
@@ -58,6 +65,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                         height: 40.0,
                       ),
                       TextFormField(
+                        controller: fullNameController,
                         validator: (value) {
                           if (value == null || value.isEmpty) {
                             return 'Please enter Full name';
@@ -88,6 +96,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                         height: 25.0,
                       ),
                       TextFormField(
+                        controller: nameController,
                         validator: (value) {
                           if (value == null || value.isEmpty) {
                             return 'Please enter Email';
@@ -97,8 +106,8 @@ class _SignUpScreenState extends State<SignUpScreen> {
                         decoration: InputDecoration(
                           filled: true,
                           fillColor: Colors.white,
-                          label: const Text('Email'),
-                          hintText: 'Nhập Email',
+                          label: const Text('Họ và Tên'),
+                          hintText: 'Nhập Họ Và Tên',
                           hintStyle: const TextStyle(
                             color: Colors.white,
                           ),
@@ -124,6 +133,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                         height: 25.0,
                       ),
                       TextFormField(
+                        controller: passwordController,
                         obscureText: true,
                         obscuringCharacter: '*',
                         validator: (value) {
@@ -211,6 +221,18 @@ class _SignUpScreenState extends State<SignUpScreen> {
                           onPressed: () {
                             if (_formSignupKey.currentState!.validate() &&
                                 agreePersonalData) {
+                              String fullName = fullNameController.text;
+                              String name = nameController.text;
+                              String password = passwordController.text;
+
+                              Object user = {
+                                "userName": fullName,
+                                "ten": name,
+                                "password": password,
+                                "role": "user"
+                              };
+                              auth.signUp(user);
+
                               ScaffoldMessenger.of(context).showSnackBar(
                                 const SnackBar(
                                   content: Text('Processing Data'),
@@ -313,5 +335,13 @@ class _SignUpScreenState extends State<SignUpScreen> {
         ],
       ),
     );
+  }
+
+  @override
+  void dispose() {
+    fullNameController.dispose();
+    nameController.dispose();
+    passwordController.dispose();
+    super.dispose();
   }
 }

@@ -5,10 +5,8 @@ class BookingContainer extends StatelessWidget {
       {super.key,
       required this.title,
       required this.description,
-      this.onClick,
       required this.image});
 
-  final Function()? onClick;
   final String title;
   final String description;
   final String image;

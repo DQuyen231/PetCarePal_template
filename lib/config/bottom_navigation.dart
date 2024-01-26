@@ -49,7 +49,7 @@ class _CustomBottomNavigationState extends State<CustomBottomNavigation> {
             Navigator.pushNamed(context, AppRoutes.booking);
             break;
           case 2:
-            Navigator.pushNamed(context, AppRoutes.home);
+            Navigator.pushNamed(context, AppRoutes.shop);
             break;
           case 3:
             Navigator.pushNamed(context, AppRoutes.account);
