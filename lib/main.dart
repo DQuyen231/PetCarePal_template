@@ -4,7 +4,6 @@ import 'package:petcarepal/config/bottom_navigation.dart';
 import 'package:petcarepal/constants/constants.dart';
 import 'package:petcarepal/screens/booking_form/booking_form.dart';
 import 'package:petcarepal/screens/booking_type/booking_type.dart';
-import 'package:petcarepal/screens/dashboard/pages/dashboard.dart';
 import 'package:petcarepal/screens/home/home.dart';
 import 'package:petcarepal/screens/personal_pet/my_pet.dart';
 import 'package:petcarepal/screens/premium/premium.dart';
@@ -54,7 +53,7 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       // initialRoute: AppRoutes.addpet,
       routes: AppRoutes.getRoutes(),
-      home: HomeScreen(),
+      home: PetShop(),
     );
   }
 }
