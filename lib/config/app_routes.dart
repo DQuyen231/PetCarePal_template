@@ -7,6 +7,7 @@ import 'package:petcarepal/screens/personal_pet/my_pet.dart';
 import 'package:petcarepal/screens/pet_profile/pet_profile.dart';
 import 'package:petcarepal/screens/pet_shop/pet_shop.dart';
 import 'package:petcarepal/screens/premium/premium.dart';
+import 'package:petcarepal/screens/shopping_cart/shopping_cart.dart';
 import 'package:petcarepal/screens/signin/signin.dart';
 import 'package:petcarepal/screens/splash/splash.dart';
 import 'package:petcarepal/screens/successpay/successpay.dart';
@@ -26,6 +27,7 @@ class AppRoutes {
   static const String payment_success = '/payment_success';
   static const String shop = '/shop';
   static const String booking_date = '/date';
+  static const String cart = '/cart';
 
   static Map<String, WidgetBuilder> getRoutes() {
     return {
@@ -42,6 +44,7 @@ class AppRoutes {
       payment_success: (context) => PaymentSuccessPage(),
       shop: (context) => PetShop(),
       booking_date: (context) => Calendar(),
+      cart: (context) => ShoppingCart(),
     };
   }
 }
