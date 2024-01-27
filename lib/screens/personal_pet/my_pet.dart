@@ -29,7 +29,6 @@ class _MyPetState extends State<MyPet> {
             SizedBox(height: 10),
             PetContainer(),
             AddPet(),
-
             // Add your custom bottom navigation here
           ],
         ),
