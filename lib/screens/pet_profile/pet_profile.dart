@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:petcarepal/config/app_routes.dart';
 import 'package:petcarepal/screens/edit_user_profile/components/select_date.dart';
 import 'package:petcarepal/screens/pet_profile/components/custom_input.dart';
 import 'package:petcarepal/screens/pet_profile/components/gender_select.dart';
@@ -28,7 +29,7 @@ class _PetProfileState extends State<PetProfile> {
         leading: IconButton(
           icon: Icon(Icons.arrow_back),
           onPressed: () {
-            Navigator.of(context).pop();
+            Navigator.pushNamed(context, AppRoutes.pet);
           },
         ),
         iconTheme: IconThemeData(color: Color(0xFF4552CB)),
