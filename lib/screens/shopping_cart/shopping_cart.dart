@@ -1,6 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
+class RealShoppingCart extends StatelessWidget {
+  const RealShoppingCart({Key? key});
+
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      debugShowCheckedModeBanner: false,
+      home: Scaffold(
+        body: ShoppingCart(),
+      ),
+    );
+  }
+}
+
 class ShoppingCart extends StatefulWidget {
   const ShoppingCart({Key? key}) : super(key: key);
 

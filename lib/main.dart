@@ -1,12 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:petcarepal/config/app_routes.dart';
 import 'package:petcarepal/config/bottom_navigation.dart';
+import 'package:petcarepal/screens/booking_form/skin_form.dart';
+import 'package:petcarepal/screens/booking_form/neutri_form.dart';
+import 'package:petcarepal/screens/booking_form/medicine_form.dart';
 import 'package:petcarepal/constants/constants.dart';
-import 'package:petcarepal/screens/booking_form/booking_form.dart';
 import 'package:petcarepal/screens/booking_type/booking_type.dart';
 import 'package:petcarepal/screens/calendar/calendar.dart';
 import 'package:petcarepal/screens/home/home.dart';
+import 'package:petcarepal/screens/personal_pet/components/add_pet.dart';
 import 'package:petcarepal/screens/personal_pet/my_pet.dart';
+import 'package:petcarepal/screens/pet_profile/pet_profile.dart';
 import 'package:petcarepal/screens/premium/premium.dart';
 import 'package:petcarepal/screens/shopping_cart/shopping_cart.dart';
 import 'package:petcarepal/screens/signin/signin.dart';

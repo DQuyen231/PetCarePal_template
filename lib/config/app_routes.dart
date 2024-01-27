@@ -1,4 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:petcarepal/screens/appointments/appointments.dart';
+import 'package:petcarepal/screens/booking_form/medicine_form.dart';
+import 'package:petcarepal/screens/booking_form/neutri_form.dart';
+import 'package:petcarepal/screens/booking_form/skin_form.dart';
 import 'package:petcarepal/screens/booking_type/booking_type.dart';
 import 'package:petcarepal/screens/calendar/calendar.dart';
 import 'package:petcarepal/screens/home/home.dart';
@@ -28,6 +32,10 @@ class AppRoutes {
   static const String shop = '/shop';
   static const String booking_date = '/date';
   static const String cart = '/cart';
+  static const String nutiform = '/nutiform';
+  static const String skinform = '/skinform';
+  static const String mediform = '/mediform';
+  static const String appointments = '/appointments';
 
   static Map<String, WidgetBuilder> getRoutes() {
     return {
@@ -45,6 +53,10 @@ class AppRoutes {
       shop: (context) => PetShop(),
       booking_date: (context) => Calendar(),
       cart: (context) => ShoppingCart(),
+      nutiform: (context) => NeutriForm(),
+      skinform: (context) => SkinForm(),
+      mediform: (context) => MedicineForm(),
+      appointments: (context) => UpcomingAppointmentsPage(),
     };
   }
 }
