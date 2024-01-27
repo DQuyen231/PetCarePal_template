@@ -33,14 +33,14 @@ class _CustomTextFieldState extends State<CustomTextField> {
         labelText: widget.label,
         labelStyle: TextStyle(
           color: Color(0xFFBBC3CE),
-          fontSize: 13,
+          fontSize: 16,
           fontWeight: FontWeight.w600,
         ),
         focusedBorder: UnderlineInputBorder(
-          borderSide: BorderSide(color: Color(0xFF070821)),
+          borderSide: BorderSide(color: Color.fromARGB(255, 150, 160, 252)),
         ),
         enabledBorder: UnderlineInputBorder(
-          borderSide: BorderSide(color: Color.fromRGBO(240, 240, 248, 1)),
+          borderSide: BorderSide(color: Colors.black12),
         ),
       ),
     );

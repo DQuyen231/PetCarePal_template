@@ -36,8 +36,6 @@ class _UserInputState extends State<UserInput> {
           color: Color(0xFFBBC3CE),
           fontSize: 13,
           fontWeight: FontWeight.w600,
-          height: 0,
-          letterSpacing: 0.13,
         ),
         focusedBorder: UnderlineInputBorder(
           borderSide: BorderSide(color: Color(0xFF070821)),
