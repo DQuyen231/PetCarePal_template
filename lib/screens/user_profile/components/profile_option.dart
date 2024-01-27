@@ -45,10 +45,7 @@ class ProfileOption extends StatelessWidget {
                     style: TextStyle(
                       color: Color(0xFF070821),
                       fontSize: 16,
-                      fontFamily: 'Encode Sans',
                       fontWeight: FontWeight.w400,
-                      height: 0.09,
-                      letterSpacing: 0.16,
                     ),
                   ),
                   Image.asset('assets/icons/arrow.png'),
