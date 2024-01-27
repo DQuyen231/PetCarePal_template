@@ -4,6 +4,7 @@ import 'package:petcarepal/config/bottom_navigation.dart';
 import 'package:petcarepal/screens/booking_type/widgets/booking_container.dart';
 import 'package:petcarepal/screens/booking_type/widgets/booking_header.dart';
 import 'package:petcarepal/screens/booking_type/models/content.model.dart';
+import 'package:petcarepal/screens/calendar/calendar.dart';
 
 class BookingType extends StatefulWidget {
   BookingType({super.key});
@@ -14,6 +15,24 @@ class BookingType extends StatefulWidget {
 
 class _BookingTypeState extends State<BookingType> {
   final content = ['Tiêm chủng', 'Dinh dưỡng', 'Thuốc', 'Da liễu'];
+
+  // Future<Object?> getRoute(String title) {
+  //   switch (title) {
+  //     case 'Tiêm chủng':
+  //       return Navigator.pushNamed(context, '/home');
+
+  //     case 'Dinh dưỡng':
+  //       return Navigator.pushNamed(context, AppRoutes.nutiform);
+
+  //     case 'Thuốc':
+  //       return Navigator.pushNamed(context, AppRoutes.mediform);
+
+  //     case 'Da liễu':
+  //       return Navigator.pushNamed(context, AppRoutes.skinform);
+  //     default:
+  //       return Navigator.pushNamed(context, '/home');
+  //   }
+  // }
 
   Content getContent(value) {
     switch (value) {
@@ -60,7 +79,13 @@ class _BookingTypeState extends State<BookingType> {
                 Content itemContent = getContent(item);
                 return InkWell(
                   onTap: () {
-                    Navigator.pushNamed(context, AppRoutes.booking_date);
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) =>
+                            Calendar(title: itemContent.title),
+                      ),
+                    );
                   },
                   child: BookingContainer(
                     title: itemContent.title,

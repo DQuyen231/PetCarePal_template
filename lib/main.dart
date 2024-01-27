@@ -8,6 +8,7 @@ import 'package:petcarepal/constants/constants.dart';
 import 'package:petcarepal/screens/booking_type/booking_type.dart';
 import 'package:petcarepal/screens/calendar/calendar.dart';
 import 'package:petcarepal/screens/home/home.dart';
+import 'package:petcarepal/screens/personal_pet/components/add_pet.dart';
 import 'package:petcarepal/screens/personal_pet/my_pet.dart';
 import 'package:petcarepal/screens/pet_profile/pet_profile.dart';
 import 'package:petcarepal/screens/premium/premium.dart';
@@ -57,9 +58,9 @@ class MyApp extends StatelessWidget {
       // ),
 
       debugShowCheckedModeBanner: false,
-      // initialRoute: AppRoutes.addpet,
+      // initialRoute: AppRoutes.cart,
       routes: AppRoutes.getRoutes(),
-      home: SelectPet(),
+      home: HomeScreen(),
     );
   }
 }

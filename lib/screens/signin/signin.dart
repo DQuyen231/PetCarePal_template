@@ -189,7 +189,7 @@ class _SignInScreenState extends State<SignInScreen> {
                                 'password': _passwordController.text,
                               };
 
-                              AuthService().signIn(user);
+                              AuthService().signIn(context, user);
 
                               ScaffoldMessenger.of(context).showSnackBar(
                                 const SnackBar(

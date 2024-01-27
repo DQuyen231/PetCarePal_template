@@ -45,10 +45,11 @@ class _GenderSelectionState extends State<GenderSelect> {
                   });
                 },
                 style: ElevatedButton.styleFrom(
-                  backgroundColor: _selectedGender == 'Đực'
-                      ? Color(0xFF4552CB) // Màu nền khi được chọn
-                      : Colors.white, // Màu nền khi chưa được chọn
-                ),
+                    backgroundColor: _selectedGender == 'Đực'
+                        ? Color(0xFF4552CB) // Màu nền khi được chọn
+                        : Color.fromARGB(255, 255, 255, 255)
+                    // Màu nền khi chưa được chọn
+                    ),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   crossAxisAlignment: CrossAxisAlignment.center,

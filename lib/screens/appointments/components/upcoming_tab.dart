@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:petcarepal/config/app_routes.dart';
 import 'package:petcarepal/screens/appointments/components/info_appointment.dart';
 
 class UpcomingTab extends StatelessWidget {
@@ -20,6 +21,7 @@ class UpcomingTab extends StatelessWidget {
               child: ElevatedButton(
                 onPressed: () {
                   // Xử lý khi nút được nhấp vào
+                  Navigator.pushNamed(context, AppRoutes.booking_date);
                 },
                 style: ElevatedButton.styleFrom(
                   backgroundColor: Color(0xFF4552CB),
