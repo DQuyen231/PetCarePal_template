@@ -83,7 +83,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                           contentPadding: const EdgeInsets.symmetric(
                             vertical: 10.0,
                             horizontal: 15.0,
-                          ), // Đặt padding cho nội dung bên trong input
+                          ),
                           border: OutlineInputBorder(
                             borderSide: const BorderSide(
                               color: Colors.black12,
@@ -218,7 +218,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                       SizedBox(
                         width: double.infinity,
                         child: ElevatedButton(
-                          onPressed: () {
+                          onPressed: () async {
                             if (_formSignupKey.currentState!.validate() &&
                                 agreePersonalData) {
                               String fullName = fullNameController.text;
@@ -231,13 +231,43 @@ class _SignUpScreenState extends State<SignUpScreen> {
                                 "password": password,
                                 "role": "user"
                               };
-                              auth.signUp(user);
 
-                              ScaffoldMessenger.of(context).showSnackBar(
-                                const SnackBar(
-                                  content: Text('Processing Data'),
-                                ),
-                              );
+                              try {
+                                await auth.signUp(user);
+
+                                // Hiển thị thông báo đăng ký thành công
+                                ScaffoldMessenger.of(context).showSnackBar(
+                                  const SnackBar(
+                                    content: Text('Đăng ký thành công'),
+                                    backgroundColor: Colors.green,
+                                  ),
+                                );
+
+                                // Chờ một khoảng thời gian trước khi chuyển hướng
+                                await Future.delayed(
+                                  const Duration(seconds: 2),
+                                  () {
+                                    // Chuyển hướng đến trang đăng nhập
+                                    Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                        builder: (context) =>
+                                            const SignInScreen(),
+                                      ),
+                                    );
+                                  },
+                                );
+                              } catch (error) {
+                                // Xử lý lỗi khi đăng ký
+                                ScaffoldMessenger.of(context).showSnackBar(
+                                  SnackBar(
+                                    content: Text(
+                                      'Đã xảy ra lỗi trong quá trình đăng ký. Vui lòng thử lại.',
+                                    ),
+                                    backgroundColor: Colors.red,
+                                  ),
+                                );
+                              }
                             } else if (!agreePersonalData) {
                               ScaffoldMessenger.of(context).showSnackBar(
                                 const SnackBar(

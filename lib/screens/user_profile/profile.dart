@@ -47,7 +47,8 @@ class _ProfilePageState extends State<ProfilePage> {
                     ProfileOption(
                       iconPath: 'assets/icons/expand.png',
                       text: 'Gói Premium',
-                      routeName: AppRoutes.premium,
+                      // routeName: AppRoutes.premium,
+                      routeName: AppRoutes.login,
                     ),
                     ProfileOption(
                       iconPath: 'assets/icons/user_add.png',
