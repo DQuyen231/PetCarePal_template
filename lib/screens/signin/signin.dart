@@ -1,12 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:icons_plus/icons_plus.dart';
 import 'package:petcarepal/config/app_routes.dart';
-
 import 'package:petcarepal/constants/custom_scaffold.dart';
 import 'package:petcarepal/screens/signin/service/auth_api.dart';
 import 'package:petcarepal/screens/signup/signup.dart';
-
-import '../../constants//theme.dart';
+import 'package:petcarepal/screens/signin/auth_exceptions.dart';
+import '../../constants/theme.dart';
 
 class SignInScreen extends StatefulWidget {
   const SignInScreen({Key? key}) : super(key: key);
@@ -17,6 +16,7 @@ class SignInScreen extends StatefulWidget {
 
 class _SignInScreenState extends State<SignInScreen> {
   final _formSignInKey = GlobalKey<FormState>();
+  final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
   bool rememberPassword = true;
 
   TextEditingController _usernameController = TextEditingController();
@@ -25,6 +25,7 @@ class _SignInScreenState extends State<SignInScreen> {
   @override
   Widget build(BuildContext context) {
     return CustomScaffold(
+      key: _scaffoldKey,
       child: Column(
         children: [
           const Expanded(
@@ -93,8 +94,7 @@ class _SignInScreenState extends State<SignInScreen> {
                             color: Colors.white,
                           ),
                           border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(
-                                20), // Đặt độ cong của góc ở đây
+                            borderRadius: BorderRadius.circular(20),
                           ),
                           enabledBorder: OutlineInputBorder(
                             borderSide: const BorderSide(
@@ -109,9 +109,10 @@ class _SignInScreenState extends State<SignInScreen> {
                       ),
                       TextFormField(
                         controller: _passwordController,
+                        obscureText: true, // Ẩn mật khẩu
                         validator: (value) {
                           if (value == null || value.isEmpty) {
-                            return 'Nhập Tài Khoản';
+                            return 'Nhập Mật Khẩu';
                           }
                           return null;
                         },
@@ -128,8 +129,7 @@ class _SignInScreenState extends State<SignInScreen> {
                             color: Colors.white,
                           ),
                           border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(
-                                20), // Đặt độ cong của góc ở đây
+                            borderRadius: BorderRadius.circular(20),
                           ),
                           enabledBorder: OutlineInputBorder(
                             borderSide: const BorderSide(
@@ -181,26 +181,54 @@ class _SignInScreenState extends State<SignInScreen> {
                       SizedBox(
                         width: double.infinity,
                         child: ElevatedButton(
-                          onPressed: () {
+                          onPressed: () async {
                             if (_formSignInKey.currentState!.validate() &&
                                 rememberPassword) {
                               Object user = {
                                 'username': _usernameController.text,
                                 'password': _passwordController.text,
                               };
-
-                              AuthService().signIn(context, user);
-
                               ScaffoldMessenger.of(context).showSnackBar(
                                 const SnackBar(
-                                  content: Text('Processing Data'),
+                                  content: Text('Đang xử lý dữ liệu'),
                                 ),
                               );
+
+                              try {
+                                // Gọi hàm đăng nhập
+                                AuthService().signIn(context, user);
+                                ScaffoldMessenger.of(context).showSnackBar(
+                                  const SnackBar(
+                                    content: Text('Đăng nhập thành công'),
+                                    backgroundColor: Colors.green,
+                                  ),
+                                );
+                              } on AuthenticationError catch (error) {
+                                String errorMessage = 'Đăng nhập thất bại.';
+                                ScaffoldMessenger.of(context).showSnackBar(
+                                  SnackBar(
+                                    content: Text(errorMessage),
+                                    backgroundColor: Colors.red,
+                                  ),
+                                );
+                              } catch (error) {
+                                ScaffoldMessenger.of(context).showSnackBar(
+                                  SnackBar(
+                                    content: Text(
+                                      'Đã xảy ra lỗi trong quá trình đăng nhập. Vui lòng thử lại.',
+                                    ),
+                                    backgroundColor: Colors.red,
+                                  ),
+                                );
+                              } finally {
+                                ScaffoldMessenger.of(context)
+                                    .hideCurrentSnackBar();
+                              }
                             } else if (!rememberPassword) {
                               ScaffoldMessenger.of(context).showSnackBar(
                                 const SnackBar(
                                   content: Text(
-                                      'Please agree to the processing of personal data'),
+                                      'Vui lòng đồng ý xử lý dữ liệu cá nhân'),
                                 ),
                               );
                             }
