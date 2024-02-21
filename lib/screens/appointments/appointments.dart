@@ -77,9 +77,11 @@ class UpcomingAppointmentsPage extends StatelessWidget {
             title: Text(
               'Đặt lịch',
               style: TextStyle(
-                fontWeight: FontWeight.w500,
+                fontSize: 18,
+                fontWeight: FontWeight.w700,
               ),
             ),
+            centerTitle: true,
             leading: IconButton(
               icon: Icon(Icons.arrow_back),
               onPressed: () {

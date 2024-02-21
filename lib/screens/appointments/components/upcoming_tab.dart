@@ -7,35 +7,13 @@ class UpcomingTab extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       color: Color.fromRGBO(228, 227, 243, 1),
-      child: Center(
+      child: SingleChildScrollView(
         child: Column(
           children: [
             SizedBox(
               height: 18,
             ),
             InfoAppointment(),
-            SizedBox(height: 250),
-            Container(
-              width: 335,
-              height: 46,
-              child: ElevatedButton(
-                onPressed: () {
-                  // Xử lý khi nút được nhấp vào
-                  Navigator.pushNamed(context, AppRoutes.booking_date);
-                },
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: Color(0xFF4552CB),
-                  foregroundColor: Colors.white,
-                ),
-                child: Text(
-                  'Thêm lịch trình',
-                  style: TextStyle(
-                    fontWeight: FontWeight.bold, // In đậm chữ
-                    fontSize: 16, // Phóng to kích thước chữ
-                  ),
-                ),
-              ),
-            ),
           ],
         ),
       ),
