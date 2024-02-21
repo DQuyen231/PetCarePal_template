@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:petcarepal/config/app_routes.dart';
 import 'package:petcarepal/config/bottom_navigation.dart';
 import 'package:petcarepal/screens/pet_shop/components/custom_tab_bar.dart';
 import 'package:petcarepal/screens/pet_shop/components/search_bar.dart';
 import 'package:petcarepal/screens/pet_shop/components/tab_content.dart';
+import 'package:petcarepal/screens/pet_shop/services/pet_shop_api.dart';
 
 class PetShop extends StatefulWidget {
   @override
@@ -10,6 +12,11 @@ class PetShop extends StatefulWidget {
 }
 
 class _PetShopState extends State<PetShop> {
+  @override
+  void initState() {
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     int currentIndex = 2;
@@ -32,7 +39,7 @@ class _PetShopState extends State<PetShop> {
             IconButton(
               icon: Icon(Icons.shopping_cart),
               onPressed: () {
-                // Xử lý khi người dùng nhấp vào biểu tượng giỏ hàng
+                Navigator.pushNamed(context, AppRoutes.cart);
               },
             ),
           ],
