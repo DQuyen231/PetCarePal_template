@@ -33,7 +33,7 @@ class PaymentSuccessPage extends StatelessWidget {
               SizedBox(height: 70),
               OutlinedButton(
                 onPressed: () {
-                  Navigator.pushNamed(context, AppRoutes.account);
+                  Navigator.pushNamed(context, AppRoutes.shop);
                 },
                 style: OutlinedButton.styleFrom(
                   side: BorderSide(color: Colors.white),
