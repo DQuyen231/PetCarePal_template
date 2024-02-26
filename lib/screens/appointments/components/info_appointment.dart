@@ -29,7 +29,7 @@ Future<List<Appointments>> fetchAppointments() async {
   }
 }
 
-Future<void> deleteAppointment(int thuocId) async {
+Future<void> deleteMedicationAppointment(int thuocId) async {
   final http.Response response = await http.delete(
     Uri.parse('https://54.206.249.179/api/Lich/thuoc/$thuocId'),
     headers: <String, String>{
@@ -40,6 +40,48 @@ Future<void> deleteAppointment(int thuocId) async {
     print('Appointment deleted successfully');
   } else {
     throw Exception('Failed to delete appointment with id: $thuocId');
+  }
+}
+
+Future<void> deleteVaccinationAppointment(int tiemChungId) async {
+  final http.Response response = await http.delete(
+    Uri.parse('https://54.206.249.179/api/Lich/tiemChung/$tiemChungId'),
+    headers: <String, String>{
+      'Content-Type': 'application/json; charset=UTF-8',
+    },
+  );
+  if (response.statusCode == 200) {
+    print('Appointment deleted successfully');
+  } else {
+    throw Exception('Failed to delete appointment with id: $tiemChungId');
+  }
+}
+
+Future<void> deleteMealAppointment(int buaAnId) async {
+  final http.Response response = await http.delete(
+    Uri.parse('https://54.206.249.179/api/Lich/buaAn/$buaAnId'),
+    headers: <String, String>{
+      'Content-Type': 'application/json; charset=UTF-8',
+    },
+  );
+  if (response.statusCode == 200) {
+    print('Appointment deleted successfully');
+  } else {
+    throw Exception('Failed to delete appointment with id: $buaAnId');
+  }
+}
+
+Future<void> deleteSizeAppointment(int doKichThuocId) async {
+  final http.Response response = await http.delete(
+    Uri.parse('https://54.206.249.179/api/Lich/doKichThuoc/$doKichThuocId'),
+    headers: <String, String>{
+      'Content-Type': 'application/json; charset=UTF-8',
+    },
+  );
+  if (response.statusCode == 200) {
+    print('Appointment deleted successfully');
+  } else {
+    throw Exception('Failed to delete appointment with id: $doKichThuocId');
   }
 }
 
@@ -122,6 +164,10 @@ class Appointments {
   Thuoc? thuoc;
   int? tiemChungId;
   TiemChung? tiemChung;
+  int? buaAnId;
+  BuaAn? buaAn;
+  int? doKichThuocId;
+  DoKichThuoc? doKichThuoc;
 
   Appointments({
     required this.id,
@@ -132,6 +178,10 @@ class Appointments {
     this.thuoc,
     this.tiemChungId,
     this.tiemChung,
+    this.buaAnId,
+    this.buaAn,
+    this.doKichThuocId,
+    this.doKichThuoc,
   });
 
   factory Appointments.fromJson(dynamic json) {
@@ -147,6 +197,12 @@ class Appointments {
         tiemChung: json["TiemChung"] == null
             ? null
             : TiemChung.fromJson(json["TiemChung"]),
+        buaAnId: json["BuaAnId"],
+        buaAn: json["BuaAn"] == null ? null : BuaAn.fromJson(json["BuaAn"]),
+        doKichThuocId: json["DoKichThuocId"],
+        doKichThuoc: json["DoKichThuoc"] == null
+            ? null
+            : DoKichThuoc.fromJson(json["DoKichThuoc"]),
       );
     } else if (json is List<dynamic>) {
       return Appointments(
@@ -165,6 +221,10 @@ class Appointments {
         "Thuoc": thuoc?.toJson(),
         "TiemChungId": tiemChungId,
         "TiemChung": tiemChung?.toJson(),
+        "BuaAnId": buaAnId,
+        "BuaAn": buaAn?.toJson(),
+        "DoKichThuocId": doKichThuocId,
+        "DoKichThuoc": doKichThuoc?.toJson(),
       };
 }
 
@@ -236,6 +296,70 @@ class TiemChung {
       };
 }
 
+class BuaAn {
+  int id;
+  String name;
+  String loai;
+  String cachDung;
+  DateTime ngayBatDau;
+  DateTime ngayKetThuc;
+
+  BuaAn({
+    required this.id,
+    required this.name,
+    required this.loai,
+    required this.cachDung,
+    required this.ngayBatDau,
+    required this.ngayKetThuc,
+  });
+
+  factory BuaAn.fromJson(Map<String, dynamic> json) => BuaAn(
+        id: json["id"],
+        name: json["name"],
+        loai: json["loai"],
+        cachDung: json["cachDung"],
+        ngayBatDau: DateTime.parse(json["ngayBatDau"]),
+        ngayKetThuc: DateTime.parse(json["ngayKetThuc"]),
+      );
+
+  Map<String, dynamic> toJson() => {
+        "id": id,
+        "name": name,
+        "loai": loai,
+        "cachDung": cachDung,
+        "ngayBatDau": ngayBatDau.toIso8601String(),
+        "ngayKetThuc": ngayKetThuc.toIso8601String(),
+      };
+}
+
+class DoKichThuoc {
+  int id;
+  int chieuCao;
+  int canNang;
+  DateTime thoiGianDo;
+
+  DoKichThuoc({
+    required this.id,
+    required this.chieuCao,
+    required this.canNang,
+    required this.thoiGianDo,
+  });
+
+  factory DoKichThuoc.fromJson(Map<String, dynamic> json) => DoKichThuoc(
+        id: json["id"],
+        chieuCao: json["chieuCao"],
+        canNang: json["canNang"],
+        thoiGianDo: DateTime.parse(json["thoiGianDo"]),
+      );
+
+  Map<String, dynamic> toJson() => {
+        "id": id,
+        "chieuCao": chieuCao,
+        "canNang": canNang,
+        "thoiGianDo": thoiGianDo.toIso8601String(),
+      };
+}
+
 class _InfoAppointmentState extends State<InfoAppointment> {
   late Future<List<Appointments>> futureAppointments;
 
@@ -273,6 +397,18 @@ class _InfoAppointmentState extends State<InfoAppointment> {
                         appointment.tiemChung!,
                         'Tiêm chủng',
                       );
+                    } else if (appointment.buaAn != null) {
+                      return _buildListItem(
+                        context,
+                        appointment.buaAn!,
+                        'Bữa ăn',
+                      );
+                    } else if (appointment.doKichThuoc != null) {
+                      return _buildListItem(
+                        context,
+                        appointment.doKichThuoc!,
+                        'Kích thước',
+                      );
                     }
                     return SizedBox();
                   },
@@ -308,6 +444,12 @@ class _InfoAppointmentState extends State<InfoAppointment> {
     } else if (type == 'Tiêm chủng') {
       final tiemChung = appointment as TiemChung;
       return _buildVaccinationAppointment(context, tiemChung);
+    } else if (type == 'Bữa ăn') {
+      final buaAn = appointment as BuaAn;
+      return _buildMealAppointment(context, buaAn);
+    } else if (type == 'Kích thước') {
+      final doKichThuoc = appointment as DoKichThuoc;
+      return _buildSizeAppointment(context, doKichThuoc);
     }
     return SizedBox();
   }
@@ -369,7 +511,7 @@ class _InfoAppointmentState extends State<InfoAppointment> {
                 child: ElevatedButton(
                   onPressed: () async {
                     try {
-                      await deleteAppointment(thuoc.id);
+                      await deleteMedicationAppointment(thuoc.id);
                       setState(() {
                         futureAppointments = fetchAppointments();
                       });
@@ -469,7 +611,16 @@ class _InfoAppointmentState extends State<InfoAppointment> {
                 width: 153.2,
                 height: 34,
                 child: ElevatedButton(
-                  onPressed: () {},
+                  onPressed: () async {
+                    try {
+                      await deleteVaccinationAppointment(tiemChung.id);
+                      setState(() {
+                        futureAppointments = fetchAppointments();
+                      });
+                    } catch (e) {
+                      print('Error deleting appointment: $e');
+                    }
+                  },
                   style: ElevatedButton.styleFrom(
                     backgroundColor: const Color.fromRGBO(240, 240, 248, 1),
                     foregroundColor: const Color.fromARGB(255, 0, 0, 0),
@@ -489,6 +640,211 @@ class _InfoAppointmentState extends State<InfoAppointment> {
                 height: 34,
                 child: ElevatedButton(
                   onPressed: () {},
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: const Color(0xFF4552CB),
+                    foregroundColor: Colors.white,
+                  ),
+                  child: const Text(
+                    'Chỉnh sửa',
+                    style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 16,
+                    ),
+                  ),
+                ),
+              ),
+            ],
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildMealAppointment(BuildContext context, BuaAn buaAn) {
+    return Container(
+      decoration: BoxDecoration(
+        color: Colors.white,
+        borderRadius: BorderRadius.circular(14),
+        boxShadow: [
+          BoxShadow(
+            color: Color(0x0A2E1E7A),
+            blurRadius: 12,
+            offset: Offset(5, 3),
+            spreadRadius: 0,
+          ),
+        ],
+      ),
+      margin: EdgeInsets.symmetric(vertical: 10, horizontal: 20),
+      padding: EdgeInsets.symmetric(vertical: 15, horizontal: 25),
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Row(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              CircleAvatarWidget(),
+              const SizedBox(width: 20),
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(buaAn.name),
+                  Text('Loại lịch: Bữa ăn'),
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text('Loại thức ăn: ${buaAn.loai}'),
+                      Text('Cách dùng: ${buaAn.cachDung}'),
+                      Text(
+                          'Ngày bắt đầu: ${DateFormat('dd/MM/yyyy').format(buaAn.ngayBatDau)}'),
+                      Text(
+                          'Ngày kết thúc: ${DateFormat('dd/MM/yyyy').format(buaAn.ngayKetThuc)}'),
+                    ],
+                  ),
+                ],
+              ),
+            ],
+          ),
+          const SizedBox(height: 15),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: [
+              SizedBox(
+                width: 153.2,
+                height: 34,
+                child: ElevatedButton(
+                  onPressed: () async {
+                    try {
+                      await deleteMealAppointment(buaAn.id);
+                      setState(() {
+                        futureAppointments = fetchAppointments();
+                      });
+                    } catch (e) {
+                      print('Error deleting appointment: $e');
+                    }
+                  },
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: const Color.fromRGBO(240, 240, 248, 1),
+                    foregroundColor: const Color.fromARGB(255, 0, 0, 0),
+                  ),
+                  child: const Text(
+                    'Xóa',
+                    style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 16,
+                    ),
+                  ),
+                ),
+              ),
+              const SizedBox(width: 15),
+              SizedBox(
+                width: 153.2,
+                height: 34,
+                child: ElevatedButton(
+                  onPressed: () {
+                    // _navigateToEditMedicationScreen(context, buaAn);
+                  },
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: const Color(0xFF4552CB),
+                    foregroundColor: Colors.white,
+                  ),
+                  child: const Text(
+                    'Chỉnh sửa',
+                    style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 16,
+                    ),
+                  ),
+                ),
+              ),
+            ],
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildSizeAppointment(BuildContext context, DoKichThuoc doKichThuoc) {
+    return Container(
+      decoration: BoxDecoration(
+        color: Colors.white,
+        borderRadius: BorderRadius.circular(14),
+        boxShadow: [
+          BoxShadow(
+            color: Color(0x0A2E1E7A),
+            blurRadius: 12,
+            offset: Offset(5, 3),
+            spreadRadius: 0,
+          ),
+        ],
+      ),
+      margin: EdgeInsets.symmetric(vertical: 10, horizontal: 20),
+      padding: EdgeInsets.symmetric(vertical: 15, horizontal: 25),
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Row(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              CircleAvatarWidget(),
+              const SizedBox(width: 20),
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text('Loại lịch: Đo kích thước'),
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text('Chiều cao: ${doKichThuoc.chieuCao}'),
+                      Text('Cân nặng: ${doKichThuoc.canNang}'),
+                      Text(
+                          'Thời gian đo: ${DateFormat('dd/MM/yyyy').format(doKichThuoc.thoiGianDo)}'),
+                    ],
+                  ),
+                ],
+              ),
+            ],
+          ),
+          const SizedBox(height: 15),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: [
+              SizedBox(
+                width: 153.2,
+                height: 34,
+                child: ElevatedButton(
+                  onPressed: () async {
+                    try {
+                      await deleteSizeAppointment(doKichThuoc.id);
+                      setState(() {
+                        futureAppointments = fetchAppointments();
+                      });
+                    } catch (e) {
+                      print('Error deleting appointment: $e');
+                    }
+                  },
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: const Color.fromRGBO(240, 240, 248, 1),
+                    foregroundColor: const Color.fromARGB(255, 0, 0, 0),
+                  ),
+                  child: const Text(
+                    'Xóa',
+                    style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 16,
+                    ),
+                  ),
+                ),
+              ),
+              const SizedBox(width: 15),
+              SizedBox(
+                width: 153.2,
+                height: 34,
+                child: ElevatedButton(
+                  onPressed: () {
+                    // _navigateToEditMedicationScreen(context, buaAn);
+                  },
                   style: ElevatedButton.styleFrom(
                     backgroundColor: const Color(0xFF4552CB),
                     foregroundColor: Colors.white,
