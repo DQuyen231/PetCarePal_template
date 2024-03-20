@@ -140,20 +140,31 @@ class _InfoAppointmentState extends State<InfoAppointment> {
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(thuoc.ten),
-                  Text('Loại lịch: Thuốc'),
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                          'Số lần uống trong ngày: ${thuoc.soLanUongTrongNgay}'),
-                      Text('Số viên uống: ${thuoc.soVienUong}'),
-                      Text('Thời gian sử dụng: ${thuoc.thoiGianSuDung}'),
-                      Text(
-                          'Ngày bắt đầu: ${DateFormat('dd/MM/yyyy').format(thuoc.ngayBatDau)}'),
-                      Text(
-                          'Ngày kết thúc: ${DateFormat('dd/MM/yyyy').format(thuoc.ngayKetThuc)}'),
-                    ],
+                  Text(thuoc.ten,
+                      style:
+                          TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
+                  Text('Loại lịch: Thuốc',
+                      style: TextStyle(fontSize: 14, color: Colors.grey)),
+                  SizedBox(height: 5),
+                  ClipRRect(
+                    borderRadius: BorderRadius.circular(10), // Bo góc
+                    child: Container(
+                      color: Colors.grey.shade200, // Màu xám nhạt
+                      padding: EdgeInsets.all(8), // Khoảng cách nội dung
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                              'Số lần uống trong ngày: ${thuoc.soLanUongTrongNgay}'),
+                          Text('Số viên uống: ${thuoc.soVienUong}'),
+                          Text('Thời gian sử dụng: ${thuoc.thoiGianSuDung}'),
+                          Text(
+                              'Ngày bắt đầu: ${DateFormat('dd/MM/yyyy').format(thuoc.ngayBatDau)}'),
+                          Text(
+                              'Ngày kết thúc: ${DateFormat('dd/MM/yyyy').format(thuoc.ngayKetThuc)}'),
+                        ],
+                      ),
+                    ),
                   ),
                 ],
               ),
@@ -247,15 +258,27 @@ class _InfoAppointmentState extends State<InfoAppointment> {
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(tiemChung.mucDich),
-                  Text('Loại lịch: Tiêm chủng'),
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text('Phòng khám: ${tiemChung.phongKham}'),
-                      Text(
-                          'Ngày khám: ${DateFormat('dd/MM/yyyy').format(tiemChung.ngayKham)}'),
-                    ],
+                  Text(tiemChung.mucDich,
+                      style:
+                          TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
+                  Text('Loại lịch: Tiêm chủng',
+                      style: TextStyle(fontSize: 14, color: Colors.grey)),
+                  SizedBox(height: 5),
+                  ClipRRect(
+                    borderRadius: BorderRadius.circular(10), // Bo góc
+                    child: Container(
+                      color: Colors.grey.shade200, // Màu xám nhạt
+                      padding: EdgeInsets.all(8), // Khoảng cách nội dung
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text('Phòng khám: ${tiemChung.phongKham}'),
+                          Text(
+                            'Ngày khám: ${DateFormat('dd/MM/yyyy').format(tiemChung.ngayKham)}',
+                          ),
+                        ],
+                      ),
+                    ),
                   ),
                 ],
               ),
@@ -348,18 +371,29 @@ class _InfoAppointmentState extends State<InfoAppointment> {
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(buaAn.name),
-                  Text('Loại lịch: Bữa ăn'),
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text('Loại thức ăn: ${buaAn.loai}'),
-                      Text('Cách dùng: ${buaAn.cachDung}'),
-                      Text(
-                          'Ngày bắt đầu: ${DateFormat('dd/MM/yyyy').format(buaAn.ngayBatDau)}'),
-                      Text(
-                          'Ngày kết thúc: ${DateFormat('dd/MM/yyyy').format(buaAn.ngayKetThuc)}'),
-                    ],
+                  Text(buaAn.name,
+                      style:
+                          TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
+                  Text('Loại lịch: Bữa ăn',
+                      style: TextStyle(fontSize: 14, color: Colors.grey)),
+                  SizedBox(height: 5),
+                  ClipRRect(
+                    borderRadius: BorderRadius.circular(10), // Bo góc
+                    child: Container(
+                      color: Colors.grey.shade200, // Màu xám nhạt
+                      padding: EdgeInsets.all(8), // Khoảng cách nội dung
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text('Loại thức ăn: ${buaAn.loai}'),
+                          Text('Cách dùng: ${buaAn.cachDung}'),
+                          Text(
+                              'Ngày bắt đầu: ${DateFormat('dd/MM/yyyy').format(buaAn.ngayBatDau)}'),
+                          Text(
+                              'Ngày kết thúc: ${DateFormat('dd/MM/yyyy').format(buaAn.ngayKetThuc)}'),
+                        ],
+                      ),
+                    ),
                   ),
                 ],
               ),
@@ -452,15 +486,27 @@ class _InfoAppointmentState extends State<InfoAppointment> {
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text('Loại lịch: Đo kích thước'),
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text('Chiều cao: ${doKichThuoc.chieuCao}'),
-                      Text('Cân nặng: ${doKichThuoc.canNang}'),
-                      Text(
-                          'Thời gian đo: ${DateFormat('dd/MM/yyyy').format(doKichThuoc.thoiGianDo)}'),
-                    ],
+                  Text('Đo kích thước',
+                      style:
+                          TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
+                  Text('Loại lịch: Đo kích thước',
+                      style: TextStyle(fontSize: 14, color: Colors.grey)),
+                  SizedBox(height: 5),
+                  ClipRRect(
+                    borderRadius: BorderRadius.circular(10), // Bo góc
+                    child: Container(
+                      color: Colors.grey.shade200, // Màu xám nhạt
+                      padding: EdgeInsets.all(8), // Khoảng cách nội dung
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text('Chiều cao: ${doKichThuoc.chieuCao}'),
+                          Text('Cân nặng: ${doKichThuoc.canNang}'),
+                          Text(
+                              'Thời gian đo: ${DateFormat('dd/MM/yyyy').format(doKichThuoc.thoiGianDo)}'),
+                        ],
+                      ),
+                    ),
                   ),
                 ],
               ),

@@ -29,7 +29,7 @@ class _PetContainerState extends State<PetContainer> {
               child: Container(
                 margin: EdgeInsets.only(top: 0),
                 child: Image(
-                  image: AssetImage('assets/images/default_image.jpg'),
+                  image: AssetImage('assets/images/avatar.png'),
                   width: 100,
                   height: 100,
                   fit: BoxFit
