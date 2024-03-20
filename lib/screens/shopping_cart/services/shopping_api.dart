@@ -30,6 +30,17 @@ class ShoppingApi {
       print(e.toString());
     }
   }
+
+  Future<void> updateCart(id, quantity) async {
+    final url =
+        'https://54.206.249.179/api/SPGioHang/${id}?so_luong=${quantity}';
+    try {
+      final response = await _dio.put(url);
+      print(response);
+    } catch (e) {
+      print(e.toString());
+    }
+  }
 }
 
 Future<int?> _getUserIdFromLocalStorage() async {

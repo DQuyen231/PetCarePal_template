@@ -1,13 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:petcarepal/config/app_routes.dart';
 import 'package:petcarepal/config/bottom_navigation.dart';
+import 'package:petcarepal/screens/admin_dashboard/manage_orders.dart';
 import 'package:petcarepal/screens/booking_form/skin_form.dart';
 import 'package:petcarepal/screens/booking_form/neutri_form.dart';
 import 'package:petcarepal/screens/booking_form/medicine_form.dart';
 import 'package:petcarepal/constants/constants.dart';
 import 'package:petcarepal/screens/booking_type/booking_type.dart';
 import 'package:petcarepal/screens/calendar/calendar.dart';
+import 'package:petcarepal/screens/dashboard/dashboard.dart';
 import 'package:petcarepal/screens/home/home.dart';
+import 'package:petcarepal/screens/payment_test/payment.dart';
 import 'package:petcarepal/screens/personal_pet/components/add_pet.dart';
 import 'package:petcarepal/screens/personal_pet/my_pet.dart';
 import 'package:petcarepal/screens/pet_profile/pet_profile.dart';
@@ -60,7 +63,8 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       // initialRoute: AppRoutes.cart,
       routes: AppRoutes.getRoutes(),
-      home: HomeScreen(),
+
+      home: ManageOrder(),
     );
   }
 }
