@@ -133,7 +133,7 @@ class PremiumPage extends StatelessWidget {
                       primary: button2BackgroundColor,
                     ),
                     child: Text(
-                      '+ Mua 120.000đ',
+                      '+ Mua 60.000đ',
                       style: TextStyle(
                         color: Colors.white,
                         fontWeight: FontWeight.bold,
