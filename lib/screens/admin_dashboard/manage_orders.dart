@@ -23,57 +23,39 @@ class _ManageOrderState extends State<ManageOrder> {
     // Replace this with actual API call
     List<Order> fetchedOrders = [
       Order(
-        price: '\$50',
+        orderId: 'ưehuifkyriughf84',
+        userName: 'Hà Nữ Như Quỳnh',
+        phoneNumber: '058-203-1930',
+        address: '197/42/26 TL.15, P.Thạnh Lộc, Q.12, TP.HCM',
+        productName: 'Cát mèo Katz Comfort',
+        quantity: '1',
+        price: '80.000đ',
         date: '2024-03-20',
-        paymentMethod: 'Cash on Delivery',
+        paymentMethod: 'Internet Banking',
         status: 'Pending',
       ),
       Order(
-        price: '\$100',
-        date: '2024-03-19',
-        paymentMethod: 'PayPal',
-        status: 'Delivered',
-      ),
-      Order(
-        price: '\$75',
-        date: '2024-03-18',
-        paymentMethod: 'Cash on Delivery',
+        orderId: 'gycgw734hgiw',
+        userName: 'Nguyễn Thị Mai Hương',
+        phoneNumber: '081-221-1227',
+        address: '320/43 Đoàn Văn Bơ, P.10, Q.4, TP.HCM',
+        productName: 'Phô mai viên Smart Heart Cheddar Cube gói 50g',
+        quantity: '2',
+        price: '66.000đ',
+        date: '2024-03-20',
+        paymentMethod: 'Internet Banking',
         status: 'Pending',
       ),
       Order(
-        price: '\$80',
-        date: '2024-03-05',
-        paymentMethod: 'PayPal',
-        status: 'Pending',
-      ),
-      Order(
-        price: '\$72',
-        date: '2024-02-20',
-        paymentMethod: 'Cash on Delivery',
-        status: 'Pending',
-      ),
-      Order(
-        price: '\$60',
-        date: '2024-02-18',
-        paymentMethod: 'Cash on Delivery',
-        status: 'Pending',
-      ),
-      Order(
-        price: '\$80',
-        date: '2024-03-10',
-        paymentMethod: 'Paypal',
-        status: 'Pending',
-      ),
-      Order(
-        price: '\$30',
-        date: '2024-02-16',
-        paymentMethod: 'Cash on Delivery',
-        status: 'Pending',
-      ),
-      Order(
-        price: '\$90',
-        date: '2024-03-14',
-        paymentMethod: 'Cash on Delivery',
+        orderId: 'hjeg358fg349fn',
+        userName: 'Nguyễn Thái Bảo Thi',
+        phoneNumber: '083-355-3738',
+        address: '403 Nơ Trang Long, P.10, Q.Bình Thạnh, TP.HCM',
+        productName: 'Cát đậu phụ Cute Tabby',
+        quantity: '1',
+        price: '85.000đ',
+        date: '2024-03-20',
+        paymentMethod: 'Internet Banking',
         status: 'Pending',
       ),
     ];
@@ -98,14 +80,98 @@ class _ManageOrderState extends State<ManageOrder> {
             itemCount: orders.length,
             itemBuilder: (BuildContext context, int index) {
               return Card(
+                elevation: 4, // Độ nổi bật của card
+                margin: EdgeInsets.symmetric(
+                    vertical: 8, horizontal: 16), // Khoảng cách giữa các card
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(12), // Bo góc card
+                ),
                 child: ListTile(
-                  title: Text('Price: ${orders[index].price}'),
+                  contentPadding: EdgeInsets.all(
+                      16), // Khoảng cách từ biên của card đến nội dung bên trong
+                  title: Text(
+                    'Mã đơn hàng: ${orders[index].orderId}',
+                    style: TextStyle(
+                      fontWeight: FontWeight.bold, // Chữ in đậm
+                      fontSize: 18, // Kích cỡ chữ
+                    ),
+                  ),
                   subtitle: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text('Date: ${orders[index].date}'),
-                      Text('Payment Method: ${orders[index].paymentMethod}'),
-                      Text('Status: ${orders[index].status}'),
+                      SizedBox(height: 8), // Khoảng cách giữa các dòng
+                      Text(
+                        'Tên khách hàng: ${orders[index].userName}',
+                        style: TextStyle(
+                          fontWeight: FontWeight.bold, // Chữ in đậm
+                          fontSize: 16, // Kích cỡ chữ
+                        ), // Kích cỡ chữ
+                      ),
+                      SizedBox(height: 4),
+                      Text(
+                        'Địa chỉ giao hàng: ${orders[index].address}',
+                        style: TextStyle(fontSize: 14),
+                      ),
+                      SizedBox(height: 4),
+                      Text(
+                        'Số điện thoại: ${orders[index].phoneNumber}',
+                        style: TextStyle(fontSize: 14),
+                      ),
+                      SizedBox(height: 20),
+                      Text(
+                        'Tên sản phẩm: ${orders[index].productName}',
+                        style: TextStyle(
+                          fontWeight: FontWeight.bold, // Chữ in đậm
+                          fontSize: 16, // Kích cỡ chữ
+                        ),
+                      ),
+                      SizedBox(height: 4),
+                      Text(
+                        'Số lượng: ${orders[index].quantity}',
+                        style: TextStyle(fontSize: 14),
+                      ),
+                      SizedBox(height: 4),
+                      Text(
+                        'Giá tiền: ${orders[index].price}',
+                        style: TextStyle(fontSize: 14),
+                      ),
+                      SizedBox(height: 4),
+                      Text(
+                        'Ngày đặt: ${orders[index].date}',
+                        style: TextStyle(fontSize: 14),
+                      ),
+                      SizedBox(height: 4),
+                      Text(
+                        'Phương thức thanh toán: ${orders[index].paymentMethod}',
+                        style: TextStyle(fontSize: 14),
+                      ),
+                      SizedBox(height: 20),
+                      Row(
+                        children: [
+                          Text(
+                            'Trang thái: ',
+                            style: TextStyle(
+                              fontSize: 14,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                          // Thêm biểu tượng hoặc màu sắc cho trạng thái để làm nổi bật
+                          orders[index].status == 'Delivered'
+                              ? Icon(Icons.check_circle, color: Colors.green)
+                              : Icon(Icons.error, color: Colors.red),
+                          SizedBox(width: 4),
+                          Text(
+                            '${orders[index].status}',
+                            style: TextStyle(
+                              fontSize: 14,
+                              fontWeight: FontWeight.bold,
+                              color: orders[index].status == 'Delivered'
+                                  ? Colors.green
+                                  : Colors.red,
+                            ),
+                          ),
+                        ],
+                      ),
                     ],
                   ),
                 ),

@@ -20,7 +20,21 @@ class _DoneTabState extends State<DoneTab> {
   @override
   void initState() {
     super.initState();
-    futureAppointments = fetchCompletedAppointments();
+    _initializeAppointments();
+  }
+
+  Future<void> _initializeAppointments() async {
+    try {
+      final userId = await getUserIDFromLocalStorage();
+      setState(() {
+        futureAppointments = fetchCompletedAppointments(userId);
+      });
+    } catch (error) {
+      print('Error initializing appointments: $error');
+      setState(() {
+        futureAppointments = Future.error(error);
+      });
+    }
   }
 
   @override

@@ -16,6 +16,7 @@ import 'package:petcarepal/screens/signin/signin.dart';
 import 'package:petcarepal/screens/splash/splash.dart';
 import 'package:petcarepal/screens/successpay/successpay.dart';
 import 'package:petcarepal/screens/user_profile/profile.dart';
+import 'package:petcarepal/screens/user_order_history/user_order_history.dart';
 
 class AppRoutes {
   static const String splash = '/splash';
@@ -36,6 +37,7 @@ class AppRoutes {
   static const String skinform = '/skinform';
   static const String mediform = '/mediform';
   static const String appointments = '/appointments';
+  static const String user_order_history = '/user_order_history';
 
   static Map<String, WidgetBuilder> getRoutes() {
     return {
@@ -57,6 +59,7 @@ class AppRoutes {
       skinform: (context) => SkinForm(),
       mediform: (context) => MedicineForm(),
       appointments: (context) => UpcomingAppointmentsPage(),
+      user_order_history: (context) => UserOrderHistory(),
     };
   }
 }

@@ -11,19 +11,33 @@ import 'package:petcarepal/screens/appointments/service/appointment_data.dart';
 import 'package:petcarepal/screens/appointments/components/edit_medication.dart';
 
 class InfoAppointment extends StatefulWidget {
-  const InfoAppointment({Key? key}) : super(key: key);
+  const InfoAppointment({super.key});
 
   @override
   State<InfoAppointment> createState() => _InfoAppointmentState();
 }
 
 class _InfoAppointmentState extends State<InfoAppointment> {
-  late Future<List<Appointments>> futureAppointments;
+  Future<List<Appointments>>? futureAppointments;
 
   @override
   void initState() {
     super.initState();
-    futureAppointments = fetchUncompletedAppointments();
+    _initializeAppointments();
+  }
+
+  Future<void> _initializeAppointments() async {
+    try {
+      final userId = await getUserIDFromLocalStorage();
+      setState(() {
+        futureAppointments = fetchUncompletedAppointments(userId);
+      });
+    } catch (error) {
+      print('Error initializing appointments: $error');
+      setState(() {
+        futureAppointments = Future.error(error);
+      });
+    }
   }
 
   @override
@@ -181,8 +195,10 @@ class _InfoAppointmentState extends State<InfoAppointment> {
                   onPressed: () async {
                     try {
                       await deleteMedicationAppointment(thuoc.id);
+                      final userId = await getUserIDFromLocalStorage();
                       setState(() {
-                        futureAppointments = fetchUncompletedAppointments();
+                        futureAppointments =
+                            fetchUncompletedAppointments(userId);
                       });
                     } catch (e) {
                       print('Error deleting appointment: $e');
@@ -295,8 +311,10 @@ class _InfoAppointmentState extends State<InfoAppointment> {
                   onPressed: () async {
                     try {
                       await deleteVaccinationAppointment(tiemChung.id);
+                      final userId = await getUserIDFromLocalStorage();
                       setState(() {
-                        futureAppointments = fetchUncompletedAppointments();
+                        futureAppointments =
+                            fetchUncompletedAppointments(userId);
                       });
                     } catch (e) {
                       print('Error deleting appointment: $e');
@@ -410,8 +428,10 @@ class _InfoAppointmentState extends State<InfoAppointment> {
                   onPressed: () async {
                     try {
                       await deleteMealAppointment(buaAn.id);
+                      final userId = await getUserIDFromLocalStorage();
                       setState(() {
-                        futureAppointments = fetchUncompletedAppointments();
+                        futureAppointments =
+                            fetchUncompletedAppointments(userId);
                       });
                     } catch (e) {
                       print('Error deleting appointment: $e');
@@ -523,8 +543,10 @@ class _InfoAppointmentState extends State<InfoAppointment> {
                   onPressed: () async {
                     try {
                       await deleteSizeAppointment(doKichThuoc.id);
+                      final userId = await getUserIDFromLocalStorage();
                       setState(() {
-                        futureAppointments = fetchUncompletedAppointments();
+                        futureAppointments =
+                            fetchUncompletedAppointments(userId);
                       });
                     } catch (e) {
                       print('Error deleting appointment: $e');
@@ -591,8 +613,9 @@ class _InfoAppointmentState extends State<InfoAppointment> {
           updatedMedication['ngayBatDau'],
           updatedMedication['ngayKetThuc'],
         );
+        final userId = await getUserIDFromLocalStorage();
         setState(() {
-          futureAppointments = fetchUncompletedAppointments();
+          futureAppointments = fetchUncompletedAppointments(userId);
         });
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
@@ -627,8 +650,9 @@ class _InfoAppointmentState extends State<InfoAppointment> {
           updatedVaccination['phongKham'],
           updatedVaccination['ngayKham'],
         );
+        final userId = await getUserIDFromLocalStorage();
         setState(() {
-          futureAppointments = fetchUncompletedAppointments();
+          futureAppointments = fetchUncompletedAppointments(userId);
         });
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
@@ -664,8 +688,9 @@ class _InfoAppointmentState extends State<InfoAppointment> {
           updatedMeal['ngayBatDau'],
           updatedMeal['ngayKetThuc'],
         );
+        final userId = await getUserIDFromLocalStorage();
         setState(() {
-          futureAppointments = fetchUncompletedAppointments();
+          futureAppointments = fetchUncompletedAppointments(userId);
         });
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
@@ -700,8 +725,9 @@ class _InfoAppointmentState extends State<InfoAppointment> {
           updatedSize['canNang'],
           updatedSize['thoiGianDo'],
         );
+        final userId = await getUserIDFromLocalStorage();
         setState(() {
-          futureAppointments = fetchUncompletedAppointments();
+          futureAppointments = fetchUncompletedAppointments(userId);
         });
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
