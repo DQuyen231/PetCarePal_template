@@ -1,25 +1,43 @@
 class Order {
-  final String orderId;
-  final String userName;
-  final String address;
-  final String phoneNumber;
-  final String productName;
-  final String quantity;
-  final String price;
-  final String date;
-  final String paymentMethod;
-  final String status;
+  int id;
+  int userId;
+  String phuongThucThanhToan;
+  String diaChi;
+  double tongSoTien;
+  dynamic noiDung;
+  bool trangThai;
+  DateTime ngayOrder;
 
   Order({
-    required this.orderId,
-    required this.userName,
-    required this.address,
-    required this.phoneNumber,
-    required this.productName,
-    required this.quantity,
-    required this.price,
-    required this.date,
-    required this.paymentMethod,
-    required this.status,
+    required this.id,
+    required this.userId,
+    required this.phuongThucThanhToan,
+    required this.diaChi,
+    required this.tongSoTien,
+    required this.noiDung,
+    required this.trangThai,
+    required this.ngayOrder,
   });
+
+  factory Order.fromJson(Map<String, dynamic> json) => Order(
+        id: json["id"],
+        userId: json["userId"],
+        phuongThucThanhToan: json["phuongThucThanhToan"],
+        diaChi: json["diaChi"],
+        tongSoTien: json["tongSoTien"]?.toDouble(),
+        noiDung: json["noiDung"],
+        trangThai: json["trangThai"],
+        ngayOrder: DateTime.parse(json["ngayOrder"]),
+      );
+
+  Map<String, dynamic> toJson() => {
+        "id": id,
+        "userId": userId,
+        "phuongThucThanhToan": phuongThucThanhToan,
+        "diaChi": diaChi,
+        "tongSoTien": tongSoTien,
+        "noiDung": noiDung,
+        "trangThai": trangThai,
+        "ngayOrder": ngayOrder.toIso8601String(),
+      };
 }
