@@ -1,15 +1,3 @@
-// appointment_info_widget.dart
-import 'dart:convert';
-import 'package:flutter/material.dart';
-import 'package:http/http.dart' as http;
-
-class AppointmentInfoWidget extends StatefulWidget {
-  const AppointmentInfoWidget({super.key});
-
-  @override
-  State<AppointmentInfoWidget> createState() => _AppointmentInfoWidgetState();
-}
-
 class Appointments {
   int id;
   int thuCungId;
@@ -19,6 +7,10 @@ class Appointments {
   Thuoc? thuoc;
   int? tiemChungId;
   TiemChung? tiemChung;
+  int? buaAnId;
+  BuaAn? buaAn;
+  int? doKichThuocId;
+  DoKichThuoc? doKichThuoc;
 
   Appointments({
     required this.id,
@@ -29,11 +21,14 @@ class Appointments {
     this.thuoc,
     this.tiemChungId,
     this.tiemChung,
+    this.buaAnId,
+    this.buaAn,
+    this.doKichThuocId,
+    this.doKichThuoc,
   });
 
   factory Appointments.fromJson(dynamic json) {
     if (json is Map<String, dynamic>) {
-      // Handle a single appointment
       return Appointments(
         id: json["Id"],
         thuCungId: json["ThuCungId"],
@@ -45,9 +40,14 @@ class Appointments {
         tiemChung: json["TiemChung"] == null
             ? null
             : TiemChung.fromJson(json["TiemChung"]),
+        buaAnId: json["BuaAnId"],
+        buaAn: json["BuaAn"] == null ? null : BuaAn.fromJson(json["BuaAn"]),
+        doKichThuocId: json["DoKichThuocId"],
+        doKichThuoc: json["DoKichThuoc"] == null
+            ? null
+            : DoKichThuoc.fromJson(json["DoKichThuoc"]),
       );
     } else if (json is List<dynamic>) {
-      // Handle a list of appointments
       return Appointments(
           id: -1, thuCungId: -1, isDeleted: false, isCompleted: false);
     } else {
@@ -64,6 +64,10 @@ class Appointments {
         "Thuoc": thuoc?.toJson(),
         "TiemChungId": tiemChungId,
         "TiemChung": tiemChung?.toJson(),
+        "BuaAnId": buaAnId,
+        "BuaAn": buaAn?.toJson(),
+        "DoKichThuocId": doKichThuocId,
+        "DoKichThuoc": doKichThuoc?.toJson(),
       };
 }
 
@@ -135,71 +139,66 @@ class TiemChung {
       };
 }
 
-Future<List<Appointments>> fetchAppointments() async {
-  final response =
-      await http.get(Uri.parse('https://54.206.249.179/api/Lich/lichs/4'));
+class BuaAn {
+  int id;
+  String name;
+  String loai;
+  String cachDung;
+  DateTime ngayBatDau;
+  DateTime ngayKetThuc;
 
-  if (response.statusCode == 200) {
-    // Parse the response as a List<dynamic>
-    List<dynamic> data = jsonDecode(response.body);
+  BuaAn({
+    required this.id,
+    required this.name,
+    required this.loai,
+    required this.cachDung,
+    required this.ngayBatDau,
+    required this.ngayKetThuc,
+  });
 
-    // Map each element in the list to an Appointments object
-    List<Appointments> appointmentsList =
-        data.map((json) => Appointments.fromJson(json)).toList();
+  factory BuaAn.fromJson(Map<String, dynamic> json) => BuaAn(
+        id: json["id"],
+        name: json["name"],
+        loai: json["loai"],
+        cachDung: json["cachDung"],
+        ngayBatDau: DateTime.parse(json["ngayBatDau"]),
+        ngayKetThuc: DateTime.parse(json["ngayKetThuc"]),
+      );
 
-    return appointmentsList;
-  } else {
-    throw Exception('Failed to load appointments');
-  }
+  Map<String, dynamic> toJson() => {
+        "id": id,
+        "name": name,
+        "loai": loai,
+        "cachDung": cachDung,
+        "ngayBatDau": ngayBatDau.toIso8601String(),
+        "ngayKetThuc": ngayKetThuc.toIso8601String(),
+      };
 }
 
-class _AppointmentInfoWidgetState extends State<AppointmentInfoWidget> {
-  late Future<List<Appointments>> futureAppointments;
+class DoKichThuoc {
+  int id;
+  int chieuCao;
+  int canNang;
+  DateTime thoiGianDo;
 
-  @override
-  void initState() {
-    super.initState();
-    futureAppointments = fetchAppointments();
-  }
+  DoKichThuoc({
+    required this.id,
+    required this.chieuCao,
+    required this.canNang,
+    required this.thoiGianDo,
+  });
 
-  @override
-  Widget build(BuildContext context) {
-    return FutureBuilder<List<Appointments>>(
-      future: futureAppointments,
-      builder: (context, snapshot) {
-        if (snapshot.hasData) {
-          return Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                snapshot.data![0].thuoc!.ten,
-                style: TextStyle(
-                  color: Color(0xFF070821),
-                  fontSize: 18,
-                  fontWeight: FontWeight.w700,
-                ),
-              ),
-              SizedBox(
-                height: 8,
-              ),
-              Text(
-                'Khám da liễu',
-                style: TextStyle(
-                  color: Color(0xFF070821),
-                  fontSize: 12,
-                  fontWeight: FontWeight.w400,
-                ),
-              ),
-              SizedBox(
-                height: 26,
-              ),
-            ],
-          );
-        } else if (snapshot.hasError) {
-          return Text('${snapshot.error}');
-        }
-        return const CircularProgressIndicator();
-      },
-    );
-  }
+  factory DoKichThuoc.fromJson(Map<String, dynamic> json) => DoKichThuoc(
+        id: json["id"],
+        chieuCao: json["chieuCao"],
+        canNang: json["canNang"],
+        thoiGianDo: DateTime.parse(json["thoiGianDo"]),
+      );
+
+  Map<String, dynamic> toJson() => {
+        "id": id,
+        "chieuCao": chieuCao,
+        "canNang": canNang,
+        "thoiGianDo": thoiGianDo.toIso8601String(),
+      };
 }

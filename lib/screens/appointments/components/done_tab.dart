@@ -1,8 +1,9 @@
-import 'dart:convert';
 import 'package:flutter/material.dart';
-import 'package:http/http.dart' as http;
 import 'package:intl/intl.dart';
 import 'package:petcarepal/screens/appointments/components/circle_avatar_widget.dart';
+import 'package:petcarepal/screens/appointments/components/info_appointment.dart';
+import 'package:petcarepal/screens/appointments/service/appointment_api.dart';
+import 'package:petcarepal/screens/appointments/service/appointment_data.dart';
 
 // Define a model class for completed appointments
 
@@ -13,153 +14,27 @@ class DoneTab extends StatefulWidget {
   _DoneTabState createState() => _DoneTabState();
 }
 
-Future<List<Appointments>> fetchAppointments() async {
-  final response =
-      await http.get(Uri.parse('https://54.206.249.179/api/Lich/lichs/4'));
-
-  if (response.statusCode == 200) {
-    List<dynamic> data = jsonDecode(response.body);
-    List<Appointments> appointmentsList = data
-        .map((json) => Appointments.fromJson(json))
-        .where(
-            (appointment) => appointment.isCompleted) // Lọc lịch đã hoàn thành
-        .toList();
-    return appointmentsList;
-  } else {
-    throw Exception('Failed to load appointments');
-  }
-}
-
-class Appointments {
-  int id;
-  int thuCungId;
-  bool isDeleted;
-  bool isCompleted;
-  int? thuocId;
-  Thuoc? thuoc;
-  int? tiemChungId;
-  TiemChung? tiemChung;
-
-  Appointments({
-    required this.id,
-    required this.thuCungId,
-    required this.isDeleted,
-    required this.isCompleted,
-    this.thuocId,
-    this.thuoc,
-    this.tiemChungId,
-    this.tiemChung,
-  });
-
-  factory Appointments.fromJson(dynamic json) {
-    if (json is Map<String, dynamic>) {
-      return Appointments(
-        id: json["Id"],
-        thuCungId: json["ThuCungId"],
-        isDeleted: json["IsDeleted"],
-        isCompleted: json["IsCompleted"],
-        thuocId: json["ThuocId"],
-        thuoc: json["Thuoc"] == null ? null : Thuoc.fromJson(json["Thuoc"]),
-        tiemChungId: json["TiemChungId"],
-        tiemChung: json["TiemChung"] == null
-            ? null
-            : TiemChung.fromJson(json["TiemChung"]),
-      );
-    } else if (json is List<dynamic>) {
-      return Appointments(
-          id: -1, thuCungId: -1, isDeleted: false, isCompleted: false);
-    } else {
-      throw Exception('Invalid JSON format for appointments');
-    }
-  }
-
-  Map<String, dynamic> toJson() => {
-        "Id": id,
-        "ThuCungId": thuCungId,
-        "IsDeleted": isDeleted,
-        "IsCompleted": isCompleted,
-        "ThuocId": thuocId,
-        "Thuoc": thuoc?.toJson(),
-        "TiemChungId": tiemChungId,
-        "TiemChung": tiemChung?.toJson(),
-      };
-}
-
-class Thuoc {
-  int id;
-  String ten;
-  int soLanUongTrongNgay;
-  int soVienUong;
-  String thoiGianSuDung;
-  DateTime ngayBatDau;
-  DateTime ngayKetThuc;
-
-  Thuoc({
-    required this.id,
-    required this.ten,
-    required this.soLanUongTrongNgay,
-    required this.soVienUong,
-    required this.thoiGianSuDung,
-    required this.ngayBatDau,
-    required this.ngayKetThuc,
-  });
-
-  factory Thuoc.fromJson(Map<String, dynamic> json) => Thuoc(
-        id: json["id"],
-        ten: json["ten"],
-        soLanUongTrongNgay: json["soLanUongTrongNgay"],
-        soVienUong: json["soVienUong"],
-        thoiGianSuDung: json["thoiGianSuDung"],
-        ngayBatDau: DateTime.parse(json["ngayBatDau"]),
-        ngayKetThuc: DateTime.parse(json["ngayKetThuc"]),
-      );
-
-  Map<String, dynamic> toJson() => {
-        "id": id,
-        "ten": ten,
-        "soLanUongTrongNgay": soLanUongTrongNgay,
-        "soVienUong": soVienUong,
-        "thoiGianSuDung": thoiGianSuDung,
-        "ngayBatDau": ngayBatDau.toIso8601String(),
-        "ngayKetThuc": ngayKetThuc.toIso8601String(),
-      };
-}
-
-class TiemChung {
-  int id;
-  String mucDich;
-  String phongKham;
-  DateTime ngayKham;
-
-  TiemChung({
-    required this.id,
-    required this.mucDich,
-    required this.phongKham,
-    required this.ngayKham,
-  });
-
-  factory TiemChung.fromJson(Map<String, dynamic> json) => TiemChung(
-        id: json["id"],
-        mucDich: json["mucDich"],
-        phongKham: json["phongKham"],
-        ngayKham: DateTime.parse(json["ngayKham"]),
-      );
-
-  Map<String, dynamic> toJson() => {
-        "id": id,
-        "mucDich": mucDich,
-        "phongKham": phongKham,
-        "ngayKham": ngayKham.toIso8601String(),
-      };
-}
-
 class _DoneTabState extends State<DoneTab> {
   late Future<List<Appointments>> futureAppointments;
 
   @override
   void initState() {
     super.initState();
-    futureAppointments = fetchAppointments();
+    _initializeAppointments();
+  }
+
+  Future<void> _initializeAppointments() async {
+    try {
+      final userId = await getUserIDFromLocalStorage();
+      setState(() {
+        futureAppointments = fetchCompletedAppointments(userId);
+      });
+    } catch (error) {
+      print('Error initializing appointments: $error');
+      setState(() {
+        futureAppointments = Future.error(error);
+      });
+    }
   }
 
   @override
@@ -170,6 +45,7 @@ class _DoneTabState extends State<DoneTab> {
         future: futureAppointments,
         builder: (context, snapshot) {
           if (snapshot.hasData) {
+            checkAndUpdateStatus(snapshot.data!);
             return SingleChildScrollView(
               child: Column(
                 children: [
@@ -190,6 +66,18 @@ class _DoneTabState extends State<DoneTab> {
                           context,
                           appointment.tiemChung!,
                           'Tiêm chủng',
+                        );
+                      } else if (appointment.buaAn != null) {
+                        return _buildListItem(
+                          context,
+                          appointment.buaAn!,
+                          'Bữa ăn',
+                        );
+                      } else if (appointment.doKichThuoc != null) {
+                        return _buildListItem(
+                          context,
+                          appointment.doKichThuoc!,
+                          'Kích thước',
                         );
                       }
                       return SizedBox();
@@ -215,6 +103,12 @@ Widget _buildListItem(BuildContext context, dynamic appointment, String type) {
   } else if (type == 'Tiêm chủng') {
     final tiemChung = appointment as TiemChung;
     return _buildVaccinationAppointment(context, tiemChung);
+  } else if (type == 'Bữa ăn') {
+    final buaAn = appointment as BuaAn;
+    return _buildMealAppointment(context, buaAn);
+  } else if (type == 'Kích thước') {
+    final doKichThuoc = appointment as DoKichThuoc;
+    return _buildSizeAppointment(context, doKichThuoc);
   }
   return SizedBox();
 }
@@ -247,19 +141,31 @@ Widget _buildMedicationAppointment(BuildContext context, Thuoc thuoc) {
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(thuoc.ten),
-                Text('Loại lịch: Thuốc'),
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text('Số lần uống trong ngày: ${thuoc.soLanUongTrongNgay}'),
-                    Text('Số viên uống: ${thuoc.soVienUong}'),
-                    Text('Thời gian sử dụng: ${thuoc.thoiGianSuDung}'),
-                    Text(
-                        'Ngày bắt đầu: ${DateFormat('dd/MM/yyyy').format(thuoc.ngayBatDau)}'),
-                    Text(
-                        'Ngày kết thúc: ${DateFormat('dd/MM/yyyy').format(thuoc.ngayKetThuc)}'),
-                  ],
+                Text(thuoc.ten,
+                    style:
+                        TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
+                Text('Loại lịch: Thuốc',
+                    style: TextStyle(fontSize: 14, color: Colors.grey)),
+                SizedBox(height: 5),
+                ClipRRect(
+                  borderRadius: BorderRadius.circular(10), // Bo góc
+                  child: Container(
+                    color: Colors.grey.shade200, // Màu xám nhạt
+                    padding: EdgeInsets.all(8), // Khoảng cách nội dung
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                            'Số lần uống trong ngày: ${thuoc.soLanUongTrongNgay}'),
+                        Text('Số viên uống: ${thuoc.soVienUong}'),
+                        Text('Thời gian sử dụng: ${thuoc.thoiGianSuDung}'),
+                        Text(
+                            'Ngày bắt đầu: ${DateFormat('dd/MM/yyyy').format(thuoc.ngayBatDau)}'),
+                        Text(
+                            'Ngày kết thúc: ${DateFormat('dd/MM/yyyy').format(thuoc.ngayKetThuc)}'),
+                      ],
+                    ),
+                  ),
                 ),
               ],
             ),
@@ -298,15 +204,147 @@ Widget _buildVaccinationAppointment(BuildContext context, TiemChung tiemChung) {
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(tiemChung.mucDich),
-                Text('Loại lịch: Tiêm chủng'),
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text('Phòng khám: ${tiemChung.phongKham}'),
-                    Text(
-                        'Ngày khám: ${DateFormat('dd/MM/yyyy').format(tiemChung.ngayKham)}'),
-                  ],
+                Text(tiemChung.mucDich,
+                    style:
+                        TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
+                Text('Loại lịch: Tiêm chủng',
+                    style: TextStyle(fontSize: 14, color: Colors.grey)),
+                SizedBox(height: 5),
+                ClipRRect(
+                  borderRadius: BorderRadius.circular(10), // Bo góc
+                  child: Container(
+                    color: Colors.grey.shade200, // Màu xám nhạt
+                    padding: EdgeInsets.all(8), // Khoảng cách nội dung
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text('Phòng khám: ${tiemChung.phongKham}'),
+                        Text(
+                          'Ngày khám: ${DateFormat('dd/MM/yyyy').format(tiemChung.ngayKham)}',
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ],
+        ),
+      ],
+    ),
+  );
+}
+
+Widget _buildMealAppointment(BuildContext context, BuaAn buaAn) {
+  return Container(
+    decoration: BoxDecoration(
+      color: Colors.white,
+      borderRadius: BorderRadius.circular(14),
+      boxShadow: [
+        BoxShadow(
+          color: Color(0x0A2E1E7A),
+          blurRadius: 12,
+          offset: Offset(5, 3),
+          spreadRadius: 0,
+        ),
+      ],
+    ),
+    margin: EdgeInsets.symmetric(vertical: 10, horizontal: 20),
+    padding: EdgeInsets.symmetric(vertical: 15, horizontal: 25),
+    child: Column(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Row(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            CircleAvatarWidget(),
+            const SizedBox(width: 20),
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(buaAn.name,
+                    style:
+                        TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
+                Text('Loại lịch: Bữa ăn',
+                    style: TextStyle(fontSize: 14, color: Colors.grey)),
+                SizedBox(height: 5),
+                ClipRRect(
+                  borderRadius: BorderRadius.circular(10), // Bo góc
+                  child: Container(
+                    color: Colors.grey.shade200, // Màu xám nhạt
+                    padding: EdgeInsets.all(8), // Khoảng cách nội dung
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text('Loại thức ăn: ${buaAn.loai}'),
+                        Text('Cách dùng: ${buaAn.cachDung}'),
+                        Text(
+                            'Ngày bắt đầu: ${DateFormat('dd/MM/yyyy').format(buaAn.ngayBatDau)}'),
+                        Text(
+                            'Ngày kết thúc: ${DateFormat('dd/MM/yyyy').format(buaAn.ngayKetThuc)}'),
+                      ],
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ],
+        ),
+      ],
+    ),
+  );
+}
+
+Widget _buildSizeAppointment(BuildContext context, DoKichThuoc doKichThuoc) {
+  return Container(
+    decoration: BoxDecoration(
+      color: Colors.white,
+      borderRadius: BorderRadius.circular(14),
+      boxShadow: [
+        BoxShadow(
+          color: Color(0x0A2E1E7A),
+          blurRadius: 12,
+          offset: Offset(5, 3),
+          spreadRadius: 0,
+        ),
+      ],
+    ),
+    margin: EdgeInsets.symmetric(vertical: 10, horizontal: 20),
+    padding: EdgeInsets.symmetric(vertical: 15, horizontal: 25),
+    child: Column(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Row(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            CircleAvatarWidget(),
+            const SizedBox(width: 20),
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text('Đo kích thước',
+                    style:
+                        TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
+                Text('Loại lịch: Đo kích thước',
+                    style: TextStyle(fontSize: 14, color: Colors.grey)),
+                SizedBox(height: 5),
+                ClipRRect(
+                  borderRadius: BorderRadius.circular(10), // Bo góc
+                  child: Container(
+                    color: Colors.grey.shade200, // Màu xám nhạt
+                    padding: EdgeInsets.all(8), // Khoảng cách nội dung
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text('Chiều cao: ${doKichThuoc.chieuCao}'),
+                        Text('Cân nặng: ${doKichThuoc.canNang}'),
+                        Text(
+                            'Thời gian đo: ${DateFormat('dd/MM/yyyy').format(doKichThuoc.thoiGianDo)}'),
+                      ],
+                    ),
+                  ),
                 ),
               ],
             ),

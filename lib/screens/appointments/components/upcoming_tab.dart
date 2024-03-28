@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:petcarepal/config/app_routes.dart';
 import 'package:petcarepal/screens/appointments/components/info_appointment.dart';
 
 class UpcomingTab extends StatelessWidget {
