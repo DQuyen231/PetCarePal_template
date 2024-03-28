@@ -15,7 +15,7 @@ class RadioListWidget extends StatelessWidget {
       'Thanh toán trực tiếp': 'assets/icons/money.png',
       'Ví Vnpay': 'assets/icons/vnpay.png',
       'Ví Momo': 'assets/icons/momo.png',
-      'Ví Zalopay': 'assets/icons/zalopay.png',
+      'Ví Paypal': 'assets/icons/paypal.png',
     };
 
     return Container(
