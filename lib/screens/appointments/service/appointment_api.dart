@@ -1,10 +1,21 @@
 import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:petcarepal/screens/appointments/service/appointment_data.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
-Future<List<Appointments>> fetchUncompletedAppointments() async {
-  final response =
-      await http.get(Uri.parse('https://54.206.249.179/api/Lich/lichs/4'));
+Future<int> getUserIDFromLocalStorage() async {
+  SharedPreferences prefs = await SharedPreferences.getInstance();
+  int? userID = prefs.getInt('userId');
+  if (userID != null) {
+    return userID;
+  } else {
+    throw Exception('UserID not found in localStorage');
+  }
+}
+
+Future<List<Appointments>> fetchUncompletedAppointments(int userId) async {
+  final response = await http
+      .get(Uri.parse('https://54.206.249.179/api/Lich/lichs/$userId'));
 
   if (response.statusCode == 200) {
     List<dynamic> data = jsonDecode(response.body);
@@ -19,9 +30,9 @@ Future<List<Appointments>> fetchUncompletedAppointments() async {
   }
 }
 
-Future<List<Appointments>> fetchCompletedAppointments() async {
-  final response =
-      await http.get(Uri.parse('https://54.206.249.179/api/Lich/lichs/4'));
+Future<List<Appointments>> fetchCompletedAppointments(int userId) async {
+  final response = await http
+      .get(Uri.parse('https://54.206.249.179/api/Lich/lichs/$userId'));
 
   if (response.statusCode == 200) {
     List<dynamic> data = jsonDecode(response.body);

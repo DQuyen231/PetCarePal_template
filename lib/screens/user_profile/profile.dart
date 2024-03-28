@@ -56,6 +56,11 @@ class _ProfilePageState extends State<ProfilePage> {
                       routeName: '',
                     ),
                     ProfileOption(
+                      iconPath: 'assets/icons/wallet.png',
+                      text: 'Lịch sử giao dịch',
+                      routeName: AppRoutes.user_order_history,
+                    ),
+                    ProfileOption(
                       iconPath: 'assets/icons/circle_help.png',
                       text: 'Trợ giúp',
                       routeName: '',

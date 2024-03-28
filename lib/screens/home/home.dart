@@ -24,7 +24,7 @@ class HomeScreen extends StatelessWidget {
               label: 'Đặt lịch',
               iconAssetPath: const AssetImage('assets/icons/booking.png'),
               onClick: () {
-                Navigator.pushNamed(context, AppRoutes.booking);
+                Navigator.pushNamed(context, AppRoutes.appointments);
               },
             ),
           ),
@@ -32,10 +32,10 @@ class HomeScreen extends StatelessWidget {
             right: 50.88,
             top: 482.98,
             child: ActionButtonWidget(
-              label: 'Trợ giúp',
+              label: 'Cửa hàng thú cưng',
               iconAssetPath: const AssetImage('assets/icons/help.png'),
               onClick: () {
-                print('Nothing here yet');
+                Navigator.pushNamed(context, AppRoutes.shop);
               },
             ),
           ),

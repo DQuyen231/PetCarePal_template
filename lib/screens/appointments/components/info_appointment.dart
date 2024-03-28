@@ -11,19 +11,33 @@ import 'package:petcarepal/screens/appointments/service/appointment_data.dart';
 import 'package:petcarepal/screens/appointments/components/edit_medication.dart';
 
 class InfoAppointment extends StatefulWidget {
-  const InfoAppointment({Key? key}) : super(key: key);
+  const InfoAppointment({super.key});
 
   @override
   State<InfoAppointment> createState() => _InfoAppointmentState();
 }
 
 class _InfoAppointmentState extends State<InfoAppointment> {
-  late Future<List<Appointments>> futureAppointments;
+  Future<List<Appointments>>? futureAppointments;
 
   @override
   void initState() {
     super.initState();
-    futureAppointments = fetchUncompletedAppointments();
+    _initializeAppointments();
+  }
+
+  Future<void> _initializeAppointments() async {
+    try {
+      final userId = await getUserIDFromLocalStorage();
+      setState(() {
+        futureAppointments = fetchUncompletedAppointments(userId);
+      });
+    } catch (error) {
+      print('Error initializing appointments: $error');
+      setState(() {
+        futureAppointments = Future.error(error);
+      });
+    }
   }
 
   @override
@@ -140,20 +154,31 @@ class _InfoAppointmentState extends State<InfoAppointment> {
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(thuoc.ten),
-                  Text('Loại lịch: Thuốc'),
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                          'Số lần uống trong ngày: ${thuoc.soLanUongTrongNgay}'),
-                      Text('Số viên uống: ${thuoc.soVienUong}'),
-                      Text('Thời gian sử dụng: ${thuoc.thoiGianSuDung}'),
-                      Text(
-                          'Ngày bắt đầu: ${DateFormat('dd/MM/yyyy').format(thuoc.ngayBatDau)}'),
-                      Text(
-                          'Ngày kết thúc: ${DateFormat('dd/MM/yyyy').format(thuoc.ngayKetThuc)}'),
-                    ],
+                  Text(thuoc.ten,
+                      style:
+                          TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
+                  Text('Loại lịch: Thuốc',
+                      style: TextStyle(fontSize: 14, color: Colors.grey)),
+                  SizedBox(height: 5),
+                  ClipRRect(
+                    borderRadius: BorderRadius.circular(10), // Bo góc
+                    child: Container(
+                      color: Colors.grey.shade200, // Màu xám nhạt
+                      padding: EdgeInsets.all(8), // Khoảng cách nội dung
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                              'Số lần uống trong ngày: ${thuoc.soLanUongTrongNgay}'),
+                          Text('Số viên uống: ${thuoc.soVienUong}'),
+                          Text('Thời gian sử dụng: ${thuoc.thoiGianSuDung}'),
+                          Text(
+                              'Ngày bắt đầu: ${DateFormat('dd/MM/yyyy').format(thuoc.ngayBatDau)}'),
+                          Text(
+                              'Ngày kết thúc: ${DateFormat('dd/MM/yyyy').format(thuoc.ngayKetThuc)}'),
+                        ],
+                      ),
+                    ),
                   ),
                 ],
               ),
@@ -170,8 +195,10 @@ class _InfoAppointmentState extends State<InfoAppointment> {
                   onPressed: () async {
                     try {
                       await deleteMedicationAppointment(thuoc.id);
+                      final userId = await getUserIDFromLocalStorage();
                       setState(() {
-                        futureAppointments = fetchUncompletedAppointments();
+                        futureAppointments =
+                            fetchUncompletedAppointments(userId);
                       });
                     } catch (e) {
                       print('Error deleting appointment: $e');
@@ -247,15 +274,27 @@ class _InfoAppointmentState extends State<InfoAppointment> {
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(tiemChung.mucDich),
-                  Text('Loại lịch: Tiêm chủng'),
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text('Phòng khám: ${tiemChung.phongKham}'),
-                      Text(
-                          'Ngày khám: ${DateFormat('dd/MM/yyyy').format(tiemChung.ngayKham)}'),
-                    ],
+                  Text(tiemChung.mucDich,
+                      style:
+                          TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
+                  Text('Loại lịch: Tiêm chủng',
+                      style: TextStyle(fontSize: 14, color: Colors.grey)),
+                  SizedBox(height: 5),
+                  ClipRRect(
+                    borderRadius: BorderRadius.circular(10), // Bo góc
+                    child: Container(
+                      color: Colors.grey.shade200, // Màu xám nhạt
+                      padding: EdgeInsets.all(8), // Khoảng cách nội dung
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text('Phòng khám: ${tiemChung.phongKham}'),
+                          Text(
+                            'Ngày khám: ${DateFormat('dd/MM/yyyy').format(tiemChung.ngayKham)}',
+                          ),
+                        ],
+                      ),
+                    ),
                   ),
                 ],
               ),
@@ -272,8 +311,10 @@ class _InfoAppointmentState extends State<InfoAppointment> {
                   onPressed: () async {
                     try {
                       await deleteVaccinationAppointment(tiemChung.id);
+                      final userId = await getUserIDFromLocalStorage();
                       setState(() {
-                        futureAppointments = fetchUncompletedAppointments();
+                        futureAppointments =
+                            fetchUncompletedAppointments(userId);
                       });
                     } catch (e) {
                       print('Error deleting appointment: $e');
@@ -348,18 +389,29 @@ class _InfoAppointmentState extends State<InfoAppointment> {
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(buaAn.name),
-                  Text('Loại lịch: Bữa ăn'),
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text('Loại thức ăn: ${buaAn.loai}'),
-                      Text('Cách dùng: ${buaAn.cachDung}'),
-                      Text(
-                          'Ngày bắt đầu: ${DateFormat('dd/MM/yyyy').format(buaAn.ngayBatDau)}'),
-                      Text(
-                          'Ngày kết thúc: ${DateFormat('dd/MM/yyyy').format(buaAn.ngayKetThuc)}'),
-                    ],
+                  Text(buaAn.name,
+                      style:
+                          TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
+                  Text('Loại lịch: Bữa ăn',
+                      style: TextStyle(fontSize: 14, color: Colors.grey)),
+                  SizedBox(height: 5),
+                  ClipRRect(
+                    borderRadius: BorderRadius.circular(10), // Bo góc
+                    child: Container(
+                      color: Colors.grey.shade200, // Màu xám nhạt
+                      padding: EdgeInsets.all(8), // Khoảng cách nội dung
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text('Loại thức ăn: ${buaAn.loai}'),
+                          Text('Cách dùng: ${buaAn.cachDung}'),
+                          Text(
+                              'Ngày bắt đầu: ${DateFormat('dd/MM/yyyy').format(buaAn.ngayBatDau)}'),
+                          Text(
+                              'Ngày kết thúc: ${DateFormat('dd/MM/yyyy').format(buaAn.ngayKetThuc)}'),
+                        ],
+                      ),
+                    ),
                   ),
                 ],
               ),
@@ -376,8 +428,10 @@ class _InfoAppointmentState extends State<InfoAppointment> {
                   onPressed: () async {
                     try {
                       await deleteMealAppointment(buaAn.id);
+                      final userId = await getUserIDFromLocalStorage();
                       setState(() {
-                        futureAppointments = fetchUncompletedAppointments();
+                        futureAppointments =
+                            fetchUncompletedAppointments(userId);
                       });
                     } catch (e) {
                       print('Error deleting appointment: $e');
@@ -452,15 +506,27 @@ class _InfoAppointmentState extends State<InfoAppointment> {
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text('Loại lịch: Đo kích thước'),
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text('Chiều cao: ${doKichThuoc.chieuCao}'),
-                      Text('Cân nặng: ${doKichThuoc.canNang}'),
-                      Text(
-                          'Thời gian đo: ${DateFormat('dd/MM/yyyy').format(doKichThuoc.thoiGianDo)}'),
-                    ],
+                  Text('Đo kích thước',
+                      style:
+                          TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
+                  Text('Loại lịch: Đo kích thước',
+                      style: TextStyle(fontSize: 14, color: Colors.grey)),
+                  SizedBox(height: 5),
+                  ClipRRect(
+                    borderRadius: BorderRadius.circular(10), // Bo góc
+                    child: Container(
+                      color: Colors.grey.shade200, // Màu xám nhạt
+                      padding: EdgeInsets.all(8), // Khoảng cách nội dung
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text('Chiều cao: ${doKichThuoc.chieuCao}'),
+                          Text('Cân nặng: ${doKichThuoc.canNang}'),
+                          Text(
+                              'Thời gian đo: ${DateFormat('dd/MM/yyyy').format(doKichThuoc.thoiGianDo)}'),
+                        ],
+                      ),
+                    ),
                   ),
                 ],
               ),
@@ -477,8 +543,10 @@ class _InfoAppointmentState extends State<InfoAppointment> {
                   onPressed: () async {
                     try {
                       await deleteSizeAppointment(doKichThuoc.id);
+                      final userId = await getUserIDFromLocalStorage();
                       setState(() {
-                        futureAppointments = fetchUncompletedAppointments();
+                        futureAppointments =
+                            fetchUncompletedAppointments(userId);
                       });
                     } catch (e) {
                       print('Error deleting appointment: $e');
@@ -545,8 +613,9 @@ class _InfoAppointmentState extends State<InfoAppointment> {
           updatedMedication['ngayBatDau'],
           updatedMedication['ngayKetThuc'],
         );
+        final userId = await getUserIDFromLocalStorage();
         setState(() {
-          futureAppointments = fetchUncompletedAppointments();
+          futureAppointments = fetchUncompletedAppointments(userId);
         });
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
@@ -581,8 +650,9 @@ class _InfoAppointmentState extends State<InfoAppointment> {
           updatedVaccination['phongKham'],
           updatedVaccination['ngayKham'],
         );
+        final userId = await getUserIDFromLocalStorage();
         setState(() {
-          futureAppointments = fetchUncompletedAppointments();
+          futureAppointments = fetchUncompletedAppointments(userId);
         });
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
@@ -618,8 +688,9 @@ class _InfoAppointmentState extends State<InfoAppointment> {
           updatedMeal['ngayBatDau'],
           updatedMeal['ngayKetThuc'],
         );
+        final userId = await getUserIDFromLocalStorage();
         setState(() {
-          futureAppointments = fetchUncompletedAppointments();
+          futureAppointments = fetchUncompletedAppointments(userId);
         });
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
@@ -654,8 +725,9 @@ class _InfoAppointmentState extends State<InfoAppointment> {
           updatedSize['canNang'],
           updatedSize['thoiGianDo'],
         );
+        final userId = await getUserIDFromLocalStorage();
         setState(() {
-          futureAppointments = fetchUncompletedAppointments();
+          futureAppointments = fetchUncompletedAppointments(userId);
         });
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(

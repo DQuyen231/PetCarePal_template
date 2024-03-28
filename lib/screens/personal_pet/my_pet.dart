@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:icons_plus/icons_plus.dart';
 import 'package:petcarepal/config/bottom_navigation.dart';
 import 'package:petcarepal/screens/personal_pet/components/add_pet.dart';
 import 'package:petcarepal/screens/personal_pet/components/header.dart';
