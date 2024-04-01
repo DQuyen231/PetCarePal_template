@@ -1,8 +1,8 @@
-import 'dart:async';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
+import 'package:petcarepal/screens/admin_dashboard/order_detail.dart';
 import 'order.dart';
 import 'service.dart';
-import 'package:intl/intl.dart';
 
 class ManageOrder extends StatefulWidget {
   const ManageOrder({Key? key});
@@ -13,6 +13,7 @@ class ManageOrder extends StatefulWidget {
 
 class _ManageOrderState extends State<ManageOrder> {
   late Future<List<Order>> futureOrder;
+  List<Order> _orders = [];
 
   @override
   void initState() {
@@ -21,7 +22,16 @@ class _ManageOrderState extends State<ManageOrder> {
   }
 
   String getStatusString(bool status) {
-    return status ? 'Accepted' : 'Declined';
+    return status ? 'Accepted' : 'Pending';
+  }
+
+  void _updateOrderStatus(int orderId, bool newStatus) {
+    setState(() {
+      final index = _orders.indexWhere((order) => order.id == orderId);
+      if (index != -1) {
+        _orders[index].trangThai = newStatus;
+      }
+    });
   }
 
   @override
@@ -46,7 +56,6 @@ class _ManageOrderState extends State<ManageOrder> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-            // Phần tiêu đề
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -123,101 +132,106 @@ class _ManageOrderState extends State<ManageOrder> {
                   if (snapshot.hasData) {
                     return SingleChildScrollView(
                       child: Column(
-                        children: [
-                          ListView.builder(
-                            shrinkWrap: true,
-                            physics: NeverScrollableScrollPhysics(),
-                            itemCount: snapshot.data!.length,
-                            itemBuilder: (context, index) {
-                              final order = snapshot.data![index];
-                              return Container(
-                                decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(10.0),
-                                  border: Border.all(
-                                    color: Colors.grey[300]!,
-                                    width: 1.0,
+                        children: List.generate(snapshot.data!.length, (index) {
+                          final order = snapshot.data![index];
+                          return GestureDetector(
+                            onTap: () {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => OrderDetailPage(
+                                    order: order,
+                                    updateOrderStatus: _updateOrderStatus,
                                   ),
-                                ),
-                                padding: EdgeInsets.symmetric(
-                                    horizontal: 16.0, vertical: 8.0),
-                                margin: EdgeInsets.symmetric(vertical: 4.0),
-                                child: Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                  crossAxisAlignment: CrossAxisAlignment.center,
-                                  children: [
-                                    Column(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      children: [
-                                        Row(
-                                          children: [
-                                            Text(
-                                              'Order #: ',
-                                              style: TextStyle(
-                                                fontWeight: FontWeight.bold,
-                                                fontSize: 16,
-                                                color: Colors.grey[600],
-                                              ),
-                                            ),
-                                            Text(
-                                              '${order.id}',
-                                              style: TextStyle(
-                                                fontWeight: FontWeight.bold,
-                                                fontSize: 16,
-                                                color: Colors.blue[800],
-                                              ),
-                                            )
-                                          ],
-                                        ),
-                                        SizedBox(height: 4),
-                                        Text(
-                                          '${DateFormat('dd/MM/yyyy HH:mm').format(order.ngayOrder)}',
-                                          style: TextStyle(
-                                            fontSize: 14,
-                                            color: Colors.grey[600],
-                                          ),
-                                        )
-                                      ],
-                                    ),
-                                    Column(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.end,
-                                      children: [
-                                        Text(
-                                          '\$${order.tongSoTien}',
-                                          style: TextStyle(
-                                            fontSize: 24,
-                                            fontWeight: FontWeight.bold,
-                                          ),
-                                        ),
-                                        SizedBox(height: 4),
-                                        Container(
-                                          alignment: Alignment.center,
-                                          width: 80,
-                                          decoration: BoxDecoration(
-                                            borderRadius:
-                                                BorderRadius.circular(8.0),
-                                            color:
-                                                getStatusColor(order.trangThai),
-                                          ),
-                                          padding: EdgeInsets.symmetric(
-                                              horizontal: 8.0, vertical: 4.0),
-                                          child: Text(
-                                            getStatusString(order.trangThai),
-                                            style: TextStyle(
-                                              color: Colors.black,
-                                            ),
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                  ],
                                 ),
                               );
                             },
-                          ),
-                        ],
+                            child: Container(
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(10.0),
+                                border: Border.all(
+                                  color: Colors.grey[300]!,
+                                  width: 1.0,
+                                ),
+                              ),
+                              padding: EdgeInsets.symmetric(
+                                  horizontal: 16.0, vertical: 8.0),
+                              margin: EdgeInsets.symmetric(vertical: 4.0),
+                              child: Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                crossAxisAlignment: CrossAxisAlignment.center,
+                                children: [
+                                  Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      Row(
+                                        children: [
+                                          Text(
+                                            'Order #: ',
+                                            style: TextStyle(
+                                              fontWeight: FontWeight.bold,
+                                              fontSize: 16,
+                                              color: Colors.grey[600],
+                                            ),
+                                          ),
+                                          Text(
+                                            '${order.id}',
+                                            style: TextStyle(
+                                              fontWeight: FontWeight.bold,
+                                              fontSize: 16,
+                                              color: Colors.blue[800],
+                                            ),
+                                          )
+                                        ],
+                                      ),
+                                      SizedBox(height: 4),
+                                      Text(
+                                        '${DateFormat('dd/MM/yyyy HH:mm').format(order.ngayOrder)}',
+                                        style: TextStyle(
+                                          fontSize: 14,
+                                          color: Colors.grey[600],
+                                        ),
+                                      )
+                                    ],
+                                  ),
+                                  Column(
+                                    crossAxisAlignment: CrossAxisAlignment.end,
+                                    children: [
+                                      Text(
+                                        '\$${order.tongSoTien}',
+                                        style: TextStyle(
+                                          fontSize: 24,
+                                          fontWeight: FontWeight.bold,
+                                        ),
+                                      ),
+                                      SizedBox(height: 4),
+                                      Container(
+                                        alignment: Alignment.center,
+                                        width: 80,
+                                        decoration: BoxDecoration(
+                                          borderRadius:
+                                              BorderRadius.circular(8.0),
+                                          color:
+                                              getStatusColor(order.trangThai),
+                                        ),
+                                        padding: EdgeInsets.symmetric(
+                                            horizontal: 8.0, vertical: 4.0),
+                                        child: Text(
+                                          getStatusString(order.trangThai),
+                                          style: TextStyle(
+                                            color: Colors.black,
+                                          ),
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ],
+                              ),
+                            ),
+                          );
+                        }),
                       ),
                     );
                   } else if (snapshot.hasError) {
@@ -236,6 +250,6 @@ class _ManageOrderState extends State<ManageOrder> {
   }
 
   Color? getStatusColor(bool status) {
-    return status ? Colors.green[100] : Colors.red[100];
+    return status ? Colors.green[100] : Colors.blue[100];
   }
 }
