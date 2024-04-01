@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:petcarepal/config/app_routes.dart';
 import 'package:petcarepal/config/bottom_navigation.dart';
+import 'package:petcarepal/screens/admin_dashboard/dashboard.dart';
 import 'package:petcarepal/screens/admin_dashboard/manage_orders.dart';
 import 'package:petcarepal/screens/appointments/service/appointment_data.dart';
 import 'package:petcarepal/screens/booking_form/skin_form.dart';
@@ -10,6 +11,7 @@ import 'package:petcarepal/constants/constants.dart';
 import 'package:petcarepal/screens/booking_type/booking_type.dart';
 import 'package:petcarepal/screens/calendar/calendar.dart';
 import 'package:petcarepal/screens/dashboard/dashboard.dart';
+import 'package:petcarepal/screens/dashboard/pages/dashboard.dart';
 import 'package:petcarepal/screens/home/home.dart';
 import 'package:petcarepal/screens/payment_test/payment.dart';
 import 'package:petcarepal/screens/personal_pet/components/add_pet.dart';
@@ -66,7 +68,7 @@ class MyApp extends StatelessWidget {
       // initialRoute: AppRoutes.cart,
       routes: AppRoutes.getRoutes(),
 
-      home: SplashScreen(),
+      home: ManageOrder(),
     );
   }
 }
