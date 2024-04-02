@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
+import 'package:petcarepal/config/app_routes.dart';
 import 'package:petcarepal/constants/constants.dart';
 import 'package:petcarepal/screens/dashboard/models/menu_item.dart';
 import 'package:petcarepal/screens/dashboard/widgets/status_card.dart';
@@ -7,7 +8,7 @@ import 'package:petcarepal/screens/dashboard/widgets/status_card.dart';
 final List<BussinessStatus> statusList = [
   BussinessStatus('Total Sales', '1123456 \$', Icons.show_chart_outlined),
   BussinessStatus('Total Profit', '11234 \$', Icons.attach_money_outlined),
-  BussinessStatus('Orders', '1236', Icons.shopping_cart_outlined),
+  // BussinessStatus('Orders', '1236', Icons.shopping_cart_outlined),
   BussinessStatus('Customers', '11234', Icons.people_outline_outlined),
 ];
 
@@ -50,7 +51,15 @@ class StatusList extends StatelessWidget {
             mainAxisSpacing: componentPadding,
             crossAxisSpacing: componentPadding,
             itemCount: statusList.length,
-            itemBuilder: (context, index) => StatusCard(statusList[index]),
+            itemBuilder: (context, index) => GestureDetector(
+                  onTap: () {
+                    Navigator.pushNamed(
+                      context,
+                      AppRoutes.all_order,
+                    );
+                  },
+                  child: StatusCard(statusList[index]),
+                ),
             staggeredTileBuilder: (index) {
               if (_size.width > screenXxl) return StaggeredTile.fit(1);
               if (_size.width > screenSm) return StaggeredTile.fit(2);

@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:petcarepal/screens/admin_dashboard/manage_orders.dart';
 import 'package:petcarepal/screens/appointments/appointments.dart';
 import 'package:petcarepal/screens/booking_form/medicine_form.dart';
 import 'package:petcarepal/screens/booking_form/neutri_form.dart';
 import 'package:petcarepal/screens/booking_form/skin_form.dart';
 import 'package:petcarepal/screens/booking_type/booking_type.dart';
 import 'package:petcarepal/screens/calendar/calendar.dart';
+import 'package:petcarepal/screens/dashboard/pages/dashboard.dart';
 import 'package:petcarepal/screens/home/home.dart';
 import 'package:petcarepal/screens/payment/payment.dart';
 import 'package:petcarepal/screens/personal_pet/my_pet.dart';
@@ -38,6 +40,8 @@ class AppRoutes {
   static const String mediform = '/mediform';
   static const String appointments = '/appointments';
   static const String user_order_history = '/user_order_history';
+  static const String all_order = '/all_order';
+  static const String admin = '/admin_dashboard';
 
   static Map<String, WidgetBuilder> getRoutes() {
     return {
@@ -60,6 +64,8 @@ class AppRoutes {
       mediform: (context) => MedicineForm(),
       appointments: (context) => UpcomingAppointmentsPage(),
       user_order_history: (context) => UserOrderHistory(),
+      all_order: (context) => ManageOrder(),
+      admin: (context) => Dashboard(),
     };
   }
 }

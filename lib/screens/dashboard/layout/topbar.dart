@@ -62,10 +62,10 @@ class TopBar extends StatelessWidget {
                       color: Theme.of(context).primaryColor,
                     ),
                     onPressed: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(builder: (context) => NewsPage()),
-                      );
+                      // Navigator.push(
+                      //   context,
+                      //   MaterialPageRoute(builder: (context) => NewsPage()),
+                      // );
                     },
                   )
           ])

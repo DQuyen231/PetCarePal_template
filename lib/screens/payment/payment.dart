@@ -3,7 +3,9 @@ import 'package:petcarepal/config/app_routes.dart';
 import 'package:petcarepal/screens/payment/components/paymentmethod.dart';
 import 'package:flutter_paypal_checkout/flutter_paypal_checkout.dart';
 import 'package:flutter/scheduler.dart';
+import 'package:petcarepal/screens/payment/service/payment_service.dart';
 import 'package:petcarepal/screens/successpay/successpay.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class SelectPaymentPage extends StatefulWidget {
   @override
@@ -12,6 +14,12 @@ class SelectPaymentPage extends StatefulWidget {
 
 class _SelectPaymentPageState extends State<SelectPaymentPage> {
   String selectedPaymentMethod = 'Thanh toán trực tiếp';
+  final _api = PaymentApi();
+
+  Future<int?> getUserId() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    return prefs.getInt('userId');
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -148,13 +156,26 @@ class _SelectPaymentPageState extends State<SelectPaymentPage> {
                       ],
                       note: "Contact us for any questions on your order.",
                       onSuccess: (Map params) async {
-                        print("onSuccess: $params");
-                        // Navigator.pushNamed(context, AppRoutes.payment_success);
-                        // Future.delayed(Duration(microseconds: 500))
-                        //     .then((value) {
-                        //   Navigator.of(context)
-                        //       .pushReplacementNamed(AppRoutes.payment_success);
-                        // });
+                        print("onSuccess hahahaha: $params");
+                        // if (params.containsKey('data') &&
+                        //     params['data'] is Map) {
+                        // String orderId = params['data']['id'];
+
+                        int? userId = await getUserId();
+                        _api.buyPremiumAccount(userId);
+
+                        _api.createOrder(userId);
+
+                        Navigator.of(context).push(MaterialPageRoute(
+                          builder: (BuildContext context) =>
+                              PaymentSuccessPage(),
+                        ));
+
+                        // print("onSuccess: Order ID - $orderId");
+
+                        // } else {
+                        //   print("onSuccess: Data not found or invalid format");
+                        // }
                       },
                       onError: (error) {
                         print("onError: $error");
