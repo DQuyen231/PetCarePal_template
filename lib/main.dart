@@ -68,7 +68,7 @@ class MyApp extends StatelessWidget {
       // initialRoute: AppRoutes.cart,
       routes: AppRoutes.getRoutes(),
 
-      home: ManageOrder(),
+      home: SignInScreen(),
     );
   }
 }

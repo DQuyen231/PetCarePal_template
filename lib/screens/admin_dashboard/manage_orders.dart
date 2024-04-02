@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:petcarepal/config/app_routes.dart';
 import 'package:petcarepal/screens/admin_dashboard/order_detail.dart';
 import 'order.dart';
 import 'service.dart';
@@ -48,7 +49,9 @@ class _ManageOrderState extends State<ManageOrder> {
         centerTitle: true,
         leading: IconButton(
           icon: Icon(Icons.arrow_back),
-          onPressed: () {},
+          onPressed: () {
+            Navigator.pushNamed(context, AppRoutes.admin);
+          },
         ),
       ),
       body: Container(

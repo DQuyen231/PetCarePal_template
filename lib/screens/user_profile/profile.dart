@@ -3,6 +3,7 @@ import 'package:petcarepal/config/app_routes.dart';
 import 'package:petcarepal/config/bottom_navigation.dart';
 import 'package:petcarepal/screens/user_profile/components/profile_header.dart';
 import 'package:petcarepal/screens/user_profile/components/profile_option.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class ProfilePage extends StatefulWidget {
   @override
@@ -11,6 +12,11 @@ class ProfilePage extends StatefulWidget {
 
 class _ProfilePageState extends State<ProfilePage> {
   int currentIndex = 3;
+
+  Future<void> clearSharedPreferences() async {
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    await prefs.clear();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -70,36 +76,42 @@ class _ProfilePageState extends State<ProfilePage> {
                       text: 'Cài đặt',
                       routeName: '',
                     ),
-                    Padding(
-                      padding: EdgeInsets.only(left: 20, right: 20),
-                      child: Row(
-                        children: [
-                          Container(
-                            width: 40,
-                            height: 40,
-                            child: Image.asset(
-                              'assets/icons/signout.png',
-                              width: 24,
-                              height: 24,
+                    GestureDetector(
+                      onTap: () async {
+                        await clearSharedPreferences();
+                        Navigator.pushNamed(context, AppRoutes.login);
+                      },
+                      child: Padding(
+                        padding: EdgeInsets.only(left: 20, right: 20),
+                        child: Row(
+                          children: [
+                            Container(
+                              width: 40,
+                              height: 40,
+                              child: Image.asset(
+                                'assets/icons/signout.png',
+                                width: 24,
+                                height: 24,
+                              ),
+                              decoration: ShapeDecoration(
+                                color: Color(0xFFE4E3F2),
+                                shape: OvalBorder(),
+                              ),
                             ),
-                            decoration: ShapeDecoration(
-                              color: Color(0xFFE4E3F2),
-                              shape: OvalBorder(),
+                            SizedBox(width: 8.0),
+                            Text(
+                              'Đăng xuất',
+                              style: TextStyle(
+                                color: Color(0xFFFF0000),
+                                fontSize: 16,
+                                fontFamily: 'Encode Sans',
+                                fontWeight: FontWeight.w400,
+                                height: 0.09,
+                                letterSpacing: 0.16,
+                              ),
                             ),
-                          ),
-                          SizedBox(width: 8.0),
-                          Text(
-                            'Đăng xuất',
-                            style: TextStyle(
-                              color: Color(0xFFFF0000),
-                              fontSize: 16,
-                              fontFamily: 'Encode Sans',
-                              fontWeight: FontWeight.w400,
-                              height: 0.09,
-                              letterSpacing: 0.16,
-                            ),
-                          ),
-                        ],
+                          ],
+                        ),
                       ),
                     ),
                   ],
