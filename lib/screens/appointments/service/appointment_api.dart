@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:petcarepal/screens/appointments/service/appointment_data.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -25,6 +26,8 @@ Future<List<Appointments>> fetchUncompletedAppointments(int userId) async {
             !appointment.isCompleted) // Lọc lịch chưa hoàn thành
         .toList();
     return appointmentsList;
+  } else if (response.statusCode == 404) {
+    return [];
   } else {
     throw Exception('Failed to load appointments');
   }
@@ -42,6 +45,8 @@ Future<List<Appointments>> fetchCompletedAppointments(int userId) async {
             appointment.isCompleted) // Lọc lịch chưa hoàn thành
         .toList();
     return appointmentsList;
+  } else if (response.statusCode == 404) {
+    throw Exception('Bạn chưa hoàn thành lịch nào cả');
   } else {
     throw Exception('Failed to load appointments');
   }

@@ -38,66 +38,65 @@ class _PetContainerState extends State<PetContainer> {
       future: futurePets,
       builder: (context, snapshot) {
         if (snapshot.hasData) {
-          return SingleChildScrollView(
-            child: Column(
-              children: snapshot.data!.map((pet) {
-                return Container(
-                  margin: EdgeInsets.only(top: 10.0),
-                  padding: EdgeInsets.all(10.0),
-                  width: containerWidth,
-                  decoration: BoxDecoration(
-                    color: Color.fromARGB(255, 255, 255, 255),
-                    borderRadius: BorderRadius.circular(10.0),
-                  ),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      ClipRRect(
-                        borderRadius: BorderRadius.circular(50),
-                        child: Container(
-                          margin: EdgeInsets.only(top: 0),
-                          child: Image(
-                            image: AssetImage('assets/images/avatar.png'),
-                            width: 100,
-                            height: 100,
-                            fit: BoxFit.cover,
+          return Column(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: snapshot.data!.map((pet) {
+              return Container(
+                margin: EdgeInsets.only(top: 10.0),
+                padding: EdgeInsets.all(10.0),
+                width: containerWidth,
+                decoration: BoxDecoration(
+                  color: Color.fromARGB(255, 255, 255, 255),
+                  borderRadius: BorderRadius.circular(10.0),
+                ),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    ClipRRect(
+                      borderRadius: BorderRadius.circular(50),
+                      child: Container(
+                        margin: EdgeInsets.only(top: 0),
+                        child: Image(
+                          image: AssetImage('assets/images/avatar.png'),
+                          width: 100,
+                          height: 100,
+                          fit: BoxFit.cover,
+                        ),
+                      ),
+                    ),
+                    SizedBox(height: 10),
+                    Text(
+                      '${pet.ten}',
+                      style: TextStyle(fontWeight: FontWeight.bold),
+                    ),
+                    Text(
+                      'Golden Retriever',
+                      style: TextStyle(
+                        color: Color.fromARGB(218, 166, 180, 248),
+                      ),
+                    ),
+                    SizedBox(height: 20),
+                    Container(
+                      width: containerWidth,
+                      decoration: BoxDecoration(
+                        color: Color(0xFF4552CB),
+                        borderRadius: BorderRadius.circular(20),
+                      ),
+                      child: TextButton(
+                        onPressed: () {},
+                        child: Text(
+                          'Hồ sơ bệnh án',
+                          style: TextStyle(
+                            color: Color.fromARGB(226, 255, 255, 255),
+                            fontSize: 18,
                           ),
                         ),
                       ),
-                      SizedBox(height: 10),
-                      Text(
-                        '${pet.ten}',
-                        style: TextStyle(fontWeight: FontWeight.bold),
-                      ),
-                      Text(
-                        'Golden Retriever',
-                        style: TextStyle(
-                          color: Color.fromARGB(218, 166, 180, 248),
-                        ),
-                      ),
-                      SizedBox(height: 20),
-                      Container(
-                        width: containerWidth,
-                        decoration: BoxDecoration(
-                          color: Color(0xFF4552CB),
-                          borderRadius: BorderRadius.circular(20),
-                        ),
-                        child: TextButton(
-                          onPressed: () {},
-                          child: Text(
-                            'Hồ sơ bệnh án',
-                            style: TextStyle(
-                              color: Color.fromARGB(226, 255, 255, 255),
-                              fontSize: 18,
-                            ),
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                );
-              }).toList(),
-            ),
+                    ),
+                  ],
+                ),
+              );
+            }).toList(),
           );
         } else if (snapshot.hasError) {
           return Center(

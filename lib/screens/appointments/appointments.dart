@@ -30,6 +30,7 @@ class UpcomingAppointmentsPage extends StatelessWidget {
                   borderRadius: BorderRadius.circular(50.0),
                 ),
                 child: TabBar(
+                  padding: EdgeInsets.only(bottom: 10.0),
                   indicator: BoxDecoration(
                     color: Color(0xFF4552CB),
                     borderRadius: BorderRadius.circular(24.0),

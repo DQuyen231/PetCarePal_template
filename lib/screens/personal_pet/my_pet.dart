@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:petcarepal/config/app_routes.dart';
 import 'package:petcarepal/config/bottom_navigation.dart';
 import 'package:petcarepal/screens/personal_pet/components/add_pet.dart';
 import 'package:petcarepal/screens/personal_pet/components/header.dart';
@@ -19,19 +20,38 @@ class _MyPetState extends State<MyPet> {
     double containerWidth = MediaQuery.of(context).size.height * 0.9;
 
     return Scaffold(
-      backgroundColor: Color.fromARGB(248, 247, 251, 255),
-      body: Container(
-        height: containerWidth,
-        child: Column(
-          children: [
-            Header(),
-            SizedBox(height: 10),
-            PetContainer(),
-            AddPet(),
-            // Add your custom bottom navigation here
-          ],
+      appBar: AppBar(
+        title: const Text('Thú cưng của tôi',
+            style: TextStyle(fontWeight: FontWeight.bold)),
+        centerTitle: true,
+        leading: IconButton(
+          icon: Icon(Icons.arrow_back),
+          onPressed: () {
+            Navigator.pushNamed(context, AppRoutes.home);
+          },
         ),
       ),
+      body: SingleChildScrollView(
+        child: Container(
+          color: Color.fromRGBO(240, 243, 248, 1.0),
+          width: MediaQuery.of(context).size.width,
+          height: containerWidth,
+          child: Column(
+            children: [
+              PetContainer(),
+              AddPet(),
+            ],
+          ),
+        ),
+      ),
+      // Container(
+      //   height: containerWidth,
+      //   child: Column(
+      //     children: [
+
+      //     ],
+      //   ),
+      // ),
       bottomNavigationBar: CustomBottomNavigation(
         currentIndex: currentIndex,
         onTabSelected: (index) {
