@@ -19,16 +19,18 @@ class ShoppingApi {
     return [];
   }
 
-  Future<void> payment(phuongthuc, address) async {
+  Future<int> payment(phuongthuc, address) async {
     final id = await _getUserIdFromLocalStorage();
     final requestBody = {'PhuongThucThanhToan': phuongthuc, 'diaChi': address};
     try {
       final response = await _dio.post('https://54.206.249.179/order/${id}',
           data: requestBody);
-      print(response);
+      print(response.data['id']);
+      return response.data['id'];
     } catch (e) {
       print(e.toString());
     }
+    return 0;
   }
 
   Future<void> updateCart(id, quantity) async {
@@ -38,6 +40,18 @@ class ShoppingApi {
       final response = await _dio.put(url);
       print(response);
       print('successs');
+    } catch (e) {
+      print(e.toString());
+    }
+  }
+
+  Future<void> paymentByQrCode(int order_id) async {
+    final reqBody = {"trangThai": false, "noiDung": 'PETCAREPAL TTOAN SP09'};
+
+    try {
+      final response = await _dio
+          .put('https://54.206.249.179/order/${order_id}', data: reqBody);
+      print('success');
     } catch (e) {
       print(e.toString());
     }

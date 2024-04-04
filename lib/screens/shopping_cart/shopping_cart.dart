@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:petcarepal/config/app_routes.dart';
+import 'package:petcarepal/screens/QR/qr_screen.dart';
 import 'package:petcarepal/screens/shopping_cart/services/shopping_api.dart';
 
 class ShoppingCart extends StatefulWidget {
@@ -94,10 +95,10 @@ class _ShoppingCartState extends State<ShoppingCart> {
                                         IconButton(
                                           onPressed: () {
                                             if (quantity > 1) {
-                                              _updateQuantity(
+                                              int newQuantity = _updateQuantity(
                                                   index, quantity - 1);
                                               _shoppingApi.updateCart(
-                                                  sp_id, quantity);
+                                                  sp_id, newQuantity);
                                             }
                                           },
                                           icon: Icon(Icons.remove),
@@ -105,10 +106,10 @@ class _ShoppingCartState extends State<ShoppingCart> {
                                         Text('Quantity: $quantity'),
                                         IconButton(
                                           onPressed: () {
-                                            _updateQuantity(
+                                            int newQuantity = _updateQuantity(
                                                 index, quantity + 1);
                                             _shoppingApi.updateCart(
-                                                sp_id, quantity);
+                                                sp_id, newQuantity);
                                           },
                                           icon: Icon(Icons.add),
                                         ),
@@ -172,7 +173,7 @@ class _ShoppingCartState extends State<ShoppingCart> {
                                 selectedPaymentMethod = value!;
                               });
                             },
-                            items: ['Cash', 'Credit Card', 'PayPal']
+                            items: ['Cash', 'QR', 'PayPal']
                                 .map<DropdownMenuItem<String>>((String value) {
                               return DropdownMenuItem<String>(
                                 value: value,
@@ -186,7 +187,7 @@ class _ShoppingCartState extends State<ShoppingCart> {
                           ),
                           SizedBox(height: 16),
                           ElevatedButton(
-                            onPressed: () {
+                            onPressed: () async {
                               if (addressController.text.isEmpty) {
                                 setState(() {
                                   showError = true;
@@ -197,31 +198,50 @@ class _ShoppingCartState extends State<ShoppingCart> {
                                 });
                                 String address = addressController.text;
                                 String paymentMethod = selectedPaymentMethod;
-                                _shoppingApi.payment(paymentMethod, address);
 
-                                // Show loading indicator
-                                showDialog(
-                                  context: context,
-                                  barrierDismissible:
-                                      false, // Prevent dismissing the dialog
-                                  builder: (context) {
-                                    return Center(
-                                      child: CircularProgressIndicator(),
+                                int order_id = await _shoppingApi.payment(
+                                    paymentMethod, address);
+
+                                if (paymentMethod == 'QR') {
+                                  showDialog(
+                                    context: context,
+                                    barrierDismissible:
+                                        false, // Prevent dismissing the dialog
+                                    builder: (context) {
+                                      return Center(
+                                        child: CircularProgressIndicator(),
+                                      );
+                                    },
+                                  );
+
+                                  Future.delayed(Duration(seconds: 2), () {
+                                    Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                            builder: (context) => QRScreen(
+                                                  order_id: order_id,
+                                                )));
+                                  });
+                                } else if (paymentMethod == 'Cash') {
+                                  showDialog(
+                                    context: context,
+                                    barrierDismissible:
+                                        false, // Prevent dismissing the dialog
+                                    builder: (context) {
+                                      return Center(
+                                        child: CircularProgressIndicator(),
+                                      );
+                                    },
+                                  );
+
+                                  Future.delayed(Duration(seconds: 2), () {
+                                    // Navigate to another page
+                                    Navigator.pushNamed(
+                                      context,
+                                      AppRoutes.payment_success,
                                     );
-                                  },
-                                );
-
-                                // Simulate a delay of 2 seconds
-                                Future.delayed(Duration(seconds: 2), () {
-                                  // Hide loading indicator
-                                  Navigator.pop(context);
-
-                                  // Navigate to another page
-                                  // Navigator.pushNamed(
-                                  //   context,
-                                  //   AppRoutes.payment_success,
-                                  // );
-                                });
+                                  });
+                                }
 
                                 print('Address: $address');
                                 print('Payment Method: $selectedPaymentMethod');

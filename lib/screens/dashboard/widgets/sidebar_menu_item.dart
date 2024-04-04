@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:petcarepal/config/app_routes.dart';
 import 'package:petcarepal/constants/constants.dart';
 import 'package:petcarepal/screens/dashboard/models/menu_item.dart';
 
@@ -29,36 +30,41 @@ class _MenuItemState extends State<SideBarMenuItem> {
             _iconColor = Colors.white;
           });
         },
-        child: Container(
-          width: widget.isDesktop ? null : 44,
-          height: 44,
-          padding: EdgeInsets.symmetric(horizontal: 8),
-          margin: EdgeInsets.symmetric(vertical: 8),
-          decoration: BoxDecoration(
-              color: _bgColor, borderRadius: BorderRadius.circular(8)),
-          child: Row(
-            mainAxisAlignment: widget.isDesktop
-                ? MainAxisAlignment.start
-                : MainAxisAlignment.center,
-            children: [
-              Icon(
-                widget.item.icon,
-                size: 20,
-                color: _iconColor,
-              ),
-              if (widget.isDesktop) ...[
-                SizedBox(
-                  width: 16,
+        child: GestureDetector(
+          onTap: () {
+            Navigator.pushNamed(context, AppRoutes.admin_profile);
+          },
+          child: Container(
+            width: widget.isDesktop ? null : 44,
+            height: 44,
+            padding: EdgeInsets.symmetric(horizontal: 8),
+            margin: EdgeInsets.symmetric(vertical: 8),
+            decoration: BoxDecoration(
+                color: _bgColor, borderRadius: BorderRadius.circular(8)),
+            child: Row(
+              mainAxisAlignment: widget.isDesktop
+                  ? MainAxisAlignment.start
+                  : MainAxisAlignment.center,
+              children: [
+                Icon(
+                  widget.item.icon,
+                  size: 20,
+                  color: _iconColor,
                 ),
-                Text(
-                  widget.item.name,
-                  style: TextStyle(
-                    color: _iconColor,
+                if (widget.isDesktop) ...[
+                  SizedBox(
+                    width: 16,
                   ),
-                )
-              ] else
-                SizedBox.shrink(),
-            ],
+                  Text(
+                    widget.item.name,
+                    style: TextStyle(
+                      color: _iconColor,
+                    ),
+                  )
+                ] else
+                  SizedBox.shrink(),
+              ],
+            ),
           ),
         ));
   }
