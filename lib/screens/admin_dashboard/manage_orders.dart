@@ -145,6 +145,7 @@ class _ManageOrderState extends State<ManageOrder> {
                                   builder: (context) => OrderDetailPage(
                                     order: order,
                                     updateOrderStatus: _updateOrderStatus,
+                                    order_id: order.id,
                                   ),
                                 ),
                               );
@@ -203,7 +204,7 @@ class _ManageOrderState extends State<ManageOrder> {
                                     crossAxisAlignment: CrossAxisAlignment.end,
                                     children: [
                                       Text(
-                                        '\$${order.tongSoTien}',
+                                        '\đ${order.tongSoTien}00',
                                         style: TextStyle(
                                           fontSize: 24,
                                           fontWeight: FontWeight.bold,

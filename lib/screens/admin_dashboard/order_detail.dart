@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:petcarepal/screens/admin_dashboard/service.dart';
 import 'order.dart';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
@@ -37,18 +38,40 @@ void _updateOrderStatus(
 class OrderDetailPage extends StatefulWidget {
   final Order order;
   final Function(int, bool) updateOrderStatus;
+  final int order_id;
 
-  const OrderDetailPage({
-    Key? key,
-    required this.order,
-    required this.updateOrderStatus,
-  }) : super(key: key);
+  const OrderDetailPage(
+      {Key? key,
+      required this.order,
+      required this.updateOrderStatus,
+      required this.order_id})
+      : super(key: key);
 
   @override
   _OrderDetailPageState createState() => _OrderDetailPageState();
 }
 
 class _OrderDetailPageState extends State<OrderDetailPage> {
+  AdminApi _api = AdminApi();
+  List<dynamic> itemOrder = [];
+
+  void _fetchItemOrder() async {
+    try {
+      var result = await _api.getItemOrder(widget.order_id);
+      setState(() {
+        itemOrder = result;
+      });
+    } catch (e) {
+      print('Error fetching item order: $e');
+      // Handle error accordingly
+    }
+  }
+
+  void initState() {
+    super.initState();
+    _fetchItemOrder();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -158,12 +181,24 @@ class _OrderDetailPageState extends State<OrderDetailPage> {
               ),
             ),
             SizedBox(height: 8),
-            Text(
-              widget.order.noiDung ?? 'N/A',
-              style: TextStyle(
-                fontSize: 16,
-                color: Colors.grey[800],
-              ),
+            ListView.builder(
+              shrinkWrap: true,
+              itemCount: itemOrder.length,
+              itemBuilder: (context, index) {
+                var orderItem = itemOrder[index];
+                var sanpham = orderItem['sanPham']['ten'];
+                print(sanpham);
+                var soluong = orderItem['soLuong'];
+                return ListTile(
+                  title: Text(
+                    sanpham,
+                    style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                  subtitle: Text('Số lượng: $soluong'),
+                );
+              },
             ),
           ],
         ),

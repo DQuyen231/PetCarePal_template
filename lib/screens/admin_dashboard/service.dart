@@ -17,6 +17,16 @@ class AdminApi {
 
     return [];
   }
+
+  Future<dynamic> getItemOrder(id) async {
+    try {
+      final response = await _dio.get('https://54.206.249.179/sp_order/${id}');
+      print(response.data);
+      return response.data;
+    } catch (e) {
+      print(e.toString());
+    }
+  }
 }
 
 Future<List<Order>> fetchOrder() async {
