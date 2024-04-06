@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'dart:async';
 import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
+import 'package:petcarepal/config/app_routes.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class PetContainer extends StatefulWidget {
@@ -83,7 +84,9 @@ class _PetContainerState extends State<PetContainer> {
                         borderRadius: BorderRadius.circular(20),
                       ),
                       child: TextButton(
-                        onPressed: () {},
+                        onPressed: () {
+                          Navigator.pushNamed(context, AppRoutes.pet_chart);
+                        },
                         child: Text(
                           'Hồ sơ bệnh án',
                           style: TextStyle(
