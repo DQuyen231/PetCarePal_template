@@ -37,6 +37,7 @@ class ShoppingApi {
     try {
       final response = await _dio.put(url);
       print(response);
+      print('successs');
     } catch (e) {
       print(e.toString());
     }

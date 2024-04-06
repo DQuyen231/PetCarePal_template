@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:petcarepal/screens/appointments/components/info_appointment.dart';
 import 'package:petcarepal/screens/appointments/service/appointment_api.dart';
 
 class CreateVaccinationAppointmentScreen extends StatefulWidget {
@@ -98,7 +99,10 @@ class _CreateVaccinationAppointmentScreenState
           content: Text('Tạo lịch tiếm chủng thành công'),
         ),
       );
-      Navigator.popUntil(context, (route) => route.isFirst);
+      Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(builder: (context) => InfoAppointment()),
+      );
     } catch (e) {
       print('Error creating vaccination: $e');
       ScaffoldMessenger.of(context).showSnackBar(

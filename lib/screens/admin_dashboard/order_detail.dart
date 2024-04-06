@@ -159,7 +159,7 @@ class _OrderDetailPageState extends State<OrderDetailPage> {
             ),
             SizedBox(height: 8),
             Text(
-              widget.order.noiDung ?? 'N/A',
+              widget.order.noiDung,
               style: TextStyle(
                 fontSize: 16,
                 color: Colors.grey[800],

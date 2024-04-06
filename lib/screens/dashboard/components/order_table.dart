@@ -3,15 +3,15 @@ import 'package:petcarepal/constants/constants.dart';
 import 'package:petcarepal/screens/dashboard/models/menu_item.dart';
 
 final orders = <Order>[
-  Order(
-      Icons.checkroom_outlined, 'Black T-shirt', 2, 'Delivered', '12/09/2021'),
-  Order(Icons.pool_outlined, 'Black T-shirt', 3, 'Delivered', '12/09/2021'),
-  Order(Icons.dry_cleaning_outlined, 'Black T-shirt', 4, 'Delivered',
-      '12/09/2021'),
-  Order(Icons.beach_access_outlined, 'Black T-shirt', 6, 'Delivered',
-      '12/09/2021'),
-  Order(
-      Icons.checkroom_outlined, 'Black T-shirt', 2, 'Delivered', '12/09/2021'),
+  // Order(
+  //     Icons.checkroom_outlined, 'Black T-shirt', 2, 'Delivered', '12/09/2021'),
+  // Order(Icons.pool_outlined, 'Black T-shirt', 3, 'Delivered', '12/09/2021'),
+  // Order(Icons.dry_cleaning_outlined, 'Black T-shirt', 4, 'Delivered',
+  //     '12/09/2021'),
+  // Order(Icons.beach_access_outlined, 'Black T-shirt', 6, 'Delivered',
+  //     '12/09/2021'),
+  // Order(
+  //     Icons.checkroom_outlined, 'Black T-shirt', 2, 'Delivered', '12/09/2021'),
 ];
 
 final columnNames = ['', '', 'Time', ''];

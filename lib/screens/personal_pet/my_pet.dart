@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:petcarepal/config/app_routes.dart';
 import 'package:petcarepal/config/bottom_navigation.dart';
 import 'package:petcarepal/screens/personal_pet/components/add_pet.dart';
-import 'package:petcarepal/screens/personal_pet/components/header.dart';
 import 'package:petcarepal/screens/personal_pet/components/pet_container.dart';
 
 class MyPet extends StatefulWidget {
@@ -31,12 +30,12 @@ class _MyPetState extends State<MyPet> {
           },
         ),
       ),
-      body: SingleChildScrollView(
-        child: Container(
-          color: Color.fromRGBO(240, 243, 248, 1.0),
-          width: MediaQuery.of(context).size.width,
-          height: containerWidth,
+      body: Container(
+        width: containerWidth,
+        color: Colors.grey[100],
+        child: SingleChildScrollView(
           child: Column(
+            crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               PetContainer(),
               AddPet(),
@@ -44,14 +43,6 @@ class _MyPetState extends State<MyPet> {
           ),
         ),
       ),
-      // Container(
-      //   height: containerWidth,
-      //   child: Column(
-      //     children: [
-
-      //     ],
-      //   ),
-      // ),
       bottomNavigationBar: CustomBottomNavigation(
         currentIndex: currentIndex,
         onTabSelected: (index) {

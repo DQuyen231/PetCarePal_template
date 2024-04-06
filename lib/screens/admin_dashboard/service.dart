@@ -30,3 +30,17 @@ Future<List<Order>> fetchOrder() async {
     throw Exception('Failed to load orders');
   }
 }
+
+Future<List<OrderDetails>> fetchOrderDetails(int orderId) async {
+  final response =
+      await http.get(Uri.parse('https://54.206.249.179/sp_order/$orderId'));
+
+  if (response.statusCode == 200) {
+    List<dynamic> data = jsonDecode(response.body);
+    List<OrderDetails> orderList =
+        data.map((json) => OrderDetails.fromJson(json)).toList();
+    return orderList;
+  } else {
+    throw Exception('Failed to load orders');
+  }
+}

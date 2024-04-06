@@ -1,5 +1,8 @@
+import 'dart:developer';
+
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
+import 'package:petcarepal/screens/dashboard/pages/dashboard.dart';
 import 'package:petcarepal/screens/home/home.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -19,15 +22,23 @@ class AuthService {
       if (response.statusCode == 200) {
         final userId = response.data['user']['id'];
         final token = response.data['token'];
+        final role = response.data['user']['role'];
+        if (role == 'admin') {
+          Navigator.of(context).pushReplacement(
+            MaterialPageRoute(
+              builder: (context) => Dashboard(),
+            ),
+          );
+        } else {
+          Navigator.of(context).pushReplacement(
+            MaterialPageRoute(
+              builder: (context) => HomeScreen(),
+            ),
+          );
+        }
 
         await _saveUserIdToLocalStorage(userId);
         await _saveTokenToLocalStorage(token);
-
-        Navigator.of(context).pushReplacement(
-          MaterialPageRoute(
-            builder: (context) => HomeScreen(),
-          ),
-        );
       } else {
         print('Request failed with status: ${response.statusCode}.');
       }

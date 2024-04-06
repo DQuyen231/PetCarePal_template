@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:petcarepal/screens/appointments/components/info_appointment.dart';
 import 'package:petcarepal/screens/appointments/service/appointment_api.dart';
 
 class CreateMealAppointmentScreen extends StatefulWidget {
@@ -133,7 +134,10 @@ class _CreateMealAppointmentScreenState
           content: Text('Lịch ăn đã được tạo'),
         ),
       );
-      Navigator.popUntil(context, (route) => route.isFirst);
+      Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(builder: (context) => InfoAppointment()),
+      );
     } catch (e) {
       print('Error creating meal: $e');
       ScaffoldMessenger.of(context).showSnackBar(
