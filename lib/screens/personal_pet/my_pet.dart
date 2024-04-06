@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:petcarepal/config/app_routes.dart';
 import 'package:petcarepal/config/bottom_navigation.dart';
 import 'package:petcarepal/screens/personal_pet/components/add_pet.dart';
-import 'package:petcarepal/screens/personal_pet/components/header.dart';
 import 'package:petcarepal/screens/personal_pet/components/pet_container.dart';
 
 class MyPet extends StatefulWidget {
@@ -19,17 +19,28 @@ class _MyPetState extends State<MyPet> {
     double containerWidth = MediaQuery.of(context).size.height * 0.9;
 
     return Scaffold(
-      backgroundColor: Color.fromARGB(248, 247, 251, 255),
+      appBar: AppBar(
+        title: const Text('Thú cưng của tôi',
+            style: TextStyle(fontWeight: FontWeight.bold)),
+        centerTitle: true,
+        leading: IconButton(
+          icon: Icon(Icons.arrow_back),
+          onPressed: () {
+            Navigator.pushNamed(context, AppRoutes.home);
+          },
+        ),
+      ),
       body: Container(
-        height: containerWidth,
-        child: Column(
-          children: [
-            Header(),
-            SizedBox(height: 10),
-            PetContainer(),
-            AddPet(),
-            // Add your custom bottom navigation here
-          ],
+        width: containerWidth,
+        color: Colors.grey[100],
+        child: SingleChildScrollView(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              PetContainer(),
+              AddPet(),
+            ],
+          ),
         ),
       ),
       bottomNavigationBar: CustomBottomNavigation(

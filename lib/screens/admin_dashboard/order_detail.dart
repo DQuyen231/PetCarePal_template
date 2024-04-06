@@ -189,14 +189,24 @@ class _OrderDetailPageState extends State<OrderDetailPage> {
                 var sanpham = orderItem['sanPham']['ten'];
                 print(sanpham);
                 var soluong = orderItem['soLuong'];
-                return ListTile(
-                  title: Text(
-                    sanpham,
-                    style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                    ),
+                var thuonghieu = orderItem['sanPham']['thuongHieu'];
+                var mota = orderItem['sanPham']['mota'];
+                return Container(
+                  margin: EdgeInsets.symmetric(vertical: 8),
+                  padding: EdgeInsets.all(12),
+                  decoration: BoxDecoration(
+                    color: Colors.grey[200],
+                    borderRadius: BorderRadius.circular(8),
                   ),
-                  subtitle: Text('Số lượng: $soluong'),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      _buildOrderInfoRow('Product Name:', sanpham),
+                      _buildOrderInfoRow('Brand:', thuonghieu),
+                      _buildOrderInfoRow('Description:', mota),
+                      _buildOrderInfoRow('Quantity:', soluong),
+                    ],
+                  ),
                 );
               },
             ),

@@ -19,7 +19,7 @@ class _ManageOrderState extends State<ManageOrder> {
   @override
   void initState() {
     super.initState();
-    futureOrder = fetchOrder();
+    futureOrder = fetchAcceptedOrder();
   }
 
   String getStatusString(bool status) {
@@ -40,7 +40,7 @@ class _ManageOrderState extends State<ManageOrder> {
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          'Thống kê doanh thu',
+          'Thống kê doanh thu đã hoàn thành',
           style: TextStyle(
             fontSize: 18,
             fontWeight: FontWeight.w700,

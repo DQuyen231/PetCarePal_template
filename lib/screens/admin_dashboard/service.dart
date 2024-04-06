@@ -29,12 +29,44 @@ class AdminApi {
   }
 }
 
-Future<List<Order>> fetchOrder() async {
+Future<List<Order>> fetchAcceptedOrder() async {
   final response = await http.get(Uri.parse('https://54.206.249.179/orders'));
 
   if (response.statusCode == 200) {
     List<dynamic> data = jsonDecode(response.body);
-    List<Order> orderList = data.map((json) => Order.fromJson(json)).toList();
+    List<Order> orderList = data
+        .map((json) => Order.fromJson(json))
+        .where((order) => order.trangThai == true)
+        .toList();
+    return orderList;
+  } else {
+    throw Exception('Failed to load orders');
+  }
+}
+
+Future<List<Order>> fetchPendingOrder() async {
+  final response = await http.get(Uri.parse('https://54.206.249.179/orders'));
+
+  if (response.statusCode == 200) {
+    List<dynamic> data = jsonDecode(response.body);
+    List<Order> orderList = data
+        .map((json) => Order.fromJson(json))
+        .where((order) => order.trangThai == false)
+        .toList();
+    return orderList;
+  } else {
+    throw Exception('Failed to load orders');
+  }
+}
+
+Future<List<OrderDetails>> fetchOrderDetails(int orderId) async {
+  final response =
+      await http.get(Uri.parse('https://54.206.249.179/sp_order/$orderId'));
+
+  if (response.statusCode == 200) {
+    List<dynamic> data = jsonDecode(response.body);
+    List<OrderDetails> orderList =
+        data.map((json) => OrderDetails.fromJson(json)).toList();
     return orderList;
   } else {
     throw Exception('Failed to load orders');

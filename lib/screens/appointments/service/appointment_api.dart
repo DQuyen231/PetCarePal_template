@@ -25,6 +25,8 @@ Future<List<Appointments>> fetchUncompletedAppointments(int userId) async {
             !appointment.isCompleted) // Lọc lịch chưa hoàn thành
         .toList();
     return appointmentsList;
+  } else if (response.statusCode == 404) {
+    return [];
   } else {
     throw Exception('Failed to load appointments');
   }
@@ -42,6 +44,8 @@ Future<List<Appointments>> fetchCompletedAppointments(int userId) async {
             appointment.isCompleted) // Lọc lịch chưa hoàn thành
         .toList();
     return appointmentsList;
+  } else if (response.statusCode == 404) {
+    throw Exception('Bạn chưa hoàn thành lịch nào cả');
   } else {
     throw Exception('Failed to load appointments');
   }

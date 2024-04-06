@@ -11,7 +11,7 @@ import 'package:petcarepal/screens/booking_form/medicine_form.dart';
 import 'package:petcarepal/constants/constants.dart';
 import 'package:petcarepal/screens/booking_type/booking_type.dart';
 import 'package:petcarepal/screens/calendar/calendar.dart';
-import 'package:petcarepal/screens/dashboard/dashboard.dart';
+import 'package:petcarepal/screens/dashboard/pages/dashboard.dart';
 import 'package:petcarepal/screens/dashboard/pages/dashboard.dart';
 import 'package:petcarepal/screens/home/home.dart';
 import 'package:petcarepal/screens/payment_test/payment.dart';
@@ -69,8 +69,7 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       // initialRoute: AppRoutes.cart,
       routes: AppRoutes.getRoutes(),
-
-      home: SignInScreen(),
+      home: Dashboard(),
     );
   }
 }

@@ -85,16 +85,30 @@ class _InfoAppointmentState extends State<InfoAppointment> {
                   },
                 ),
                 SizedBox(height: 20),
-                ElevatedButton(
-                  onPressed: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => ChooseAppointmentTypeScreen(),
-                      ),
-                    );
-                  },
-                  child: Text('Tạo lịch mới'),
+                Container(
+                  width: 300,
+                  height: 50,
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(20),
+                    color: Colors.blue[700],
+                  ),
+                  child: TextButton(
+                    onPressed: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => ChooseAppointmentTypeScreen(),
+                        ),
+                      );
+                    },
+                    child: Text(
+                      'Tạo lịch mới',
+                      style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 20,
+                          fontWeight: FontWeight.bold),
+                    ),
+                  ),
                 ),
                 SizedBox(height: 20),
               ],
