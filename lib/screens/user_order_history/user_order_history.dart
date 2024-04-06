@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:intl/intl.dart';
+import 'package:petcarepal/screens/user_order_history/user_order_history_detail.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 Future<int> getUserIDFromLocalStorage() async {
@@ -129,9 +130,11 @@ class _UserOrderState extends State<UserOrderHistory> {
             if (snapshot.connectionState == ConnectionState.waiting) {
               return CircularProgressIndicator();
             } else if (snapshot.hasError) {
-              return Text(
-                'Error: ${snapshot.error}',
-                style: TextStyle(color: Colors.red),
+              return Center(
+                child: Text(
+                  'Lỗi hiển thị lịch sử giao dịch hoặc lịch sử giao dịch không tìm thấy',
+                  style: TextStyle(color: Colors.red),
+                ),
               );
             } else if (snapshot.hasData) {
               return ListView.builder(
@@ -140,59 +143,43 @@ class _UserOrderState extends State<UserOrderHistory> {
                   final order = snapshot.data![index];
                   String formattedDate =
                       DateFormat('dd/MM/yyyy HH:mm').format(order.ngayOrder);
-                  return Card(
-                    elevation: 4,
-                    margin: EdgeInsets.symmetric(vertical: 8, horizontal: 16),
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(12),
-                    ),
-                    child: ExpansionTile(
-                      title: Text(
-                        'Mã đơn hàng: ${order.id}',
-                        style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                          fontSize: 16,
+                  return GestureDetector(
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) =>
+                              UserOrderHistoryDetailPage(order: order),
                         ),
+                      );
+                    },
+                    child: Container(
+                      margin: EdgeInsets.symmetric(vertical: 8, horizontal: 16),
+                      padding: EdgeInsets.all(12),
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(12),
+                        border: Border.all(color: Colors.grey),
                       ),
-                      subtitle: Text(
-                        'Ngày đặt hàng: $formattedDate',
-                        style: TextStyle(
-                          fontStyle: FontStyle.italic,
-                          fontSize: 14,
-                        ),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            'Mã đơn hàng: ${order.id}',
+                            style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              fontSize: 16,
+                            ),
+                          ),
+                          SizedBox(height: 8),
+                          Text(
+                            'Ngày đặt hàng: $formattedDate',
+                            style: TextStyle(
+                              fontStyle: FontStyle.italic,
+                              fontSize: 14,
+                            ),
+                          ),
+                        ],
                       ),
-                      children: [
-                        ListTile(
-                          title: Text(
-                            'Phương thức thanh toán: ${order.phuongThucThanhToan}',
-                            style: TextStyle(fontSize: 14),
-                          ),
-                        ),
-                        ListTile(
-                          title: Text(
-                            'Địa chỉ: ${order.diaChi}',
-                            style: TextStyle(fontSize: 14),
-                          ),
-                        ),
-                        ListTile(
-                          title: Text(
-                            'Tổng số tiền: ${order.tongSoTien}',
-                            style: TextStyle(fontSize: 14),
-                          ),
-                        ),
-                        ListTile(
-                          title: Text(
-                            'Nội dung: ${order.noiDung}',
-                            style: TextStyle(fontSize: 14),
-                          ),
-                        ),
-                        ListTile(
-                          title: Text(
-                            'Trạng thái: ${order.trangThai ? 'Hoàn thành' : 'Chưa hoàn thành'}',
-                            style: TextStyle(fontSize: 14),
-                          ),
-                        ),
-                      ],
                     ),
                   );
                 },

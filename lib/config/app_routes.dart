@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:petcarepal/screens/QR/qr_screen.dart';
 import 'package:petcarepal/screens/admin_dashboard/manage_orders.dart';
 import 'package:petcarepal/screens/appointments/appointments.dart';
 import 'package:petcarepal/screens/booking_form/medicine_form.dart';
@@ -8,7 +9,9 @@ import 'package:petcarepal/screens/booking_type/booking_type.dart';
 import 'package:petcarepal/screens/calendar/calendar.dart';
 import 'package:petcarepal/screens/dashboard/pages/dashboard.dart';
 import 'package:petcarepal/screens/home/home.dart';
+import 'package:petcarepal/screens/membership/membership.dart';
 import 'package:petcarepal/screens/payment/payment.dart';
+import 'package:petcarepal/screens/pending_order/pending.dart';
 import 'package:petcarepal/screens/personal_pet/my_pet.dart';
 import 'package:petcarepal/screens/pet_profile/pet_profile.dart';
 import 'package:petcarepal/screens/pet_shop/pet_shop.dart';
@@ -17,6 +20,7 @@ import 'package:petcarepal/screens/shopping_cart/shopping_cart.dart';
 import 'package:petcarepal/screens/signin/signin.dart';
 import 'package:petcarepal/screens/splash/splash.dart';
 import 'package:petcarepal/screens/successpay/successpay.dart';
+import 'package:petcarepal/screens/user_profile/admin_profile.dart';
 import 'package:petcarepal/screens/user_profile/profile.dart';
 import 'package:petcarepal/screens/user_order_history/user_order_history.dart';
 
@@ -42,6 +46,9 @@ class AppRoutes {
   static const String user_order_history = '/user_order_history';
   static const String all_order = '/all_order';
   static const String admin = '/admin_dashboard';
+  static const String pending_order = '/pending_order';
+  static const String membership = '/membership';
+  static const String admin_profile = '/admin_profile';
 
   static Map<String, WidgetBuilder> getRoutes() {
     return {
@@ -66,6 +73,9 @@ class AppRoutes {
       user_order_history: (context) => UserOrderHistory(),
       all_order: (context) => ManageOrder(),
       admin: (context) => Dashboard(),
+      pending_order: (context) => PendingOrders(),
+      membership: (context) => Membership(),
+      admin_profile: (context) => AdminProfile(),
     };
   }
 }

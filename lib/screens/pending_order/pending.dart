@@ -2,24 +2,24 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:petcarepal/config/app_routes.dart';
 import 'package:petcarepal/screens/admin_dashboard/order_detail.dart';
-import 'order.dart';
-import 'service.dart';
+import 'package:petcarepal/screens/admin_dashboard/order.dart';
+import 'package:petcarepal/screens/admin_dashboard/service.dart';
 
-class ManageOrder extends StatefulWidget {
-  const ManageOrder({Key? key});
+class PendingOrders extends StatefulWidget {
+  const PendingOrders({Key? key});
 
   @override
-  _ManageOrderState createState() => _ManageOrderState();
+  _PendingOrderState createState() => _PendingOrderState();
 }
 
-class _ManageOrderState extends State<ManageOrder> {
+class _PendingOrderState extends State<PendingOrders> {
   late Future<List<Order>> futureOrder;
   List<Order> _orders = [];
 
   @override
   void initState() {
     super.initState();
-    futureOrder = fetchAcceptedOrder();
+    futureOrder = fetchPendingOrder();
   }
 
   String getStatusString(bool status) {
@@ -40,7 +40,7 @@ class _ManageOrderState extends State<ManageOrder> {
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          'Thống kê doanh thu đã hoàn thành',
+          'Thống kê doanh thu chưa hoàn thành',
           style: TextStyle(
             fontSize: 18,
             fontWeight: FontWeight.w700,
@@ -76,6 +76,7 @@ class _ManageOrderState extends State<ManageOrder> {
                 ),
                 SizedBox(height: 6),
                 Container(
+                  width: 400,
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(10.0),
                     color: Colors.grey[200],
@@ -90,31 +91,14 @@ class _ManageOrderState extends State<ManageOrder> {
                     future: futureOrder,
                     builder: (context, snapshot) {
                       if (snapshot.hasData) {
-                        double totalRevenue = 0;
                         int amount = snapshot.data!.length;
-                        for (var order in snapshot.data!) {
-                          totalRevenue += order.tongSoTien;
-                        }
-                        return Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Text(
-                              'Revenue: \$${totalRevenue.toStringAsFixed(2)}',
-                              style: TextStyle(
-                                fontSize: 16,
-                                fontWeight: FontWeight.bold,
-                                color: Colors.grey[800],
-                              ),
-                            ),
-                            Text(
-                              'Amount: $amount',
-                              style: TextStyle(
-                                fontSize: 16,
-                                fontWeight: FontWeight.bold,
-                                color: Colors.grey[800],
-                              ),
-                            ),
-                          ],
+                        return Text(
+                          'Amount: $amount',
+                          style: TextStyle(
+                            fontSize: 16,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.grey[800],
+                          ),
                         );
                       } else if (snapshot.hasError) {
                         return Text('${snapshot.error}');

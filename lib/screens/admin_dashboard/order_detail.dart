@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:petcarepal/screens/admin_dashboard/service.dart';
 import 'order.dart';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
@@ -37,18 +38,40 @@ void _updateOrderStatus(
 class OrderDetailPage extends StatefulWidget {
   final Order order;
   final Function(int, bool) updateOrderStatus;
+  final int order_id;
 
-  const OrderDetailPage({
-    Key? key,
-    required this.order,
-    required this.updateOrderStatus,
-  }) : super(key: key);
+  const OrderDetailPage(
+      {Key? key,
+      required this.order,
+      required this.updateOrderStatus,
+      required this.order_id})
+      : super(key: key);
 
   @override
   _OrderDetailPageState createState() => _OrderDetailPageState();
 }
 
 class _OrderDetailPageState extends State<OrderDetailPage> {
+  AdminApi _api = AdminApi();
+  List<dynamic> itemOrder = [];
+
+  void _fetchItemOrder() async {
+    try {
+      var result = await _api.getItemOrder(widget.order_id);
+      setState(() {
+        itemOrder = result;
+      });
+    } catch (e) {
+      print('Error fetching item order: $e');
+      // Handle error accordingly
+    }
+  }
+
+  void initState() {
+    super.initState();
+    _fetchItemOrder();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -158,12 +181,34 @@ class _OrderDetailPageState extends State<OrderDetailPage> {
               ),
             ),
             SizedBox(height: 8),
-            Text(
-              widget.order.noiDung,
-              style: TextStyle(
-                fontSize: 16,
-                color: Colors.grey[800],
-              ),
+            ListView.builder(
+              shrinkWrap: true,
+              itemCount: itemOrder.length,
+              itemBuilder: (context, index) {
+                var orderItem = itemOrder[index];
+                var sanpham = orderItem['sanPham']['ten'];
+                print(sanpham);
+                var soluong = orderItem['soLuong'];
+                var thuonghieu = orderItem['sanPham']['thuongHieu'];
+                var mota = orderItem['sanPham']['mota'];
+                return Container(
+                  margin: EdgeInsets.symmetric(vertical: 8),
+                  padding: EdgeInsets.all(12),
+                  decoration: BoxDecoration(
+                    color: Colors.grey[200],
+                    borderRadius: BorderRadius.circular(8),
+                  ),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      _buildOrderInfoRow('Product Name:', sanpham),
+                      _buildOrderInfoRow('Brand:', thuonghieu),
+                      _buildOrderInfoRow('Description:', mota),
+                      _buildOrderInfoRow('Quantity:', soluong),
+                    ],
+                  ),
+                );
+              },
             ),
           ],
         ),

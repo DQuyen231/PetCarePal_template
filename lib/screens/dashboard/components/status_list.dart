@@ -6,10 +6,10 @@ import 'package:petcarepal/screens/dashboard/models/menu_item.dart';
 import 'package:petcarepal/screens/dashboard/widgets/status_card.dart';
 
 final List<BussinessStatus> statusList = [
-  BussinessStatus('Total Sales', '1123456 \$', Icons.show_chart_outlined),
+  BussinessStatus('Pending', '11\$', Icons.show_chart_outlined),
   BussinessStatus('Total Profit', '11234 \$', Icons.attach_money_outlined),
   // BussinessStatus('Orders', '1236', Icons.shopping_cart_outlined),
-  BussinessStatus('Customers', '11234', Icons.people_outline_outlined),
+  BussinessStatus('Membership', '23', Icons.people_outline_outlined),
 ];
 
 class StatusList extends StatelessWidget {
@@ -53,10 +53,23 @@ class StatusList extends StatelessWidget {
             itemCount: statusList.length,
             itemBuilder: (context, index) => GestureDetector(
                   onTap: () {
-                    Navigator.pushNamed(
-                      context,
-                      AppRoutes.all_order,
-                    );
+                    if (statusList[index].name == 'Pending') {
+                      Navigator.pushNamed(
+                        context,
+                        AppRoutes.pending_order,
+                      );
+                    } else if (statusList[index].name == 'Total Profit') {
+                      Navigator.pushNamed(
+                        context,
+                        AppRoutes.all_order,
+                      );
+                    } else if (statusList[index].name == 'Membership') {
+                      Navigator.pushNamed(
+                        context,
+                        AppRoutes.membership,
+                      );
+                    }
+                    ;
                   },
                   child: StatusCard(statusList[index]),
                 ),
