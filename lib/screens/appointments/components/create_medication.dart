@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-import 'package:petcarepal/screens/appointments/components/info_appointment.dart';
 import 'package:petcarepal/screens/appointments/service/appointment_api.dart';
 
 class CreateMedicationAppointmentScreen extends StatefulWidget {
@@ -145,10 +144,7 @@ class _CreateMedicationAppointmentScreenState
           content: Text('Đã tạo lịch thuốc thành công'),
         ),
       );
-      Navigator.pushReplacement(
-        context,
-        MaterialPageRoute(builder: (context) => InfoAppointment()),
-      );
+      Navigator.pop(context);
       // Sau khi tạo thành công, bạn có thể thực hiện các tác vụ khác ở đây, ví dụ chuyển người dùng đến màn hình danh sách lịch thuốc
     } catch (e) {
       print('Error creating medication: $e');

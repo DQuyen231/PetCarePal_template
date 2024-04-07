@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:petcarepal/screens/admin_dashboard/service.dart';
+import 'package:petcarepal/screens/admin_dashboard/user_detail.dart';
 import 'order.dart';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
@@ -107,12 +108,32 @@ class _OrderDetailPageState extends State<OrderDetailPage> {
             ),
             SizedBox(height: 8),
             _buildOrderInfoRow('Order #:', widget.order.id),
-            _buildOrderInfoRow('User ID:', widget.order.userId),
+            Row(
+              children: [
+                Expanded(
+                  flex: 2,
+                  child: _buildOrderInfoRow('User ID:', widget.order.userId),
+                ),
+                IconButton(
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) =>
+                            UserDetailPage(userId: widget.order.userId),
+                      ),
+                    );
+                  },
+                  icon: Icon(Icons.person),
+                ),
+              ],
+            ),
             _buildOrderInfoRow(
                 'Payment Method:', widget.order.phuongThucThanhToan),
             _buildOrderInfoRow('Address:', widget.order.diaChi),
             _buildOrderInfoRow('Order Date:', widget.order.ngayOrder),
-            _buildOrderInfoRow('Total Amount:', '\$${widget.order.tongSoTien}'),
+            _buildOrderInfoRow(
+                'Total Amount:', '\đ${widget.order.tongSoTien}00'),
             Row(
               children: [
                 Expanded(
