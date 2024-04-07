@@ -3,6 +3,7 @@ import 'package:petcarepal/config/app_routes.dart';
 import 'package:petcarepal/config/bottom_navigation.dart';
 import 'package:petcarepal/screens/user_profile/components/profile_header.dart';
 import 'package:petcarepal/screens/user_profile/components/profile_option.dart';
+import 'package:petcarepal/screens/user_profile/service/profile_api.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class ProfilePage extends StatefulWidget {
@@ -12,6 +13,19 @@ class ProfilePage extends StatefulWidget {
 
 class _ProfilePageState extends State<ProfilePage> {
   int currentIndex = 3;
+  ProfileApi _api = ProfileApi();
+  bool _isVip = false;
+
+  Future<void> _initializeData() async {
+    _api = ProfileApi();
+    _isVip = await _api.isVip();
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    _initializeData();
+  }
 
   Future<void> clearSharedPreferences() async {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
