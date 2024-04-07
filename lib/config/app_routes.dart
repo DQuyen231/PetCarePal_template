@@ -23,6 +23,7 @@ import 'package:petcarepal/screens/successpay/successpay.dart';
 import 'package:petcarepal/screens/user_profile/admin_profile.dart';
 import 'package:petcarepal/screens/user_profile/profile.dart';
 import 'package:petcarepal/screens/user_order_history/user_order_history.dart';
+import 'package:petcarepal/screens/pet_profile/pet_chart.dart';
 
 class AppRoutes {
   static const String splash = '/splash';
@@ -49,6 +50,7 @@ class AppRoutes {
   static const String pending_order = '/pending_order';
   static const String membership = '/membership';
   static const String admin_profile = '/admin_profile';
+  static const String pet_chart = '/pet_chart';
 
   static Map<String, WidgetBuilder> getRoutes() {
     return {
@@ -76,6 +78,7 @@ class AppRoutes {
       pending_order: (context) => PendingOrders(),
       membership: (context) => Membership(),
       admin_profile: (context) => AdminProfile(),
+      pet_chart: (context) => PetChart(),
     };
   }
 }

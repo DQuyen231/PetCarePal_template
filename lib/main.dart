@@ -31,6 +31,7 @@ import 'package:petcarepal/screens/user_profile/profile.dart';
 import 'package:petcarepal/screens/edit_user_profile/edit_user_profile.dart';
 import 'package:petcarepal/screens/pet_shop/pet_shop.dart';
 import 'package:petcarepal/screens/user_order_history/user_order_history.dart';
+import 'package:petcarepal/screens/pet_profile/pet_chart.dart';
 
 import 'dart:io';
 
@@ -69,7 +70,7 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       // initialRoute: AppRoutes.cart,
       routes: AppRoutes.getRoutes(),
-      home: Dashboard(),
+      home: SplashScreen(),
     );
   }
 }
