@@ -132,8 +132,8 @@ class _UserOrderState extends State<UserOrderHistory> {
             } else if (snapshot.hasError) {
               return Center(
                 child: Text(
-                  'Lỗi hiển thị lịch sử giao dịch hoặc lịch sử giao dịch không tìm thấy',
-                  style: TextStyle(color: Colors.red),
+                  'Chưa có lịch sử giao dịch',
+                  style: TextStyle(color: Colors.blue, fontSize: 20),
                 ),
               );
             } else if (snapshot.hasData) {

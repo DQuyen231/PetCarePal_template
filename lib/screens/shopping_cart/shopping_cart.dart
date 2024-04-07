@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:petcarepal/config/app_routes.dart';
+import 'package:petcarepal/screens/QR/momo.dart';
 import 'package:petcarepal/screens/QR/qr_screen.dart';
 import 'package:petcarepal/screens/shopping_cart/services/shopping_api.dart';
 
@@ -118,7 +119,7 @@ class _ShoppingCartState extends State<ShoppingCart> {
                                   ],
                                 ),
                                 trailing: Text(
-                                  '\$${price.toStringAsFixed(2)}',
+                                  '\đ${price.toStringAsFixed(0)}',
                                   style: TextStyle(fontWeight: FontWeight.bold),
                                 ),
                               ),
@@ -141,7 +142,7 @@ class _ShoppingCartState extends State<ShoppingCart> {
                                   style: TextStyle(fontWeight: FontWeight.bold),
                                 ),
                                 trailing: Text(
-                                  '\$${totalPrice.toStringAsFixed(2)}',
+                                  '\đ${totalPrice.toStringAsFixed(0)}',
                                   style: TextStyle(fontWeight: FontWeight.bold),
                                 ),
                               ),
@@ -173,7 +174,7 @@ class _ShoppingCartState extends State<ShoppingCart> {
                                 selectedPaymentMethod = value!;
                               });
                             },
-                            items: ['Cash', 'QR', 'PayPal']
+                            items: ['Cash', 'Momo', 'MBbank', 'PayPal']
                                 .map<DropdownMenuItem<String>>((String value) {
                               return DropdownMenuItem<String>(
                                 value: value,
@@ -197,12 +198,20 @@ class _ShoppingCartState extends State<ShoppingCart> {
                                   showError = false;
                                 });
                                 String address = addressController.text;
-                                String paymentMethod = selectedPaymentMethod;
+                                String paymentMethod = 'Cash';
+
+                                if (selectedPaymentMethod == 'Momo') {
+                                  paymentMethod = 'MOMO';
+                                } else if (selectedPaymentMethod == 'MBbank') {
+                                  paymentMethod = 'Internet Banking';
+                                } else if (selectedPaymentMethod == 'Paypal') {
+                                  paymentMethod = 'Paypal';
+                                }
 
                                 int order_id = await _shoppingApi.payment(
                                     paymentMethod, address);
 
-                                if (paymentMethod == 'QR') {
+                                if (paymentMethod == 'Internet Banking') {
                                   showDialog(
                                     context: context,
                                     barrierDismissible:
@@ -219,6 +228,26 @@ class _ShoppingCartState extends State<ShoppingCart> {
                                         context,
                                         MaterialPageRoute(
                                             builder: (context) => QRScreen(
+                                                  order_id: order_id,
+                                                )));
+                                  });
+                                } else if (paymentMethod == 'QR') {
+                                  showDialog(
+                                    context: context,
+                                    barrierDismissible:
+                                        false, // Prevent dismissing the dialog
+                                    builder: (context) {
+                                      return Center(
+                                        child: CircularProgressIndicator(),
+                                      );
+                                    },
+                                  );
+
+                                  Future.delayed(Duration(seconds: 2), () {
+                                    Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                            builder: (context) => MomoScreen(
                                                   order_id: order_id,
                                                 )));
                                   });

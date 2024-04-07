@@ -13,10 +13,14 @@ class PetShopApi {
       if (response.statusCode == 200) {
         final List<dynamic> productItems = response.data;
 
-        // print(productItems);
-        return productItems
+        List<ProductModelTest> products = productItems
             .map((item) => ProductModelTest.fromJson(item))
             .toList();
+
+        // Remove the product with ID 18
+        products.removeWhere((product) => product.id == 18);
+
+        return products;
       } else {
         throw Exception('Failed to load products');
       }

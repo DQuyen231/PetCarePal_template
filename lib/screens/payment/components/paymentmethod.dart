@@ -12,8 +12,8 @@ class RadioListWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     Map<String, String> paymentMethods = {
-      'Thanh toán trực tiếp': 'assets/icons/money.png',
-      'Ví Vnpay': 'assets/icons/vnpay.png',
+      // 'Thanh toán trực tiếp': 'assets/icons/money.png',
+      'Ví MBbank': 'assets/images/mb.png',
       'Ví Momo': 'assets/icons/momo.png',
       'Ví Paypal': 'assets/icons/paypal.png',
     };

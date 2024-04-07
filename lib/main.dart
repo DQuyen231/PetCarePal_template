@@ -14,6 +14,7 @@ import 'package:petcarepal/screens/calendar/calendar.dart';
 import 'package:petcarepal/screens/dashboard/pages/dashboard.dart';
 import 'package:petcarepal/screens/dashboard/pages/dashboard.dart';
 import 'package:petcarepal/screens/home/home.dart';
+import 'package:petcarepal/screens/payment/components/paymentmethod.dart';
 import 'package:petcarepal/screens/payment_test/payment.dart';
 import 'package:petcarepal/screens/personal_pet/components/add_pet.dart';
 import 'package:petcarepal/screens/personal_pet/my_pet.dart';
@@ -66,11 +67,10 @@ class MyApp extends StatelessWidget {
       //       seedColor: const Color.fromARGB(255, 245, 244, 247)),
       //   useMaterial3: true,
       // ),
-
       debugShowCheckedModeBanner: false,
       // initialRoute: AppRoutes.cart,
       routes: AppRoutes.getRoutes(),
-      home: Dashboard(),
+      home: SignInScreen(),
     );
   }
 }

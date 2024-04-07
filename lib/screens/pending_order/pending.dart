@@ -188,7 +188,7 @@ class _PendingOrderState extends State<PendingOrders> {
                                     crossAxisAlignment: CrossAxisAlignment.end,
                                     children: [
                                       Text(
-                                        '\đ${order.tongSoTien}00',
+                                        '\đ${order.tongSoTien}',
                                         style: TextStyle(
                                           fontSize: 24,
                                           fontWeight: FontWeight.bold,
