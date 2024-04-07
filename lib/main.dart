@@ -67,7 +67,6 @@ class MyApp extends StatelessWidget {
       //       seedColor: const Color.fromARGB(255, 245, 244, 247)),
       //   useMaterial3: true,
       // ),
-
       debugShowCheckedModeBanner: false,
       // initialRoute: AppRoutes.cart,
       routes: AppRoutes.getRoutes(),

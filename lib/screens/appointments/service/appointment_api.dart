@@ -16,7 +16,6 @@ Future<int> getUserIDFromLocalStorage() async {
 Future<List<Appointments>> fetchUncompletedAppointments(int userId) async {
   final response = await http
       .get(Uri.parse('https://54.206.249.179/api/Lich/lichs/$userId'));
-
   if (response.statusCode == 200) {
     List<dynamic> data = jsonDecode(response.body);
     List<Appointments> appointmentsList = data
@@ -204,7 +203,7 @@ Future<void> updateSize(
 }
 
 Future<void> createMedication(Map<String, dynamic> medicationData) async {
-  final Uri uri = Uri.parse('https://54.206.249.179/api/Lich/thuoc/5');
+  final Uri uri = Uri.parse('https://54.206.249.179/api/Lich/thuoc/31');
 
   final http.Response response = await http.post(
     uri,
@@ -222,7 +221,7 @@ Future<void> createMedication(Map<String, dynamic> medicationData) async {
 }
 
 Future<void> createVaccination(Map<String, dynamic> vaccinationData) async {
-  final Uri uri = Uri.parse('https://54.206.249.179/api/Lich/tiemChung/5');
+  final Uri uri = Uri.parse('https://54.206.249.179/api/Lich/tiemChung/31');
 
   final http.Response response = await http.post(
     uri,
@@ -240,7 +239,7 @@ Future<void> createVaccination(Map<String, dynamic> vaccinationData) async {
 }
 
 Future<void> createMeal(Map<String, dynamic> mealData) async {
-  final Uri uri = Uri.parse('https://54.206.249.179/api/Lich/buaAn/5');
+  final Uri uri = Uri.parse('https://54.206.249.179/api/Lich/buaAn/31');
 
   final http.Response response = await http.post(
     uri,
@@ -258,7 +257,7 @@ Future<void> createMeal(Map<String, dynamic> mealData) async {
 }
 
 Future<void> createSize(Map<String, dynamic> sizeData) async {
-  final Uri uri = Uri.parse('https://54.206.249.179/api/Lich/doKichThuoc/5');
+  final Uri uri = Uri.parse('https://54.206.249.179/api/Lich/doKichThuoc/31');
 
   final http.Response response = await http.post(
     uri,

@@ -82,7 +82,7 @@ class PaymentApi {
   }
 
   Future<void> createOrderByMoMo(user_id) async {
-    const reqBody = {"phuongThucThanhToan": "QR", "diaChi": "PetCarePal"};
+    const reqBody = {"phuongThucThanhToan": "MOMO", "diaChi": "PetCarePal"};
 
     final url = 'https://54.206.249.179/order/${user_id}';
     // final url_put = 'https://54.206.249.179/order/${order_id}';

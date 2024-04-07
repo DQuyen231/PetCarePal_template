@@ -19,6 +19,7 @@ class _ProfilePageState extends State<ProfilePage> {
   Future<void> _initializeData() async {
     _api = ProfileApi();
     _isVip = await _api.isVip();
+    print('isVip: $_isVip');
   }
 
   @override

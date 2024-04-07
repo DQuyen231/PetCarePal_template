@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-import 'package:petcarepal/screens/appointments/components/info_appointment.dart';
 import 'package:petcarepal/screens/appointments/service/appointment_api.dart';
 
 class CreateSizeAppointmentScreen extends StatefulWidget {
@@ -101,10 +100,7 @@ class _CreateSizeAppointmentScreenState
           content: Text('Tạo lịch đo chiều cao thành công'),
         ),
       );
-      Navigator.pushReplacement(
-        context,
-        MaterialPageRoute(builder: (context) => InfoAppointment()),
-      );
+      Navigator.pop(context);
     } catch (e) {
       print('Error creating size: $e');
       ScaffoldMessenger.of(context).showSnackBar(

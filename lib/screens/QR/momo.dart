@@ -3,7 +3,8 @@ import 'package:petcarepal/config/app_routes.dart';
 import 'package:petcarepal/screens/shopping_cart/services/shopping_api.dart';
 
 class MomoScreen extends StatelessWidget {
-  final String qrImageUrl = 'assets/images/qr.png'; // URL of the QR code image
+  final String qrImageUrl =
+      'assets/images/momo.png'; // URL of the QR code image
   final int order_id;
   ShoppingApi _api = ShoppingApi();
 
