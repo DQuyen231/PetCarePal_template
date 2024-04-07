@@ -99,7 +99,7 @@ class _ManageOrderState extends State<ManageOrder> {
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             Text(
-                              'Revenue: \$${totalRevenue.toStringAsFixed(2)}',
+                              'Revenue: \đ${totalRevenue.toStringAsFixed(1)}00',
                               style: TextStyle(
                                 fontSize: 16,
                                 fontWeight: FontWeight.bold,

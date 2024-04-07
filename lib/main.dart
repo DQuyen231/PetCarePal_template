@@ -70,7 +70,7 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       // initialRoute: AppRoutes.cart,
       routes: AppRoutes.getRoutes(),
-      home: SplashScreen(),
+      home: Dashboard(),
     );
   }
 }
