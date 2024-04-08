@@ -99,10 +99,7 @@ class _UserDetailPageState extends State<UserDetailPage> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   _buildUserInfoRow('Username', user.userName),
-                  _buildUserInfoRow('Họ', user.ho),
                   _buildUserInfoRow('Tên', user.ten),
-                  _buildUserInfoRow('Số điện thoại', user.sdt),
-                  _buildUserInfoRow('Địa chỉ', user.diaChi),
                 ],
               ),
             );

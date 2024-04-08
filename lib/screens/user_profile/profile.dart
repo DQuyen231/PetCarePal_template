@@ -17,9 +17,17 @@ class _ProfilePageState extends State<ProfilePage> {
   bool _isVip = false;
 
   Future<void> _initializeData() async {
-    _api = ProfileApi();
-    _isVip = await _api.isVip();
-    print('isVip: $_isVip');
+    try {
+      // Gọi API để lấy giá trị isVip
+      bool isVipValue = await _api.isVip();
+      setState(() {
+        _isVip = isVipValue; // Cập nhật giá trị _isVip
+      });
+      print('isVip: $_isVip');
+    } catch (e) {
+      // Xử lý lỗi khi gọi API
+      print('Error initializing data: $e');
+    }
   }
 
   @override
@@ -37,7 +45,6 @@ class _ProfilePageState extends State<ProfilePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        automaticallyImplyLeading: false,
         title: Text(
           'Hồ sơ',
           style: TextStyle(
@@ -50,14 +57,14 @@ class _ProfilePageState extends State<ProfilePage> {
           ),
         ),
         centerTitle: true,
-        // Các thuộc tính khác của AppBar nếu cần
       ),
       body: Center(
         child: Column(
           children: [
             Container(
               height: 297, // Điều chỉnh chiều cao của ProfileHeader
-              child: ProfileHeader(),
+              child: ProfileHeader(
+                  isVip: _isVip), // Truyền giá trị _isVip vào ProfileHeader
             ),
             SizedBox(height: 30),
             Container(
