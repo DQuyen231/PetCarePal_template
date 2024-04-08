@@ -1,3 +1,5 @@
+import 'dart:ffi';
+
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:petcarepal/config/app_routes.dart';
@@ -188,7 +190,7 @@ class _PendingOrderState extends State<PendingOrders> {
                                     crossAxisAlignment: CrossAxisAlignment.end,
                                     children: [
                                       Text(
-                                        '\đ${order.tongSoTien}',
+                                        '\đ${order.tongSoTien * 1000}',
                                         style: TextStyle(
                                           fontSize: 24,
                                           fontWeight: FontWeight.bold,

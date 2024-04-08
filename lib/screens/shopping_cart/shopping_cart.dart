@@ -231,7 +231,7 @@ class _ShoppingCartState extends State<ShoppingCart> {
                                                   order_id: order_id,
                                                 )));
                                   });
-                                } else if (paymentMethod == 'QR') {
+                                } else if (paymentMethod == 'MOMO') {
                                   showDialog(
                                     context: context,
                                     barrierDismissible:
