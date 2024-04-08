@@ -92,146 +92,150 @@ class _OrderDetailPageState extends State<OrderDetailPage> {
           },
         ),
       ),
-      body: Padding(
-        padding: EdgeInsets.all(16.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            SizedBox(height: 16),
-            Text(
-              'Order Information',
-              style: TextStyle(
-                fontSize: 20,
-                fontWeight: FontWeight.bold,
-                color: Colors.blue[800],
+      body: SingleChildScrollView(
+        child: Padding(
+          padding: EdgeInsets.all(16.0),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              SizedBox(height: 16),
+              Text(
+                'Order Information',
+                style: TextStyle(
+                  fontSize: 20,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.blue[800],
+                ),
               ),
-            ),
-            SizedBox(height: 8),
-            _buildOrderInfoRow('Order #:', widget.order.id),
-            Row(
-              children: [
-                Expanded(
-                  flex: 2,
-                  child: _buildOrderInfoRow('User ID:', widget.order.userId),
-                ),
-                IconButton(
-                  onPressed: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) =>
-                            UserDetailPage(userId: widget.order.userId),
-                      ),
-                    );
-                  },
-                  icon: Icon(Icons.person),
-                ),
-              ],
-            ),
-            _buildOrderInfoRow(
-                'Payment Method:', widget.order.phuongThucThanhToan),
-            _buildOrderInfoRow('Address:', widget.order.diaChi),
-            _buildOrderInfoRow('Order Date:', widget.order.ngayOrder),
-            _buildOrderInfoRow(
-                'Total Amount:', '\đ${widget.order.tongSoTien}00'),
-            Row(
-              children: [
-                Expanded(
-                  flex: 2,
-                  child: _buildOrderInfoRow(
-                    'Order Status:',
-                    widget.order.trangThai != null
-                        ? (widget.order.trangThai ? 'Accepted' : 'Pending')
-                        : 'N/A',
-                    color: widget.order.trangThai != null
-                        ? (widget.order.trangThai ? Colors.green : Colors.blue)
-                        : null,
+              SizedBox(height: 8),
+              _buildOrderInfoRow('Order #:', widget.order.id),
+              Row(
+                children: [
+                  Expanded(
+                    flex: 2,
+                    child: _buildOrderInfoRow('User ID:', widget.order.userId),
                   ),
-                ),
-                if (widget.order.trangThai == false)
                   IconButton(
                     onPressed: () {
-                      showDialog(
-                        context: context,
-                        builder: (BuildContext context) {
-                          return AlertDialog(
-                            title: Text('Xác nhận cập nhật trạng thái'),
-                            content: Text(
-                                'Bạn có chắc chắn muốn cập nhật trạng thái đơn hàng không?'),
-                            actions: [
-                              TextButton(
-                                onPressed: () {
-                                  Navigator.of(context).pop();
-                                },
-                                child: Text('Hủy'),
-                              ),
-                              TextButton(
-                                onPressed: () {
-                                  _updateOrderStatus(context, widget.order.id,
-                                      !widget.order.trangThai);
-                                  Navigator.of(context).pop();
-                                  setState(() {
-                                    widget.order.trangThai =
-                                        !widget.order.trangThai;
-                                  });
-                                  // Gọi hàm callback để thông báo cập nhật trạng thái đơn hàng trên trang quản lý đơn hàng
-                                  widget.updateOrderStatus(
-                                      widget.order.id, !widget.order.trangThai);
-                                },
-                                child: Text('Đồng ý'),
-                              ),
-                            ],
-                          );
-                        },
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) =>
+                              UserDetailPage(userId: widget.order.userId),
+                        ),
                       );
                     },
-                    icon: Icon(Icons.update),
-                    tooltip: widget.order.trangThai
-                        ? 'Mark as Pending'
-                        : 'Mark as Accepted',
+                    icon: Icon(Icons.person),
                   ),
-              ],
-            ),
-            SizedBox(height: 24),
-            Text(
-              'Order Content',
-              style: TextStyle(
-                fontSize: 20,
-                fontWeight: FontWeight.bold,
-                color: Colors.blue[800],
+                ],
               ),
-            ),
-            SizedBox(height: 8),
-            ListView.builder(
-              shrinkWrap: true,
-              itemCount: itemOrder.length,
-              itemBuilder: (context, index) {
-                var orderItem = itemOrder[index];
-                var sanpham = orderItem['sanPham']['ten'];
-                print(sanpham);
-                var soluong = orderItem['soLuong'];
-                var thuonghieu = orderItem['sanPham']['thuongHieu'];
-                var mota = orderItem['sanPham']['mota'];
-                return Container(
-                  margin: EdgeInsets.symmetric(vertical: 8),
-                  padding: EdgeInsets.all(12),
-                  decoration: BoxDecoration(
-                    color: Colors.grey[200],
-                    borderRadius: BorderRadius.circular(8),
+              _buildOrderInfoRow(
+                  'Payment Method:', widget.order.phuongThucThanhToan),
+              _buildOrderInfoRow('Address:', widget.order.diaChi),
+              _buildOrderInfoRow('Order Date:', widget.order.ngayOrder),
+              _buildOrderInfoRow(
+                  'Total Amount:', '\đ${widget.order.tongSoTien}00'),
+              Row(
+                children: [
+                  Expanded(
+                    flex: 2,
+                    child: _buildOrderInfoRow(
+                      'Order Status:',
+                      widget.order.trangThai != null
+                          ? (widget.order.trangThai ? 'Accepted' : 'Pending')
+                          : 'N/A',
+                      color: widget.order.trangThai != null
+                          ? (widget.order.trangThai
+                              ? Colors.green
+                              : Colors.blue)
+                          : null,
+                    ),
                   ),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      _buildOrderInfoRow('Product Name:', sanpham),
-                      _buildOrderInfoRow('Brand:', thuonghieu),
-                      _buildOrderInfoRow('Description:', mota),
-                      _buildOrderInfoRow('Quantity:', soluong),
-                    ],
-                  ),
-                );
-              },
-            ),
-          ],
+                  if (widget.order.trangThai == false)
+                    IconButton(
+                      onPressed: () {
+                        showDialog(
+                          context: context,
+                          builder: (BuildContext context) {
+                            return AlertDialog(
+                              title: Text('Xác nhận cập nhật trạng thái'),
+                              content: Text(
+                                  'Bạn có chắc chắn muốn cập nhật trạng thái đơn hàng không?'),
+                              actions: [
+                                TextButton(
+                                  onPressed: () {
+                                    Navigator.of(context).pop();
+                                  },
+                                  child: Text('Hủy'),
+                                ),
+                                TextButton(
+                                  onPressed: () {
+                                    _updateOrderStatus(context, widget.order.id,
+                                        !widget.order.trangThai);
+                                    Navigator.of(context).pop();
+                                    setState(() {
+                                      widget.order.trangThai =
+                                          !widget.order.trangThai;
+                                    });
+                                    // Gọi hàm callback để thông báo cập nhật trạng thái đơn hàng trên trang quản lý đơn hàng
+                                    widget.updateOrderStatus(widget.order.id,
+                                        !widget.order.trangThai);
+                                  },
+                                  child: Text('Đồng ý'),
+                                ),
+                              ],
+                            );
+                          },
+                        );
+                      },
+                      icon: Icon(Icons.update),
+                      tooltip: widget.order.trangThai
+                          ? 'Mark as Pending'
+                          : 'Mark as Accepted',
+                    ),
+                ],
+              ),
+              SizedBox(height: 24),
+              Text(
+                'Order Content',
+                style: TextStyle(
+                  fontSize: 20,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.blue[800],
+                ),
+              ),
+              SizedBox(height: 8),
+              ListView.builder(
+                shrinkWrap: true,
+                itemCount: itemOrder.length,
+                itemBuilder: (context, index) {
+                  var orderItem = itemOrder[index];
+                  var sanpham = orderItem['sanPham']['ten'];
+                  print(sanpham);
+                  var soluong = orderItem['soLuong'];
+                  var thuonghieu = orderItem['sanPham']['thuongHieu'];
+                  var mota = orderItem['sanPham']['mota'];
+                  return Container(
+                    margin: EdgeInsets.symmetric(vertical: 8),
+                    padding: EdgeInsets.all(12),
+                    decoration: BoxDecoration(
+                      color: Colors.grey[200],
+                      borderRadius: BorderRadius.circular(8),
+                    ),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        _buildOrderInfoRow('Product Name:', sanpham),
+                        _buildOrderInfoRow('Brand:', thuonghieu),
+                        _buildOrderInfoRow('Description:', mota),
+                        _buildOrderInfoRow('Quantity:', soluong),
+                      ],
+                    ),
+                  );
+                },
+              ),
+            ],
+          ),
         ),
       ),
     );
