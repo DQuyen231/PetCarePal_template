@@ -54,7 +54,7 @@ class _ProductCardState extends State<ProductCard> {
                         ),
                       ),
                       Text(
-                        '\đ${widget.product.price}',
+                        '\đ${widget.product.price}00',
                         style: TextStyle(
                           color: Colors.black,
                           fontSize: 14,
